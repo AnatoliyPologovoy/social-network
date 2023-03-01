@@ -3,4 +3,16 @@
     grid-row: 2/3;
     height: 100%;
     background-color: antiquewhite;
+
+}
+
+.main_img {
+    height: 350px;
+    width: 100%;
+    object-fit: cover;
+    object-position: 0 -30px;
+}
+
+.form_post_message {
+    padding: 20px;
 }
