@@ -13,10 +13,10 @@ export const Sidebar: React.FC<DataType> = (props) => {
         <div className={cl.sidebar}>
             <ul>
                 <li><NavLink to="/news" activeClassName={cl.active} >News</NavLink></li>
-                <li><NavLink to="/dialogs">Messages</NavLink></li>
-                <li><NavLink to="/profile">Profile</NavLink></li>
-                <li><NavLink to="/music">Music</NavLink></li>
-                <li><NavLink to="/settings">Settings</NavLink></li>
+                <li><NavLink to="/dialogs" activeClassName={cl.active}>Messages</NavLink></li>
+                <li><NavLink to="/profile" activeClassName={cl.active}>Profile</NavLink></li>
+                <li><NavLink to="/music" activeClassName={cl.active}>Music</NavLink></li>
+                <li><NavLink to="/settings" activeClassName={cl.active}>Settings</NavLink></li>
             </ul>
         </div>
     )

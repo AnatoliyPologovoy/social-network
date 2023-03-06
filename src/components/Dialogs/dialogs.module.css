@@ -1,0 +1,29 @@
+.dialogsWrapper {
+    display: flex;
+    height: 100%;
+}
+
+.dialogsList {
+    list-style: none;
+    margin: 0;
+    padding: 10px;
+    width: 20%;
+}
+
+.messagesWrapper {
+    margin-left: 10px;
+    background-color: coral;
+    padding: 10px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.messagesSend {
+    background-color: chocolate;
+    height: 100px;
+    margin-top: auto;
+}
+
+
+
