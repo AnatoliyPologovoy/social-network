@@ -12,7 +12,7 @@
 
 .messagesWrapper {
     margin-left: 10px;
-    background-color: coral;
+    background-color: var(--messages-wrapper-color);
     padding: 10px;
     width: 80%;
     display: flex;
@@ -20,7 +20,7 @@
 }
 
 .messagesSend {
-    background-color: chocolate;
+    background-color: var(--messages-send-color);
     height: 100px;
     margin-top: auto;
 }

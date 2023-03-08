@@ -1,5 +1,19 @@
+.postsList {
+    margin: 0;
+    padding: 20px;
+    list-style: none;
+}
+
 .post_item_avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+}
+
+.form_post_message {
+    margin-bottom: 20px;
+}
+
+.form_post_message textarea {
+    display: block;
 }

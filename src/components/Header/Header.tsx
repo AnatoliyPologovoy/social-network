@@ -1,5 +1,6 @@
 import React from "react";
 import cl from "./header.module.css";
+import logo from "../../img/inheat-logo.png";
 
 type DataType = {
     data? : any
@@ -8,7 +9,7 @@ type DataType = {
 const Header:React.FC<DataType> = () => {
     return (
         <header className={cl.header}>
-            <img src="https://e7.pngegg.com/pngimages/376/174/png-clipart-phoenix-bird-cool-background-logo-fictional-character-thumbnail.png" alt="logo"/>
+            <img src={logo} alt="logo"/>
         </header>
     )
 }

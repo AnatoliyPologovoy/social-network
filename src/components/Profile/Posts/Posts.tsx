@@ -25,11 +25,12 @@ export const Posts = () => {
     })
 
     return (
-        <ul>
+        <ul className={cl.postsList}>
+            <form action="get" className={cl.form_post_message}>
+                <textarea name="post-message" id="post-message" cols={60} rows={10}></textarea>
+                <input type="submit" value={'Опубликовать'}/>
+            </form>
             {renderPostItem}
-{/*
-            <PostItem postData={postData[0]}/>
-*/}
         </ul>
     )
 }

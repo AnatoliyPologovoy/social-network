@@ -1,0 +1,27 @@
+.personData {
+    padding: 20px;
+    position: relative;
+}
+
+.imgAvatar {
+    width: 200px;
+    height: auto;
+    border-radius: 50%;
+    position: relative;
+    margin-bottom: -100px;
+    top: -100px;
+    float: left;
+}
+
+.age,.name {
+    margin-left: 250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.name {
+    font-size: 30px;
+}
+
+.age {
+    font-size: 20px;
+}

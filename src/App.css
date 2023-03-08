@@ -1,8 +1,21 @@
+:root {
+  --header-color: #6096BA;
+  --sidebar-color: #6096BA;
+  --main-section-color : #A3CEF1;
+  --messages-wrapper-color: #F2E5D7;
+  --messages-send-color: #e5d3c0;
+  --blue-color: #274C77;
+  --gray-color: #8B8C89;
+  --white-color: #E7ECEF;
+
+}
+
 .App {
   display: grid;
-  grid-template-columns: 300px auto;
+  grid-template-columns: 200px auto;
   grid-template-rows: 70px auto;
   height: 100vh;
+  /*max-width: 1400px;*/
   width: 90%;
   margin: 0 auto;
 }
@@ -11,5 +24,5 @@
   grid-column: 2/3;
   grid-row: 2/3;
   height: 100%;
-  background-color: antiquewhite;
+  background-color: var(--main-section-color);
 }
