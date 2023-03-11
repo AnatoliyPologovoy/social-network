@@ -2,24 +2,37 @@ import React from "react";
 import cl from "./dialogs.module.css"
 import {NameDialogs} from "./NameDialogs";
 import {Message} from "./Messages";
+import {DialogsDataType, MessagesDataType} from "../../App";
+
+type DialogsPropsType = {
+    dialogsData: DialogsDataType
+    messagesData: MessagesDataType
+};
 
 
-export const Dialogs = () => {
+export const Dialogs: React.FC<DialogsPropsType> = (props) => {
+
+    const renderDialogs = props.dialogsData.map((el) => {
+
+        return (
+            <NameDialogs name={el.name} id={el.id}/>
+        )
+    })
+    const renderMessages = props.messagesData.map((el) => {
+        return (
+            <Message text={el.text}/>
+        )
+    })
+
     return (
         <div className={cl.dialogsWrapper}>
             <ul className={cl.dialogsList}>
-               <NameDialogs name={'Valeria'} id={1} />
-               <NameDialogs name={'Roman'} id={2} />
-               <NameDialogs name={'Andrey'} id={3} />
-               <NameDialogs name={'Kostya'} id={4} />
+                {renderDialogs}
             </ul>
             <div className={cl.messagesWrapper}>
                 <div className={cl.messagesInner}>
-                    <Message text={'hello'}/>
-                    <Message text={'hi'}/>
-                    <Message text={'how are you'}/>
-                    <Message text={'YO'}/>
-                 </div>
+                    {renderMessages}
+                </div>
                 <div className={cl.messagesSend}>
                     //messages send area
                 </div>
