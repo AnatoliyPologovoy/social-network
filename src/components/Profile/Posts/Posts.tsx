@@ -1,19 +1,14 @@
 import React from "react";
 import cl from "./Posts.module.css";
+import {PostItemType, PostsType} from "../../../index";
 
-type PostItemType = {
-    id : number,
-    message : string,
-    likes : number
+type PostsPropsType = {
+    postsData: PostsType
 }
-export const Posts = () => {
-    let postData : PostItemType[] = [
-        {id : 1, message : "Hello, world!", likes : 11},
-        {id : 2, message : "This is my new post", likes : 5},
-        {id : 3, message : "I love React", likes : 125},
-    ]
 
-    const renderPostItem = postData.map((curr:PostItemType) => {
+export const Posts: React.FC<PostsPropsType> = (props) => {
+
+    const renderPostItem = props.postsData.map((curr:PostItemType) => {
         return (
             <li key={curr.id.toString()}>
                 <img src="https://shapka-youtube.ru/wp-content/uploads/2021/02/avatarka-dlya-skaypa-dlya-parney.jpg"

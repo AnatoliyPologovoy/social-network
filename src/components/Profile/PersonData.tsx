@@ -1,14 +1,10 @@
 import React from "react";
 import cl from "./personData.module.css"
-type DataPropsType = {
-    avatar: string,
-    name: string,
-    age : number,
-    id: number
-}
+import {PersonDataType} from "../../index";
+
 
 type PersonDataPropsType = {
-    data : DataPropsType,
+    data : PersonDataType,
 }
 
 
