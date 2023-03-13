@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import cl from "./profile.module.css";
 import {Posts} from "./Posts/Posts";
 import {PersonData} from "./PersonData";
-import {PersonDataType, PostsType} from "../../index";
+import {PersonDataType, PostsType} from "../../redux/State";
 
 type ProfilePropsType = {
     personData : PersonDataType

@@ -1,6 +1,6 @@
 import React from "react";
 import cl from "./personData.module.css"
-import {PersonDataType} from "../../index";
+import {PersonDataType} from "../../redux/State";
 
 
 type PersonDataPropsType = {
