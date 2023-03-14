@@ -1,6 +1,7 @@
 import React from "react";
 import cl from "./sidebar.module.css";
 import {NavLink} from "react-router-dom";
+import {FriendsBar} from "./FriendsBar";
 
 // type clType =
 
@@ -18,6 +19,7 @@ export const Sidebar: React.FC<DataType> = (props) => {
                 <li><NavLink to="/music" activeClassName={cl.active}>Music</NavLink></li>
                 <li><NavLink to="/settings" activeClassName={cl.active}>Settings</NavLink></li>
             </ul>
+            <FriendsBar/>
         </div>
     )
 }

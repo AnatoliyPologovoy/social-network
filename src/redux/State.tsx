@@ -30,78 +30,92 @@ export type PersonDataType = {
     name: string
     id: number
     avatar: string
+    mainImg: string
 }
-//state types
-export type StateType = {
-    dialogsData : DialogsDataType
+//Pages type
+export type DialogsPageType = {
+    dialogsData: DialogsDataType
     messagesData: MessagesDataType
+}
+export type ProfilePageType = {
     postsData: PostsType
     personData: PersonDataType
 }
-
+//state types
+export type StateType = {
+    dialogsPage: DialogsPageType
+    profilePage: ProfilePageType
+}
+// OBJECT
 export let State = {
-    dialogsData: [
-        {
+    dialogsPage: {
+        dialogsData: [
+            {
+                id: 1,
+                name: 'Valeria',
+            },
+            {
+                id: 2,
+                name: 'Roman',
+            },
+            {
+                id: 3,
+                name: 'Andrey',
+            },
+            {
+                id: 4,
+                name: 'Kostya',
+            }
+        ],
+        messagesData: [
+            {
+                author: {
+                    name: 'Valeria',
+                    avatar: ''
+                },
+                text: 'hello',
+                time: '22:00'
+            },
+            {
+                author: {
+                    name: 'me',
+                    avatar: ''
+                },
+                text: 'hi',
+                time: '22:01'
+            },
+            {
+                author: {
+                    name: 'Valeria',
+                    avatar: ''
+                },
+                text: 'how are you',
+                time: '22:02'
+            },
+            {
+                author: {
+                    name: 'me',
+                    avatar: ''
+                },
+                text: 'i am fine',
+                time: '22:03'
+            }
+        ]
+    },
+    profilePage: {
+        postsData: [
+            {id: 1, message: "Hello, world!", likes: 11},
+            {id: 2, message: "This is my new post", likes: 5},
+            {id: 3, message: "I love React", likes: 125},
+        ],
+        personData: {
+            age: 20,
+            name: 'Maxim',
             id: 1,
-            name: 'Valeria',
-        },
-        {
-            id: 2,
-            name: 'Roman',
-        },
-        {
-            id: 3,
-            name: 'Andrey',
-        },
-        {
-            id: 4,
-            name: 'Kostya',
+            avatar: avatar1,
+            mainImg: "https://n1s2.hsmedia.ru/60/b5/cc/60b5cc5266a98b966e2f35c57ed388c8/690x380_0x0a330c2a_12567029551616070388.jpeg"
         }
-    ],
-    messagesData:  [
-        {
-            author: {
-                name: 'Valeria',
-                avatar: ''
-            },
-            text: 'hello',
-            time: '22:00'
-        },
-        {
-            author: {
-                name: 'me',
-                avatar: ''
-            },
-            text: 'hi',
-            time: '22:01'
-        },
-        {
-            author: {
-                name: 'Valeria',
-                avatar: ''
-            },
-            text: 'how are you',
-            time: '22:02'
-        },
-        {
-            author: {
-                name: 'me',
-                avatar: ''
-            },
-            text: 'i am fine',
-            time: '22:03'
-        }
-    ],
-    postsData:  [
-        {id: 1, message: "Hello, world!", likes: 11},
-        {id: 2, message: "This is my new post", likes: 5},
-        {id: 3, message: "I love React", likes: 125},
-    ],
-    personData:  {
-        age: 20,
-        name: 'Maxim',
-        id: 1,
-        avatar: avatar1
     }
 }
+
 

@@ -24,10 +24,10 @@ function App(props: AppPropsType) {
                     <Route path={'/news'} component={News}/>
 
                     <Route path={'/dialogs'} render={() =>
-                        <Dialogs dialogsData={props.state.dialogsData} messagesData={props.state.messagesData}/>}/>
+                        <Dialogs state={props.state.dialogsPage}/>}/>
 
                     <Route path={'/profile'} render={() =>
-                        <Profile personData={props.state.personData} postsData={props.state.postsData}/>}/>
+                        <Profile state={props.state.profilePage}/>}/>
 
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>

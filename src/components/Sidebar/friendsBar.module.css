@@ -1,0 +1,10 @@
+.wrapper {
+    margin-top: 100px;
+    padding-left: 40px;
+}
+
+.friendsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
