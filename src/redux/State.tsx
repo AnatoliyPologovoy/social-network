@@ -41,10 +41,16 @@ export type ProfilePageType = {
     postsData: PostsType
     personData: PersonDataType
 }
+export type FriendType = {
+    id: number
+    name: string
+    avatar: string
+}
 //state types
 export type StateType = {
     dialogsPage: DialogsPageType
     profilePage: ProfilePageType
+    friends: FriendType[]
 }
 // OBJECT
 export let State = {
@@ -115,7 +121,34 @@ export let State = {
             avatar: avatar1,
             mainImg: "https://n1s2.hsmedia.ru/60/b5/cc/60b5cc5266a98b966e2f35c57ed388c8/690x380_0x0a330c2a_12567029551616070388.jpeg"
         }
-    }
+    },
+    friends: [
+        {
+            id: 1,
+            name: 'Valeria',
+            avatar: "https://i.pravatar.cc/50"
+        },
+        {
+            id: 2,
+            name: 'Roman',
+            avatar: "https://i.pravatar.cc/50?u=fake@pravatar.com"
+        },
+        {
+            id: 3,
+            name: 'Andrey',
+            avatar: "https://i.pravatar.cc/50"
+        },
+        {
+            id: 4,
+            name: 'Kostya',
+            avatar: "https://i.pravatar.cc/50?u=fake@pravatar.com"
+        },
+        {
+            id: 5,
+            name: 'Sasha',
+            avatar: "https://i.pravatar.cc/50"
+        }
+    ]
 }
 
 

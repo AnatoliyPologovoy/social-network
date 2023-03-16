@@ -19,7 +19,7 @@ function App(props: AppPropsType) {
         <BrowserRouter>
             <div className="App">
                 <Header/>
-                <Sidebar/>
+                <Sidebar friends={props.state.friends}/>
                 <div className="main_section">
                     <Route path={'/news'} component={News}/>
 
