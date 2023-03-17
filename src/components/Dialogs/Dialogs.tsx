@@ -24,7 +24,7 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
     })
     const renderMessages = props.state.messagesData.map((el) => {
         return (
-            <Message text={el.text}/>
+            <Message messageData={el}/>
         )
     })
 

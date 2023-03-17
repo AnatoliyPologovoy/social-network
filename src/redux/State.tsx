@@ -77,7 +77,7 @@ export let State = {
             {
                 author: {
                     name: 'Valeria',
-                    avatar: ''
+                    avatar: 'https://i.pravatar.cc/30'
                 },
                 text: 'hello',
                 time: '22:00'
@@ -85,7 +85,7 @@ export let State = {
             {
                 author: {
                     name: 'me',
-                    avatar: ''
+                    avatar: "https://i.pravatar.cc/30?u=fake@pravatar.com"
                 },
                 text: 'hi',
                 time: '22:01'
@@ -93,7 +93,7 @@ export let State = {
             {
                 author: {
                     name: 'Valeria',
-                    avatar: ''
+                    avatar: 'https://i.pravatar.cc/30'
                 },
                 text: 'how are you',
                 time: '22:02'
@@ -101,7 +101,7 @@ export let State = {
             {
                 author: {
                     name: 'me',
-                    avatar: ''
+                    avatar: "https://i.pravatar.cc/30?u=fake@pravatar.com"
                 },
                 text: 'i am fine',
                 time: '22:03'

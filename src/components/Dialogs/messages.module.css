@@ -1,3 +1,14 @@
 .message {
+    width: max-content;
+    max-width: 70%;
     margin-bottom: 10px;
+    background-color: yellow;
+}
+
+.messageFriend {
+    width: max-content;
+    max-width: 70%;
+    margin-bottom: 10px;
+    margin-left: auto;
+    background-color: yellowgreen;
 }

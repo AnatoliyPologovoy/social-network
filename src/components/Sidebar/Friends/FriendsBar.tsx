@@ -21,7 +21,7 @@ export const FriendsBar: React.FC<FriendsBarPropsType> = (props) => {
     })
     return (
         <div className={cl.wrapper}>
-            <span>Друзья</span>
+            <span>Friends:</span>
             <ul className={cl.friendsList}>
                 {renderFriendList}
             </ul>
