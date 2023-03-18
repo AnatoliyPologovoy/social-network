@@ -9,13 +9,17 @@ type MessagePropsType = {
 
 
 export const Message : React.FC<MessagePropsType> = (props) => {
-    let classWrapperMessage = props.messageData.author.name === 'me' ?
-        cl.messageFriend :
-        cl.message
+    let isMyOrFriend = props.messageData.author.name === 'me' ?
+        cl.myMessage :
+        cl.friendMessage
     return (
-        <div className={classWrapperMessage}>
-            <img src={props.messageData.author.avatar} alt="#"/>
-            {props.messageData.text}
+        <div className={cl.messageWrapper}>
+            <div className={cl.message + ' ' + isMyOrFriend}>
+                <img className={cl.avatar} src={props.messageData.author.avatar} alt="#"/>
+                <div className={cl.text}>{props.messageData.text}</div>
+            </div>
+            <div className={cl.time}>{props.messageData.time}</div>
         </div>
+
     )
 }

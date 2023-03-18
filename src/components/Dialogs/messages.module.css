@@ -1,14 +1,49 @@
+.messageWrapper {
+    margin-bottom: 10px;
+}
+
 .message {
     width: max-content;
     max-width: 70%;
-    margin-bottom: 10px;
-    background-color: yellow;
+    display: flex;
+    align-items: end;
 }
 
-.messageFriend {
-    width: max-content;
-    max-width: 70%;
-    margin-bottom: 10px;
+.myMessage {
     margin-left: auto;
-    background-color: yellowgreen;
+}
+
+.friendMessage {
+
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.myMessage .avatar {
+    order: 2;
+    margin-left: 5px;
+}
+
+.text {
+    padding: 3px;
+    border-radius: 5px;
+    word-wrap: break-word;
+    background-color: var(--message-friend-text);
+}
+
+.myMessage .text {
+    background-color: var(--message-my-text);
+}
+
+.time {
+    width: max-content;
+}
+
+.myMessage + .time {
+    margin-left: auto;
 }

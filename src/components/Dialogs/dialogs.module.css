@@ -1,6 +1,8 @@
 .dialogsWrapper {
     display: flex;
     height: 100%;
+    max-width: 1200px;
+    /*width: max-content;*/
 }
 
 .dialogsList {
