@@ -38,7 +38,11 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
                     {renderMessages}
                 </div>
                 <div className={cl.messagesSend}>
-                    //messages send area
+                    <textarea className={cl.textarea} rows={1}
+                    style={
+                        {height:'100px'}//??????? how set auto height for textarea
+                    }></textarea>
+                    <button className={cl.sendButton}>send</button>
                 </div>
 
             </div>

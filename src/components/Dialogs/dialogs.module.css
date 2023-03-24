@@ -23,8 +23,23 @@
 
 .messagesSend {
     background-color: var(--messages-send-color);
-    height: 100px;
+    height: auto;
     margin-top: auto;
+}
+
+.textarea {
+    box-sizing: border-box;
+    width: 80%;
+    height: content-box;
+    min-height: content-box;
+    resize: none;
+    border-radius: 5px;
+    padding: 5px 7px;
+    overflow: hidden;
+}
+
+.sendButton {
+    width: 15%;
 }
 
 
