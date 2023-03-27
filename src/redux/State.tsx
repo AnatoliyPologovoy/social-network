@@ -20,7 +20,7 @@ export type MessagesDataType = ItemMessagesType[];
 //posts types
 export type PostItemType = {
     id: number,
-    message: string,
+    text: string,
     likes: number
 }
 export type PostsType = PostItemType[]
@@ -110,9 +110,9 @@ export let State = {
     },
     profilePage: {
         postsData: [
-            {id: 1, message: "Hello, world!", likes: 11},
-            {id: 2, message: "This is my new post", likes: 5},
-            {id: 3, message: "I love React", likes: 125},
+            {id: 1, text: "Hello, world!", likes: 11},
+            {id: 2, text: "This is my new post", likes: 5},
+            {id: 3, text: "I love React", likes: 125},
         ],
         personData: {
             age: 20,
@@ -150,5 +150,18 @@ export let State = {
         }
     ]
 }
+
+export const cbAddPost = (post:string) => {
+    const posts = State.profilePage.postsData
+    const newPost = {
+        id: posts[posts.length - 1].id + 1,
+        text: post,
+        likes: 0
+    }
+    State.profilePage.postsData = [...posts, newPost]
+
+}
+
+//написать функцию для добавление сообщений в диалоги
 
 

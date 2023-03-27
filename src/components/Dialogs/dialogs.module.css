@@ -39,6 +39,10 @@
     overflow: hidden;
 }
 
+.textarea:focus {
+    outline: none;
+}
+
 .sendButton {
     width: 15%;
 }

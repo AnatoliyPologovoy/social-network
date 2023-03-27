@@ -8,12 +8,14 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {Profile} from "./components/Profile/Profile";
-import {StateType} from "./redux/State";
+import {cbAddPost, StateType} from "./redux/State";
 
 
 export type AppPropsType = {
     state: StateType
+    cbAddPost: (post:string) => void
 }
+
 function App(props: AppPropsType) {
     return (
         <BrowserRouter>
@@ -27,7 +29,9 @@ function App(props: AppPropsType) {
                         <Dialogs state={props.state.dialogsPage}/>}/>
 
                     <Route path={'/profile'} render={() =>
-                        <Profile state={props.state.profilePage}/>}/>
+                        <Profile state={props.state.profilePage}
+                                 cbAddPost={props.cbAddPost}
+                        />}/>
 
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>
