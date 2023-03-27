@@ -30,8 +30,9 @@
 .textarea {
     box-sizing: border-box;
     width: 80%;
-    height: content-box;
-    min-height: content-box;
+    height: 50px;
+    /*height: content-box;*/
+    /*min-height: content-box;*/
     resize: none;
     border-radius: 5px;
     padding: 5px 7px;

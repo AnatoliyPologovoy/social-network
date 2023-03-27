@@ -1,8 +1,9 @@
 import React from "react";
 import cl from "./dialogs.module.css"
 import {NameDialogs} from "./NameDialogs";
-import {Message} from "./Messages";
+import {Message} from "./Messages/Messages";
 import {DialogsDataType, MessagesDataType} from "../../redux/State";
+import SendMessage from "./SendMessage/SendMessage";
 
 type StateType = {
     dialogsData: DialogsDataType
@@ -17,7 +18,6 @@ type DialogsPropsType = {
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
     const dialogsList = props.state.dialogsData.map((el) => {
-
         return (
             <NameDialogs name={el.name} id={el.id}/>
         )
@@ -27,6 +27,7 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
             <Message messageData={el}/>
         )
     })
+
 
     return (
         <div className={cl.dialogsWrapper}>
@@ -38,11 +39,7 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
                     {renderMessages}
                 </div>
                 <div className={cl.messagesSend}>
-                    <textarea className={cl.textarea} rows={1}
-                    style={
-                        {height:'100px'}//??????? how set auto height for textarea
-                    }></textarea>
-                    <button className={cl.sendButton}>send</button>
+                    <SendMessage/>
                 </div>
 
             </div>

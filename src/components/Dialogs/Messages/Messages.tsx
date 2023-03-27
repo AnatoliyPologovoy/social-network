@@ -1,6 +1,6 @@
 import React from "react";
 import cl from "./messages.module.css";
-import {ItemMessagesType} from "../../redux/State";
+import {ItemMessagesType} from "../../../redux/State";
 import {message} from "antd";
 
 type MessagePropsType = {
