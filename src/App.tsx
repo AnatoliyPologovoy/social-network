@@ -9,11 +9,13 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {Profile} from "./components/Profile/Profile";
 import {cbAddPost, StateType} from "./redux/State";
+import {message} from "antd";
 
 
 export type AppPropsType = {
     state: StateType
-    cbAddPost: (post:string) => void
+    cbAddPost: (post: string) => void
+    cbSendMessage: (message: string, hostUserId: number) => void
 }
 
 function App(props: AppPropsType) {
@@ -26,7 +28,9 @@ function App(props: AppPropsType) {
                     <Route path={'/news'} component={News}/>
 
                     <Route path={'/dialogs'} render={() =>
-                        <Dialogs state={props.state.dialogsPage}/>}/>
+                        <Dialogs state={props.state.dialogsPage}
+                                 cbSendMessage={props.cbSendMessage}
+                        />}/>
 
                     <Route path={'/profile'} render={() =>
                         <Profile state={props.state.profilePage}

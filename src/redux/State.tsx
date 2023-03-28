@@ -8,15 +8,25 @@ export type ItemDialogsType = {
 export type DialogsDataType = ItemDialogsType[];
 //messages types
 export type ItemMessagesType = {
-    author: AuthorMessagesType
+    id: number
+    userId: number
     text: string
     time: string
 }
-export type AuthorMessagesType = {
+export type UserType = {
+    id: number
+    userId: number
     name: string
     avatar: string
 }
-export type MessagesDataType = ItemMessagesType[];
+export type UsersMessagesType = {
+    host: UserType
+    companion: UserType
+}
+export type MessagesDataType = {
+    users: UsersMessagesType
+    messages: ItemMessagesType[]
+}
 //posts types
 export type PostItemType = {
     id: number,
@@ -73,40 +83,48 @@ export let State = {
                 name: 'Kostya',
             }
         ],
-        messagesData: [
-            {
-                author: {
-                    name: 'Valeria',
-                    avatar: 'https://i.pravatar.cc/30'
-                },
-                text: 'hello',
-                time: '22:00'
-            },
-            {
-                author: {
-                    name: 'me',
+        messagesData: {
+            users: {
+                host: {
+                    id: 1,
+                    userId: 111,
+                    name: 'Anatoliy',
                     avatar: "https://i.pravatar.cc/30?u=fake@pravatar.com"
                 },
-                text: 'hi',
-                time: '22:01'
-            },
-            {
-                author: {
+                companion: {
+                    id: 2,
+                    userId: 222,
                     name: 'Valeria',
                     avatar: 'https://i.pravatar.cc/30'
-                },
-                text: 'how are you',
-                time: '22:02'
+                }
             },
-            {
-                author: {
-                    name: 'me',
-                    avatar: "https://i.pravatar.cc/30?u=fake@pravatar.com"
+            messages: [
+                {
+                    id: 1,
+                    userId: 222,
+                    text: 'hello',
+                    time: '22:00'
                 },
-                text: 'i am fine',
-                time: '22:03'
-            }
-        ]
+                {
+                    id: 2,
+                    userId: 111,
+                    text: 'hi',
+                    time: '22:01'
+                },
+                {
+                    id: 3,
+                    userId: 222,
+                    text: 'how are you',
+                    time: '22:02'
+                },
+                {
+                    id: 4,
+                    userId: 111,
+                    text: 'i am fine',
+                    time: '22:03'
+                }
+            ]
+        }
     },
     profilePage: {
         postsData: [
@@ -151,7 +169,7 @@ export let State = {
     ]
 }
 
-export const cbAddPost = (post:string) => {
+export const cbAddPost = (post: string) => {
     const posts = State.profilePage.postsData
     const newPost = {
         id: posts[posts.length - 1].id + 1,
@@ -163,5 +181,17 @@ export const cbAddPost = (post:string) => {
 }
 
 //написать функцию для добавление сообщений в диалоги
+export const cbSendMessage = (message: string, hostUserId: number) => {
+    const messages = State.dialogsPage.messagesData.messages
+    const newMessage = {
+        id: messages[messages.length - 1].id + 1,
+        userId: hostUserId,
+        text: message,
+        time: new Date().toLocaleTimeString().slice(0,-3)
+    }
+    State.dialogsPage.messagesData.messages = [...messages, newMessage]
+    debugger
+}
+
 
 
