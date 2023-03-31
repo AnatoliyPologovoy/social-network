@@ -3,13 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {cbSendMessage, cbAddPost, State} from "./redux/State";
+import {renderEntireTree} from "./Render";
 
 
-ReactDOM.render(
-    <App
-        state={State}
-        cbAddPost={cbAddPost}
-        cbSendMessage={cbSendMessage}
-    />,
-  document.getElementById('root')
-);
+renderEntireTree(State)
+
+

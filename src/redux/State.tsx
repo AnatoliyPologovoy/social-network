@@ -1,4 +1,5 @@
 import avatar1 from "../img/maxim-ava.jpg";
+import {renderEntireTree} from "../Render";
 
 //dialogs types
 export type ItemDialogsType = {
@@ -177,10 +178,9 @@ export const cbAddPost = (post: string) => {
         likes: 0
     }
     State.profilePage.postsData = [...posts, newPost]
-
+    renderEntireTree(State)
 }
 
-//написать функцию для добавление сообщений в диалоги
 export const cbSendMessage = (message: string, hostUserId: number) => {
     const messages = State.dialogsPage.messagesData.messages
     const newMessage = {
@@ -190,8 +190,7 @@ export const cbSendMessage = (message: string, hostUserId: number) => {
         time: new Date().toLocaleTimeString().slice(0,-3)
     }
     State.dialogsPage.messagesData.messages = [...messages, newMessage]
-    debugger
+    renderEntireTree(State)
 }
-
 
 
