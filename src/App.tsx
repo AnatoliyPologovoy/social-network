@@ -8,14 +8,15 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {Profile} from "./components/Profile/Profile";
-import {cbAddPost, StateType} from "./redux/State";
-import {message} from "antd";
+import { StateType} from "./redux/State";
+
 
 
 export type AppPropsType = {
     state: StateType
-    cbAddPost: (post: string) => void
+    cbAddPost: () => void
     cbSendMessage: (message: string, hostUserId: number) => void
+    changeInputPost: (text:string) => void
 }
 
 function App(props: AppPropsType) {
@@ -35,6 +36,7 @@ function App(props: AppPropsType) {
                     <Route path={'/profile'} render={() =>
                         <Profile state={props.state.profilePage}
                                  cbAddPost={props.cbAddPost}
+                                 changeInputPost={props.changeInputPost}
                         />}/>
 
                     <Route path={'/music'} component={Music}/>

@@ -1,11 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import {cbSendMessage, cbAddPost, State} from "./redux/State";
-import {renderEntireTree} from "./Render";
+import ReactDOM from "react-dom";
+import App from "./App";
+import {cbAddPost, cbSendMessage, changeInputPostText, observer, State, StateType} from "./redux/State";
+import React from "react";
 
+export const reRenderEntireTree = (State:StateType) => {
+    ReactDOM.render(
+        <App
+            state={State}
+            cbAddPost={cbAddPost}
+            cbSendMessage={cbSendMessage}
+            changeInputPost={changeInputPostText}
+        />,
+        document.getElementById('root')
+    )
+}
 
-renderEntireTree(State)
+reRenderEntireTree(State)
+observer(()=>{reRenderEntireTree(State)})
 
 

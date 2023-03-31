@@ -1,5 +1,9 @@
 import avatar1 from "../img/maxim-ava.jpg";
-import {renderEntireTree} from "../Render";
+
+export let renderEntireTree = () => {
+
+}
+
 
 //dialogs types
 export type ItemDialogsType = {
@@ -50,6 +54,7 @@ export type DialogsPageType = {
 }
 export type ProfilePageType = {
     postsData: PostsType
+    postText: string
     personData: PersonDataType
 }
 export type FriendType = {
@@ -133,6 +138,7 @@ export let State = {
             {id: 2, text: "This is my new post", likes: 5},
             {id: 3, text: "I love React", likes: 125},
         ],
+        postText: '',
         personData: {
             age: 20,
             name: 'Maxim',
@@ -170,15 +176,28 @@ export let State = {
     ]
 }
 
-export const cbAddPost = (post: string) => {
+export const changeInputPostText = (text: string) => {
+    State = {...State, profilePage: {...State.profilePage, postText: text}}
+    renderEntireTree()
+}
+
+export const cbAddPost = () => {
     const posts = State.profilePage.postsData
+    const postText = State.profilePage.postText
     const newPost = {
         id: posts[posts.length - 1].id + 1,
-        text: post,
+        text: postText,
         likes: 0
     }
-    State.profilePage.postsData = [...posts, newPost]
-    renderEntireTree(State)
+    State.profilePage.postText = '' //cleaning textarea after send
+    State = {
+        ...State, profilePage:
+            {
+                ...State.profilePage, postsData:
+                    [...State.profilePage.postsData, newPost]
+            }
+    }
+    renderEntireTree()
 }
 
 export const cbSendMessage = (message: string, hostUserId: number) => {
@@ -187,10 +206,25 @@ export const cbSendMessage = (message: string, hostUserId: number) => {
         id: messages[messages.length - 1].id + 1,
         userId: hostUserId,
         text: message,
-        time: new Date().toLocaleTimeString().slice(0,-3)
+        time: new Date().toLocaleTimeString().slice(0, -3)
     }
-    State.dialogsPage.messagesData.messages = [...messages, newMessage]
-    renderEntireTree(State)
+    State = {
+        ...State, dialogsPage:
+            {
+                ...State.dialogsPage, messagesData: {
+                    ...State.dialogsPage.messagesData, messages:
+                        [...State.dialogsPage.messagesData.messages, newMessage]
+                }
+            }
+    }
+    renderEntireTree()
 }
 
+
+
+
+export const observer = (observer: () => void) => {
+    console.log('renderEntireTree is now having anchor to reRenderEntireTree from index')
+    renderEntireTree = observer
+}
 

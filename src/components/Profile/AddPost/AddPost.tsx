@@ -2,7 +2,9 @@ import React, {ChangeEvent, MouseEvent, useEffect, useRef, useState} from 'react
 import cl from './addpost.module.css'
 
 type addPostPropsType = {
-    cbAddPost: (post: string) => void
+    cbAddPost: () => void
+    changeInputPost: (text: string) => void
+    inputValue: string
 }
 
 const AddPost: React.FC<addPostPropsType> = (props) => {
@@ -21,21 +23,23 @@ const AddPost: React.FC<addPostPropsType> = (props) => {
     const textareaStyle = {height: textareaHeight}
 
     //onChange textarea
-    const onChangeTextareaObserver = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const onChangeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.currentTarget.value)
+        // still working local state for useEffect when setting height textarea
+        props.changeInputPost(e.currentTarget.value) //func from State
     }
     //callBack to add post in state
     const onClickButtonHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        props.cbAddPost(text)
-        setText('')
+        props.cbAddPost() // func call in State
+        //setText('')
     }
 
     return (
         <div className={cl.wrapper}>
             <textarea ref={textarea}
                       className={cl.textarea}
-                      onChange={onChangeTextareaObserver}
-                      value={text}
+                      onChange={onChangeTextareaHandler}
+                      value={props.inputValue} // value from State
                       style={textareaStyle}>
             </textarea>
             <button className={cl.btnSend}
