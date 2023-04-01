@@ -1,35 +1,34 @@
-import React, {useState} from "react";
+import React from "react";
 import cl from "./profile.module.css";
 import {Posts} from "./Posts/Posts";
 import {PersonData} from "./PersonData/PersonData";
-import {PersonDataType, PostsType} from "../../redux/State";
+import {StoreType} from "../../redux/State";
 import AddPost from "./AddPost/AddPost";
 
-type StateType = {
-    personData : PersonDataType
-    postsData : PostsType
-    postText: string
-}
-
 type ProfilePropsType = {
-    state: StateType
-    cbAddPost: () => void
-    changeInputPost: (text: string) => void
+    store: StoreType
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {
+    const srcImg = props.store._state.profilePage.personData.mainImg
+    const personData = props.store._state.profilePage.personData
+    const cbAddPost = props.store.addPost
+    const changeInputPost = props.store.changeInputPostText
+    const inputValue = props.store.getState().profilePage.postText
+    const postsData = props.store._state.profilePage.postsData
 
     return (
         <div className={cl.profile}>
             <img
-                src={props.state.personData.mainImg}
-                alt="главное фото" className={cl.main_img}/>
-            <PersonData data={props.state.personData}/>
-            <AddPost cbAddPost={props.cbAddPost}
-                     changeInputPost={props.changeInputPost}
-                     inputValue={props.state.postText}
+                src={srcImg}
+                alt={'#'}
             />
-            <Posts postsData={props.state.postsData}/>
+            <PersonData data={personData}/>
+            <AddPost cbAddPost={cbAddPost.bind(props.store)}
+                     changeInputPost={changeInputPost.bind(props.store)}
+                     inputValue={inputValue}
+            />
+            <Posts postsData={postsData}/>
         </div>
     )
 }

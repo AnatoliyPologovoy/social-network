@@ -4,8 +4,6 @@ import {NavLink} from "react-router-dom";
 import {FriendsBar} from "./Friends/FriendsBar";
 import {FriendType} from "../../redux/State";
 
-// type clType =
-
 type SidebarPropsType = {
     friends: FriendType[]
 }

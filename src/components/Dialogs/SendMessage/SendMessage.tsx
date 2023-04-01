@@ -26,7 +26,7 @@ const SendMessage:React.FC<SendMessagePropsType> = (props) => {
     }
     //onClick button
     const onClickButtonHandler = () => {
-        props.cbSendMessage(text)
+        props.cbSendMessage(text) // send text from local state to Store.State
         setText('')
     }
 

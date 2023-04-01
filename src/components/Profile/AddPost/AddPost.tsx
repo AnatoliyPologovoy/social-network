@@ -34,6 +34,7 @@ const AddPost: React.FC<addPostPropsType> = (props) => {
         //setText('')
     }
 
+    console.log(props.inputValue)
     return (
         <div className={cl.wrapper}>
             <textarea ref={textarea}

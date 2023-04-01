@@ -8,35 +8,27 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {Profile} from "./components/Profile/Profile";
-import { StateType} from "./redux/State";
-
-
+import {StoreType} from "./redux/State";
 
 export type AppPropsType = {
-    state: StateType
-    cbAddPost: () => void
-    cbSendMessage: (message: string, hostUserId: number) => void
-    changeInputPost: (text:string) => void
+    store: StoreType
 }
 
-function App(props: AppPropsType) {
+function App (props: AppPropsType) {
     return (
         <BrowserRouter>
             <div className="App">
                 <Header/>
-                <Sidebar friends={props.state.friends}/>
+                <Sidebar friends={props.store._state.friends}/>
                 <div className="main_section">
                     <Route path={'/news'} component={News}/>
 
                     <Route path={'/dialogs'} render={() =>
-                        <Dialogs state={props.state.dialogsPage}
-                                 cbSendMessage={props.cbSendMessage}
+                        <Dialogs store={props.store}
                         />}/>
 
                     <Route path={'/profile'} render={() =>
-                        <Profile state={props.state.profilePage}
-                                 cbAddPost={props.cbAddPost}
-                                 changeInputPost={props.changeInputPost}
+                        <Profile store={props.store}
                         />}/>
 
                     <Route path={'/music'} component={Music}/>

@@ -1,13 +1,12 @@
 import React from "react";
 import cl from "./messages.module.css";
 import {ItemMessagesType, UsersMessagesType} from "../../../redux/State";
-import {message} from "antd";
+
 
 type MessagePropsType = {
     message: ItemMessagesType
     users: UsersMessagesType
 }
-
 
 export const Message : React.FC<MessagePropsType> = (props) => {
     const isHost = props.users.host.userId === props.message.userId

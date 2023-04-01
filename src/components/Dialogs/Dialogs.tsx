@@ -2,39 +2,31 @@ import React from "react";
 import cl from "./dialogs.module.css"
 import {NameDialogs} from "./NameDialogs";
 import {Message} from "./Messages/Messages";
-import {DialogsDataType, MessagesDataType, UsersMessagesType} from "../../redux/State";
+import {StoreType} from "../../redux/State";
 import SendMessage from "./SendMessage/SendMessage";
 
-
-type StateType = {
-    dialogsData: DialogsDataType
-    messagesData: MessagesDataType
-}
-
 type DialogsPropsType = {
-    state: StateType
-    cbSendMessage: (message: string, hostUserId: number) => void
+    store: StoreType
 };
 
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
-    const dialogsList = props.state.dialogsData.map((el) => {
+    const dialogsList = props.store._state.dialogsPage.dialogsData.map((el) => {
         return (
             <NameDialogs name={el.name} id={el.id}/>
         )
     })
-    const renderMessages = props.state.messagesData.messages.map((el) => {
+    const renderMessages = props.store._state.dialogsPage.messagesData.messages.map((el) => {
         return (
             <Message message={el}
-                     users={props.state.messagesData.users}
+                     users={props.store._state.dialogsPage.messagesData.users}
             />
         )
     })
 
     const cbSendMessage = (message: string) => {
-        const hostUserId = props.state.messagesData.users.host.userId
-        props.cbSendMessage(message,hostUserId)
+        props.store.sendMessage(message)
     }
 
 
