@@ -11,30 +11,27 @@ const AddPost: React.FC<addPostPropsType> = (props) => {
 
     const textarea = useRef<HTMLTextAreaElement | null>(null)
     const [textareaHeight, setTextareaHeight] = useState<number>(50)
-    const [text, setText] = useState<string>('')
+
     //setting height textarea
     useEffect(() => {
         if (textarea.current) {
             const textareaScrollHeight = textarea.current?.scrollHeight
             setTextareaHeight(textareaScrollHeight > 50 ? textareaScrollHeight : 50)
         }
-    }, [text])
+    }, [props.inputValue])
 
     const textareaStyle = {height: textareaHeight}
 
     //onChange textarea
     const onChangeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setText(e.currentTarget.value)
-        // still working local state for useEffect when setting height textarea
-        props.changeInputPost(e.currentTarget.value) //func from State
+        props.changeInputPost(e.currentTarget.value)
     }
     //callBack to add post in state
     const onClickButtonHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        props.cbAddPost() // func call in State
-        //setText('')
+        props.cbAddPost()
+        setTextareaHeight(50)
     }
 
-    console.log(props.inputValue)
     return (
         <div className={cl.wrapper}>
             <textarea ref={textarea}

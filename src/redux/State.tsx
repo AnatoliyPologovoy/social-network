@@ -1,4 +1,5 @@
 import avatar1 from "../img/maxim-ava.jpg";
+import {message} from "antd";
 
 //dialogs types
 export type ItemDialogsType = {
@@ -45,6 +46,7 @@ export type PersonDataType = {
 //Pages type
 export type DialogsPageType = {
     dialogsData: DialogsDataType
+    inputMessage: string
     messagesData: MessagesDataType
 }
 export type ProfilePageType = {
@@ -63,16 +65,67 @@ export type StateType = {
     profilePage: ProfilePageType
     friends: FriendType[]
 }
+
+//Action type for dispatch
+
+export type ActionAddPostType = {
+    type: 'ADD-POST'
+}
+
+export type ActionChangeInputPostTextType = {
+    type: 'CHANGE-INPUT-POST-TEXT'
+    text: string
+}
+
+export type ActionChangeInputMessageType = {
+    type: 'CHANGE-INPUT-MESSAGE-TEXT'
+    text: string
+}
+
+export type ActionSendMessage = {
+    type: 'SEND-MESSAGE'
+}
+
+export type ActionTypes = ActionAddPostType |
+    ActionChangeInputPostTextType |
+    ActionChangeInputMessageType |
+    ActionSendMessage
+
+const changeInputPostText = 'CHANGE-INPUT-POST-TEXT'
+const addPost = 'ADD-POST'
+const changeInputMessageText = 'CHANGE-INPUT-MESSAGE-TEXT'
+const sendMessage = 'SEND-MESSAGE'
+
+// Action creation
+export const changeInputPostTextActionCreation =
+    (newText: string): ActionChangeInputPostTextType => {
+        return {
+            type: changeInputPostText,
+            text: newText
+        }
+    }
+export const addPostActionCreation =
+    (): ActionAddPostType => ({type: addPost})
+
+export const changeInputMessageTextActionCreation =
+    (message: string): ActionChangeInputMessageType => {
+        return {
+            type: changeInputMessageText,
+            text: message
+        }
+    }
+export const sendMessageActionCreation =
+    ():ActionSendMessage => ({type: sendMessage})
+
+
 //Store type
 
 export type StoreType = {
     _state: StateType
     _render: () => void
     subscribe: (observer: () => void) => void
-    changeInputPostText: (text: string) => void
-    addPost: () => void
-    sendMessage: (message: string) => void
     getState: () => StateType
+    dispatch: (action: ActionTypes) => void
 
 }
 
@@ -97,6 +150,7 @@ export let Store: StoreType = {
                     name: 'Kostya',
                 }
             ],
+            inputMessage: '',
             messagesData: {
                 users: {
                     host: {
@@ -146,10 +200,10 @@ export let Store: StoreType = {
                 {id: 2, text: "This is my new post", likes: 5},
                 {id: 3, text: "I love React", likes: 125},
             ],
-            postText: '1',
+            postText: '',
             personData: {
                 age: 20,
-                name: 'Maxim',
+                name: 'Anatoliy',
                 id: 1,
                 avatar: avatar1,
                 mainImg: "https://n1s2.hsmedia.ru/60/b5/cc/60b5cc5266a98b966e2f35c57ed388c8/690x380_0x0a330c2a_12567029551616070388.jpeg"
@@ -190,38 +244,42 @@ export let Store: StoreType = {
     subscribe: function (observer) {
         this._render = observer
     },
-    changeInputPostText: function (text) {
-        debugger
-        console.log(this)
-        this._state.profilePage.postText = text
-        this._render()
-    },
-    addPost: function () {
-        const posts = this._state.profilePage.postsData
-
-        const postText = this._state.profilePage.postText
-        const newPost: PostItemType = {
-            id: posts[posts.length - 1].id + 1,
-            text: postText,
-            likes: 0
-        }
-        this._state.profilePage.postText = '' //cleaning textarea after send
-        this._state.profilePage.postsData.push(newPost)
-        this._render()
-    },
-    sendMessage: function (message) {
-        const messages = this._state.dialogsPage.messagesData.messages
-        const newMessage = {
-            id: messages[messages.length - 1].id + 1,
-            userId: this._state.dialogsPage.messagesData.users.host.userId,
-            text: message, // get text message from local state in SendMessage component
-            time: new Date().toLocaleTimeString().slice(0, -3)
-        }
-        this._state.dialogsPage.messagesData.messages.push(newMessage)
-        this._render()
-    },
     getState: function () {
-       return this._state
+        return this._state
+    },
+    dispatch(action) {
+        if (action.type === addPost) {
+            const posts = this._state.profilePage.postsData
+            const postText = this._state.profilePage.postText
+            const newPost: PostItemType = {
+                id: posts[posts.length - 1].id + 1,
+                text: postText,
+                likes: 0
+            }
+            this._state.profilePage.postText = '' //cleaning textarea after send
+            this._state.profilePage.postsData.push(newPost)
+            this._render()
+        }
+        if (action.type === changeInputPostText) {
+            this._state.profilePage.postText = action.text
+            this._render()
+        }
+        if (action.type === changeInputMessageText) {
+            this._state.dialogsPage.inputMessage = action.text
+            this._render()
+        }
+        if (action.type === sendMessage) {
+            const messages = this._state.dialogsPage.messagesData.messages
+            const newMessage = {
+                id: messages[messages.length - 1].id + 1,
+                userId: this._state.dialogsPage.messagesData.users.host.userId,
+                text: this._state.dialogsPage.inputMessage,
+                time: new Date().toLocaleTimeString().slice(0, -3)
+            }
+            this._state.dialogsPage.inputMessage = '' //cleaning textarea after send
+            this._state.dialogsPage.messagesData.messages.push(newMessage)
+            this._render()
+        }
     }
 }
 

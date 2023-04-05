@@ -2,39 +2,41 @@ import React, {ChangeEvent, useLayoutEffect, useRef, useState} from 'react';
 import cl from "../dialogs.module.css";
 
 type SendMessagePropsType = {
-    cbSendMessage: (message: string) => void
+    cbSendMessage: () => void
+    inputValue: string
+    changeInputMessageText: (message: string) => void
 }
 
 const SendMessage:React.FC<SendMessagePropsType> = (props) => {
 
     const textarea = useRef<HTMLTextAreaElement | null>(null)
     const [textareaHeight, setTextareaHeight] = useState<number>(50)
-    const [text, setText] = useState<string>('')
+
     //setting height textarea
     useLayoutEffect(()=> {
         if (textarea.current) {
             const textareaScrollHeight = textarea.current?.scrollHeight
             setTextareaHeight(textareaScrollHeight > 50 ? textareaScrollHeight : 50)
         }
-    },[text])
+    },[props.inputValue])
 
     const textareaStyle = {height: textareaHeight}
 
     //onChange textarea
     const onChangeTextareaObserver = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setText(e.currentTarget.value)
+        props.changeInputMessageText(e.currentTarget.value)
     }
     //onClick button
     const onClickButtonHandler = () => {
-        props.cbSendMessage(text) // send text from local state to Store.State
-        setText('')
+        props.cbSendMessage()
+        setTextareaHeight(50)
     }
 
     return (
         <div>
             <textarea ref={textarea}
                       onChange={onChangeTextareaObserver}
-                      value={text}
+                      value={props.inputValue}
                       className={cl.textarea}
                       style={textareaStyle}>
             </textarea>

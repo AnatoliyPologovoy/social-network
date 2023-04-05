@@ -2,7 +2,7 @@ import React from "react";
 import cl from "./dialogs.module.css"
 import {NameDialogs} from "./NameDialogs";
 import {Message} from "./Messages/Messages";
-import {StoreType} from "../../redux/State";
+import {changeInputMessageTextActionCreation, sendMessageActionCreation, StoreType} from "../../redux/State";
 import SendMessage from "./SendMessage/SendMessage";
 
 type DialogsPropsType = {
@@ -12,23 +12,26 @@ type DialogsPropsType = {
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
-    const dialogsList = props.store._state.dialogsPage.dialogsData.map((el) => {
+    const dialogsList = props.store.getState().dialogsPage.dialogsData.map((el) => {
         return (
             <NameDialogs name={el.name} id={el.id}/>
         )
     })
-    const renderMessages = props.store._state.dialogsPage.messagesData.messages.map((el) => {
+    const renderMessages = props.store.getState().dialogsPage.messagesData.messages.map((el) => {
         return (
             <Message message={el}
-                     users={props.store._state.dialogsPage.messagesData.users}
+                     users={props.store.getState().dialogsPage.messagesData.users}
             />
         )
     })
 
-    const cbSendMessage = (message: string) => {
-        props.store.sendMessage(message)
+    const cbSendMessage = () => {
+        props.store.dispatch(sendMessageActionCreation())
     }
-
+    const inputValueMessage = props.store.getState().dialogsPage.inputMessage
+    const changeInputMessageText = (message: string) => {
+        props.store.dispatch(changeInputMessageTextActionCreation(message))
+    }
 
     return (
         <div className={cl.dialogsWrapper}>
@@ -40,7 +43,11 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
                     {renderMessages}
                 </div>
                 <div className={cl.messagesSend}>
-                    <SendMessage cbSendMessage={cbSendMessage}/>
+                    <SendMessage
+                        cbSendMessage={cbSendMessage}
+                        inputValue={inputValueMessage}
+                        changeInputMessageText={changeInputMessageText}
+                    />
                 </div>
 
             </div>

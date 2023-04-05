@@ -2,7 +2,11 @@ import React from "react";
 import cl from "./profile.module.css";
 import {Posts} from "./Posts/Posts";
 import {PersonData} from "./PersonData/PersonData";
-import {StoreType} from "../../redux/State";
+import {
+    addPostActionCreation,
+    changeInputPostTextActionCreation,
+    StoreType
+} from "../../redux/State";
 import AddPost from "./AddPost/AddPost";
 
 type ProfilePropsType = {
@@ -12,8 +16,12 @@ type ProfilePropsType = {
 export const Profile: React.FC<ProfilePropsType> = (props) => {
     const srcImg = props.store._state.profilePage.personData.mainImg
     const personData = props.store._state.profilePage.personData
-    const cbAddPost = props.store.addPost
-    const changeInputPost = props.store.changeInputPostText
+
+    const cbAddPost = () => props.store.dispatch(addPostActionCreation())
+    const cbChangeInputPost = (text: string) => {
+        return props.store.dispatch(changeInputPostTextActionCreation(text))
+    }
+
     const inputValue = props.store.getState().profilePage.postText
     const postsData = props.store._state.profilePage.postsData
 
@@ -24,8 +32,8 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
                 alt={'#'}
             />
             <PersonData data={personData}/>
-            <AddPost cbAddPost={cbAddPost.bind(props.store)}
-                     changeInputPost={changeInputPost.bind(props.store)}
+            <AddPost cbAddPost={cbAddPost}
+                     changeInputPost={cbChangeInputPost}
                      inputValue={inputValue}
             />
             <Posts postsData={postsData}/>
