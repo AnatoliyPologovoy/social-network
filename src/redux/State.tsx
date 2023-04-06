@@ -1,5 +1,6 @@
 import avatar1 from "../img/maxim-ava.jpg";
-import {message} from "antd";
+import {profileReducer} from "./profileReducer";
+import {dialogsReducer} from "./dialogsReducer";
 
 //dialogs types
 export type ItemDialogsType = {
@@ -95,27 +96,6 @@ const changeInputPostText = 'CHANGE-INPUT-POST-TEXT'
 const addPost = 'ADD-POST'
 const changeInputMessageText = 'CHANGE-INPUT-MESSAGE-TEXT'
 const sendMessage = 'SEND-MESSAGE'
-
-// Action creation
-export const changeInputPostTextActionCreation =
-    (newText: string): ActionChangeInputPostTextType => {
-        return {
-            type: changeInputPostText,
-            text: newText
-        }
-    }
-export const addPostActionCreation =
-    (): ActionAddPostType => ({type: addPost})
-
-export const changeInputMessageTextActionCreation =
-    (message: string): ActionChangeInputMessageType => {
-        return {
-            type: changeInputMessageText,
-            text: message
-        }
-    }
-export const sendMessageActionCreation =
-    ():ActionSendMessage => ({type: sendMessage})
 
 
 //Store type
@@ -248,199 +228,9 @@ export let Store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        if (action.type === addPost) {
-            const posts = this._state.profilePage.postsData
-            const postText = this._state.profilePage.postText
-            const newPost: PostItemType = {
-                id: posts[posts.length - 1].id + 1,
-                text: postText,
-                likes: 0
-            }
-            this._state.profilePage.postText = '' //cleaning textarea after send
-            this._state.profilePage.postsData.push(newPost)
-            this._render()
-        }
-        if (action.type === changeInputPostText) {
-            this._state.profilePage.postText = action.text
-            this._render()
-        }
-        if (action.type === changeInputMessageText) {
-            this._state.dialogsPage.inputMessage = action.text
-            this._render()
-        }
-        if (action.type === sendMessage) {
-            const messages = this._state.dialogsPage.messagesData.messages
-            const newMessage = {
-                id: messages[messages.length - 1].id + 1,
-                userId: this._state.dialogsPage.messagesData.users.host.userId,
-                text: this._state.dialogsPage.inputMessage,
-                time: new Date().toLocaleTimeString().slice(0, -3)
-            }
-            this._state.dialogsPage.inputMessage = '' //cleaning textarea after send
-            this._state.dialogsPage.messagesData.messages.push(newMessage)
-            this._render()
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._render()
     }
 }
-
-
-// OBJECT
-// export let State = {
-//     dialogsPage: {
-//         dialogsData: [
-//             {
-//                 id: 1,
-//                 name: 'Valeria',
-//             },
-//             {
-//                 id: 2,
-//                 name: 'Roman',
-//             },
-//             {
-//                 id: 3,
-//                 name: 'Andrey',
-//             },
-//             {
-//                 id: 4,
-//                 name: 'Kostya',
-//             }
-//         ],
-//         messagesData: {
-//             users: {
-//                 host: {
-//                     id: 1,
-//                     userId: 111,
-//                     name: 'Anatoliy',
-//                     avatar: "https://i.pravatar.cc/30?u=fake@pravatar.com"
-//                 },
-//                 companion: {
-//                     id: 2,
-//                     userId: 222,
-//                     name: 'Valeria',
-//                     avatar: 'https://i.pravatar.cc/30'
-//                 }
-//             },
-//             messages: [
-//                 {
-//                     id: 1,
-//                     userId: 222,
-//                     text: 'hello',
-//                     time: '22:00'
-//                 },
-//                 {
-//                     id: 2,
-//                     userId: 111,
-//                     text: 'hi',
-//                     time: '22:01'
-//                 },
-//                 {
-//                     id: 3,
-//                     userId: 222,
-//                     text: 'how are you',
-//                     time: '22:02'
-//                 },
-//                 {
-//                     id: 4,
-//                     userId: 111,
-//                     text: 'i am fine',
-//                     time: '22:03'
-//                 }
-//             ]
-//         }
-//     },
-//     profilePage: {
-//         postsData: [
-//             {id: 1, text: "Hello, world!", likes: 11},
-//             {id: 2, text: "This is my new post", likes: 5},
-//             {id: 3, text: "I love React", likes: 125},
-//         ],
-//         postText: '',
-//         personData: {
-//             age: 20,
-//             name: 'Maxim',
-//             id: 1,
-//             avatar: avatar1,
-//             mainImg: "https://n1s2.hsmedia.ru/60/b5/cc/60b5cc5266a98b966e2f35c57ed388c8/690x380_0x0a330c2a_12567029551616070388.jpeg"
-//         }
-//     },
-//     friends: [
-//         {
-//             id: 1,
-//             name: 'Valeria',
-//             avatar: "https://i.pravatar.cc/50"
-//         },
-//         {
-//             id: 2,
-//             name: 'Roman',
-//             avatar: "https://i.pravatar.cc/50?u=fake@pravatar.com"
-//         },
-//         {
-//             id: 3,
-//             name: 'Andrey',
-//             avatar: "https://i.pravatar.cc/50"
-//         },
-//         {
-//             id: 4,
-//             name: 'Kostya',
-//             avatar: "https://i.pravatar.cc/50?u=fake@pravatar.com"
-//         },
-//         {
-//             id: 5,
-//             name: 'Sasha',
-//             avatar: "https://i.pravatar.cc/50"
-//         }
-//     ]
-// }
-//
-// export const changeInputPostText = (text: string) => {
-//     State = {...State, profilePage: {...State.profilePage, postText: text}}
-//     renderEntireTree()
-// }
-//
-// export const cbAddPost = () => {
-//     const posts = State.profilePage.postsData
-//     const postText = State.profilePage.postText
-//     const newPost = {
-//         id: posts[posts.length - 1].id + 1,
-//         text: postText,
-//         likes: 0
-//     }
-//     State.profilePage.postText = '' //cleaning textarea after send
-//     State = {
-//         ...State, profilePage:
-//             {
-//                 ...State.profilePage, postsData:
-//                     [...State.profilePage.postsData, newPost]
-//             }
-//     }
-//     renderEntireTree()
-// }
-//
-// export const cbSendMessage = (message: string, hostUserId: number) => {
-//     const messages = State.dialogsPage.messagesData.messages
-//     const newMessage = {
-//         id: messages[messages.length - 1].id + 1,
-//         userId: hostUserId,
-//         text: message,
-//         time: new Date().toLocaleTimeString().slice(0, -3)
-//     }
-//     State = {
-//         ...State, dialogsPage:
-//             {
-//                 ...State.dialogsPage, messagesData: {
-//                     ...State.dialogsPage.messagesData, messages:
-//                         [...State.dialogsPage.messagesData.messages, newMessage]
-//                 }
-//             }
-//     }
-//     renderEntireTree()
-// }
-//
-//
-//
-//
-// export const subscribe = (observer: () => void) => {
-//     renderEntireTree = observer
-//     //renderEntireTree is now having anchor to reRenderEntireTree from index
-// }
 

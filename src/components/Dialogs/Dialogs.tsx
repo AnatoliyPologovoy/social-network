@@ -2,8 +2,9 @@ import React from "react";
 import cl from "./dialogs.module.css"
 import {NameDialogs} from "./NameDialogs";
 import {Message} from "./Messages/Messages";
-import {changeInputMessageTextActionCreation, sendMessageActionCreation, StoreType} from "../../redux/State";
+import {changeInputMessageTextActionCreation, sendMessageActionCreation} from "../../redux/dialogsReducer";
 import SendMessage from "./SendMessage/SendMessage";
+import {StoreType} from "../../redux/State";
 
 type DialogsPropsType = {
     store: StoreType

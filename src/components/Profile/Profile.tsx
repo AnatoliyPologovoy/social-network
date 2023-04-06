@@ -2,12 +2,9 @@ import React from "react";
 import cl from "./profile.module.css";
 import {Posts} from "./Posts/Posts";
 import {PersonData} from "./PersonData/PersonData";
-import {
-    addPostActionCreation,
-    changeInputPostTextActionCreation,
-    StoreType
-} from "../../redux/State";
+import {StoreType} from "../../redux/State";
 import AddPost from "./AddPost/AddPost";
+import {addPostActionCreation, changeInputPostTextActionCreation} from "../../redux/profileReducer";
 
 type ProfilePropsType = {
     store: StoreType
