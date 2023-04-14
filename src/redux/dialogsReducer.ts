@@ -3,8 +3,72 @@ import {ActionChangeInputMessageType, ActionSendMessage, ActionTypes, DialogsPag
 const changeInputMessageText = 'CHANGE-INPUT-MESSAGE-TEXT'
 const sendMessage = 'SEND-MESSAGE'
 
+let initialState = {
+    dialogsData: [
+        {
+            id: 1,
+            name: 'Valeria',
+        },
+        {
+            id: 2,
+            name: 'Roman',
+        },
+        {
+            id: 3,
+            name: 'Andrey',
+        },
+        {
+            id: 4,
+            name: 'Kostya',
+        }
+    ],
+    inputMessage: '',
+    messagesData: {
+        users: {
+            host: {
+                id: 1,
+                userId: 111,
+                name: 'Anatoliy',
+                avatar: "https://i.pravatar.cc/30?u=fake@pravatar.com"
+            },
+            companion: {
+                id: 2,
+                userId: 222,
+                name: 'Valeria',
+                avatar: 'https://i.pravatar.cc/30'
+            }
+        },
+        messages: [
+            {
+                id: 1,
+                userId: 222,
+                text: 'hello',
+                time: '22:00'
+            },
+            {
+                id: 2,
+                userId: 111,
+                text: 'hi',
+                time: '22:01'
+            },
+            {
+                id: 3,
+                userId: 222,
+                text: 'how are you',
+                time: '22:02'
+            },
+            {
+                id: 4,
+                userId: 111,
+                text: 'i am fine',
+                time: '22:03'
+            }
+        ]
+    }
+}
+
 export const dialogsReducer =
-    (state: DialogsPageType, action: ActionTypes) => {
+    (state: DialogsPageType = initialState, action: ActionTypes) => {
         switch (action.type) {
             case "SEND-MESSAGE":
                 const messages = state.messagesData.messages
