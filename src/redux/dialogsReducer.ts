@@ -3,7 +3,7 @@ import {ActionChangeInputMessageType, ActionSendMessage, ActionTypes, DialogsPag
 const changeInputMessageText = 'CHANGE-INPUT-MESSAGE-TEXT'
 const sendMessage = 'SEND-MESSAGE'
 
-let initialState = {
+let initialState: DialogsPageType = {
     dialogsData: [
         {
             id: 1,
@@ -68,7 +68,7 @@ let initialState = {
 }
 
 export const dialogsReducer =
-    (state: DialogsPageType = initialState, action: ActionTypes) => {
+    (state: DialogsPageType = initialState, action: ActionTypes):DialogsPageType => {
         switch (action.type) {
             case "SEND-MESSAGE":
                 const messages = state.messagesData.messages

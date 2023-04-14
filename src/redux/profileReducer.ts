@@ -4,7 +4,7 @@ import avatar1 from "../img/maxim-ava.jpg";
 const changeInputPostText = 'CHANGE-INPUT-POST-TEXT'
 const addPost = 'ADD-POST'
 
-let initialState = {
+let initialState: ProfilePageType = {
     postsData: [
         {id: 1, text: "Hello, world!", likes: 11},
         {id: 2, text: "This is my new post", likes: 5},

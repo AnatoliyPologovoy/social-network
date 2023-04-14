@@ -12,6 +12,7 @@ import {StoreType} from "./redux/State";
 
 export type AppPropsType = {
     store: StoreType
+
 }
 
 function App (props: AppPropsType) {
