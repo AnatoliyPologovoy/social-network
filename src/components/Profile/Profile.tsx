@@ -11,8 +11,8 @@ type ProfilePropsType = {
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {
-    const srcImg = props.store._state.profilePage.personData.mainImg
-    const personData = props.store._state.profilePage.personData
+    const srcImg = props.store.getState().profilePage.personData.mainImg
+    const personData = props.store.getState().profilePage.personData
 
     const cbAddPost = () => props.store.dispatch(addPostActionCreation())
     const cbChangeInputPost = (text: string) => {
@@ -20,7 +20,7 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
     }
 
     const inputValue = props.store.getState().profilePage.postText
-    const postsData = props.store._state.profilePage.postsData
+    const postsData = props.store.getState().profilePage.postsData
 
     return (
         <div className={cl.profile}>

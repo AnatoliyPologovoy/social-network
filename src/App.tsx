@@ -16,16 +16,18 @@ export type AppPropsType = {
 }
 
 function App (props: AppPropsType) {
+    const stateFriends = props.store.getState().friends
+
     return (
         <BrowserRouter>
             <div className="App">
                 <Header/>
-                <Sidebar friends={props.store._state.friends}/>
+                <Sidebar friends={stateFriends}/>
                 <div className="main_section">
                     <Route path={'/news'} component={News}/>
 
                     <Route path={'/dialogs'} render={() =>
-                        <Dialogs store={props.store}
+                        <Dialogs //store={props.store}
                         />}/>
 
                     <Route path={'/profile'} render={() =>

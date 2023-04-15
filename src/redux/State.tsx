@@ -102,7 +102,7 @@ const sendMessage = 'SEND-MESSAGE'
 
 export type StoreType = {
     _state: StateType
-    _render: () => void
+    _callSubscriber: () => void
     subscribe: (observer: () => void) => void
     getState: () => StateType
     dispatch: (action: ActionTypes) => void
@@ -217,12 +217,12 @@ export let Store: StoreType = {
             }
         ]
     },
-    _render: function () {
+    _callSubscriber: function () {
         console.log('Render method have not observer. ' +
             'Use method subscribe(observer:()=>void) for add observer to render')
     },
     subscribe: function (observer) {
-        this._render = observer
+        this._callSubscriber = observer
     },
     getState: function () {
         return this._state
@@ -230,7 +230,7 @@ export let Store: StoreType = {
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        this._render()
+        this._callSubscriber()
     }
 }
 

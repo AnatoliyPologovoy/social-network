@@ -89,8 +89,6 @@ export const dialogsReducer =
         }
     }
 
-
-
 export const changeInputMessageTextActionCreation =
     (message: string): ActionChangeInputMessageType => {
         return {
