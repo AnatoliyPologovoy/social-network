@@ -31,7 +31,7 @@ function App (props: AppPropsType) {
                         />}/>
 
                     <Route path={'/profile'} render={() =>
-                        <Profile store={props.store}
+                        <Profile //store={props.store}
                         />}/>
 
                     <Route path={'/music'} component={Music}/>

@@ -5,35 +5,46 @@ import {PersonData} from "./PersonData/PersonData";
 import {StoreType} from "../../redux/State";
 import AddPost from "./AddPost/AddPost";
 import {addPostActionCreation, changeInputPostTextActionCreation} from "../../redux/profileReducer";
+import {StoreContext} from "../../redux/StoreContext";
 
 type ProfilePropsType = {
-    store: StoreType
+    //store: StoreType
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {
-    const srcImg = props.store.getState().profilePage.personData.mainImg
-    const personData = props.store.getState().profilePage.personData
-
-    const cbAddPost = () => props.store.dispatch(addPostActionCreation())
-    const cbChangeInputPost = (text: string) => {
-        return props.store.dispatch(changeInputPostTextActionCreation(text))
-    }
-
-    const inputValue = props.store.getState().profilePage.postText
-    const postsData = props.store.getState().profilePage.postsData
 
     return (
-        <div className={cl.profile}>
-            <img
-                src={srcImg}
-                alt={'#'}
-            />
-            <PersonData data={personData}/>
-            <AddPost cbAddPost={cbAddPost}
-                     changeInputPost={cbChangeInputPost}
-                     inputValue={inputValue}
-            />
-            <Posts postsData={postsData}/>
-        </div>
+        <StoreContext.Consumer>
+            {
+                (store) => {
+
+                    const srcImg = store.getState().profilePage.personData.mainImg
+                    const personData = store.getState().profilePage.personData
+
+                    const cbAddPost = () => store.dispatch(addPostActionCreation())
+                    const cbChangeInputPost = (text: string) => {
+                        return store.dispatch(changeInputPostTextActionCreation(text))
+                    }
+
+                    const inputValue = store.getState().profilePage.postText
+                    const postsData = store.getState().profilePage.postsData
+
+                    return (
+                        <div className={cl.profile}>
+                            <img
+                                src={srcImg}
+                                alt={'#'}
+                            />
+                            <PersonData data={personData}/>
+                            <AddPost cbAddPost={cbAddPost}
+                                     changeInputPost={cbChangeInputPost}
+                                     inputValue={inputValue}
+                            />
+                            <Posts postsData={postsData}/>
+                        </div>
+                    )
+                }
+            }
+        </StoreContext.Consumer>
     )
 }
