@@ -7,7 +7,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {Profile} from "./components/Profile/Profile";
+import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {StoreType} from "./redux/State";
 
 export type AppPropsType = {
@@ -31,7 +31,7 @@ function App (props: AppPropsType) {
                         />}/>
 
                     <Route path={'/profile'} render={() =>
-                        <Profile //store={props.store}
+                        <ProfileContainer //store={props.store}
                         />}/>
 
                     <Route path={'/music'} component={Music}/>

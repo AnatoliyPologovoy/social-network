@@ -1,50 +1,36 @@
-import React from "react";
+import React from 'react';
 import cl from "./profile.module.css";
-import {Posts} from "./Posts/Posts";
 import {PersonData} from "./PersonData/PersonData";
-import {StoreType} from "../../redux/State";
 import AddPost from "./AddPost/AddPost";
-import {addPostActionCreation, changeInputPostTextActionCreation} from "../../redux/profileReducer";
-import {StoreContext} from "../../redux/StoreContext";
+import {Posts} from "./Posts/Posts";
+import {PersonDataType, PostsType} from "../../redux/State";
 
 type ProfilePropsType = {
-    //store: StoreType
+    srcImg: string
+    personData: PersonDataType
+    cbAddPost: () => void
+    cbChangeInputPost: (text: string) => void
+    inputValue: string
+    postsData: PostsType
 }
 
-export const Profile: React.FC<ProfilePropsType> = (props) => {
-
+const Profile: React.FC <ProfilePropsType> = (props) => {
     return (
-        <StoreContext.Consumer>
-            {
-                (store) => {
+        <div>
+            <div className={cl.profile}>
+                <img
+                    src={props.srcImg}
+                    alt={'#'}
+                />
+                <PersonData data={props.personData}/>
+                <AddPost cbAddPost={props.cbAddPost}
+                         changeInputPost={props.cbChangeInputPost}
+                         inputValue={props.inputValue}
+                />
+                <Posts postsData={props.postsData}/>
+            </div>
+        </div>
+    );
+};
 
-                    const srcImg = store.getState().profilePage.personData.mainImg
-                    const personData = store.getState().profilePage.personData
-
-                    const cbAddPost = () => store.dispatch(addPostActionCreation())
-                    const cbChangeInputPost = (text: string) => {
-                        return store.dispatch(changeInputPostTextActionCreation(text))
-                    }
-
-                    const inputValue = store.getState().profilePage.postText
-                    const postsData = store.getState().profilePage.postsData
-
-                    return (
-                        <div className={cl.profile}>
-                            <img
-                                src={srcImg}
-                                alt={'#'}
-                            />
-                            <PersonData data={personData}/>
-                            <AddPost cbAddPost={cbAddPost}
-                                     changeInputPost={cbChangeInputPost}
-                                     inputValue={inputValue}
-                            />
-                            <Posts postsData={postsData}/>
-                        </div>
-                    )
-                }
-            }
-        </StoreContext.Consumer>
-    )
-}
+export default Profile;
