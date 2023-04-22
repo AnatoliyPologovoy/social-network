@@ -1,29 +1,33 @@
 import React from "react";
-import cl from "./messages.module.css";
-import {ItemMessagesType, UsersMessagesType} from "../../../redux/State";
+import {MessagesDataType} from "../../../redux/State";
+import {Message} from "./Message";
+import cl from "../dialogs.module.css";
 
 
-type MessagePropsType = {
-    message: ItemMessagesType
-    users: UsersMessagesType
+type MessagesPropsType = {
+    messagesData: MessagesDataType
 }
 
-export const Message : React.FC<MessagePropsType> = (props) => {
-    const isHost = props.users.host.userId === props.message.userId
-    const isMyOrFriend = isHost ? cl.myMessage : cl.friendMessage
-    const avatar = isHost ? props.users.host.avatar : props.users.companion.avatar
-    const name = isHost ? props.users.host.name : props.users.companion.name
+export const Messages: React.FC<MessagesPropsType> = (props) => {
+
+    const messages = props.messagesData.messages
+    const users = props.messagesData.users
+
+    const renderMessages = messages.map((el) => {
+        return (
+            <Message message={el}
+                     users={users}
+                     key={el.id}
+            />
+        )
+    })
+
     return (
-        <div className={cl.messageWrapper}>
-            <div className={cl.message + ' ' + isMyOrFriend}>
-                <img className={cl.avatar} src={avatar} alt="#"/>
-                <div className={cl.text}>
-                    <div>{name}</div>
-                    {props.message.text}
-                </div>
-            </div>
-            <div className={cl.time}>{props.message.time}</div>
+
+        <div className={cl.messages}>
+            {renderMessages}
         </div>
 
     )
+
 }

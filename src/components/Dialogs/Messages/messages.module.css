@@ -3,14 +3,17 @@
 }
 
 .message {
-    width: max-content;
+    width: 70%;
+
     max-width: 70%;
     display: flex;
+    /*justify-content: flex-end;*/
     align-items: end;
 }
 
 .myMessage {
     margin-left: auto;
+    justify-content: flex-end;
 }
 
 .friendMessage {

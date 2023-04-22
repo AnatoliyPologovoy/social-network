@@ -16,7 +16,7 @@
   display: grid;
   grid-template-columns: 200px auto;
   grid-template-rows: 70px auto;
-  height: 100vh;
+  height: 98vh;
   /*max-width: 1400px;*/
   width: 90%;
   margin: 0 auto;

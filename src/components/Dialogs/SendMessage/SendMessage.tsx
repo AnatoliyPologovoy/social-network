@@ -33,7 +33,7 @@ const SendMessage:React.FC<SendMessagePropsType> = (props) => {
     }
 
     return (
-        <div>
+        <div className={cl.sendArea}>
             <textarea ref={textarea}
                       onChange={onChangeTextareaObserver}
                       value={props.inputValue}

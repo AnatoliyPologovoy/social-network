@@ -3,11 +3,11 @@ import {profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 
 //dialogs types
-export type ItemDialogsType = {
+export type NameDialogsType = {
     id: number
     name: string
 }
-export type DialogsDataType = ItemDialogsType[];
+export type DialogsNamesType = NameDialogsType[];
 //messages types
 export type ItemMessagesType = {
     id: number
@@ -46,7 +46,7 @@ export type PersonDataType = {
 }
 //Pages type
 export type DialogsPageType = {
-    dialogsData: DialogsDataType
+    dialogsNames: DialogsNamesType
     inputMessage: string
     messagesData: MessagesDataType
 }
@@ -112,7 +112,7 @@ export type StoreType = {
 export let Store: StoreType = {
     _state: {
         dialogsPage: {
-            dialogsData: [
+            dialogsNames: [
                 {
                     id: 1,
                     name: 'Valeria',

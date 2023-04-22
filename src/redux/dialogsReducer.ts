@@ -4,7 +4,7 @@ const changeInputMessageText = 'CHANGE-INPUT-MESSAGE-TEXT'
 const sendMessage = 'SEND-MESSAGE'
 
 let initialState: DialogsPageType = {
-    dialogsData: [
+    dialogsNames: [
         {
             id: 1,
             name: 'Valeria',
