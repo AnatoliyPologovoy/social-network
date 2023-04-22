@@ -9,6 +9,7 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {StoreType} from "./redux/State";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 export type AppPropsType = {
     store: StoreType
@@ -27,7 +28,7 @@ function App (props: AppPropsType) {
                     <Route path={'/news'} component={News}/>
 
                     <Route path={'/dialogs'} render={() =>
-                        <Dialogs //store={props.store}
+                        <DialogsContainer //store={props.store}
                         />}/>
 
                     <Route path={'/profile'} render={() =>
