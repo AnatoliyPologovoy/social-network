@@ -8,22 +8,22 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
-import {StoreType} from "./redux/State";
+import {FriendType, StoreType} from "./redux/State";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
-export type AppPropsType = {
-    store: StoreType
 
+export type AppPropsType = {
+    friends: FriendType[]
 }
 
 function App (props: AppPropsType) {
-    const stateFriends = props.store.getState().friends
+    // const stateFriends = props.store.getState().friends
 
     return (
         <BrowserRouter>
             <div className="App">
                 <Header/>
-                <Sidebar friends={stateFriends}/>
+                <Sidebar friends={props.friends}/>
                 <div className="main_section">
                     <Route path={'/news'} component={News}/>
 

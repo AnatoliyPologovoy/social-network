@@ -1,4 +1,4 @@
-import {ActionChangeInputMessageType, ActionSendMessage, ActionTypes, DialogsPageType} from "./State";
+import {ActionChangeInputMessageType, ActionSendMessage, ActionTypes, DialogsPageType, ItemMessagesType} from "./State";
 
 const changeInputMessageText = 'CHANGE-INPUT-MESSAGE-TEXT'
 const sendMessage = 'SEND-MESSAGE'
@@ -72,18 +72,23 @@ export const dialogsReducer =
         switch (action.type) {
             case "SEND-MESSAGE":
                 const messages = state.messagesData.messages
-                const newMessage = {
+                const newMessage: ItemMessagesType = {
                     id: messages[messages.length - 1].id + 1,
                     userId: state.messagesData.users.host.userId,
                     text: state.inputMessage,
                     time: new Date().toLocaleTimeString().slice(0, -3)
                 }
-                state.inputMessage = '' //cleaning textarea after send
-                state.messagesData.messages.push(newMessage)
-                return state
+                const copyState = {
+                    ...state, messagesData: {
+                        ...state.messagesData, messages: [
+                            ...state.messagesData.messages, newMessage
+                        ]
+                    }
+                }
+                copyState.inputMessage = '' //cleaning textarea after send
+                return copyState
             case "CHANGE-INPUT-MESSAGE-TEXT":
-                state.inputMessage = action.text
-                return state
+                return {...state, inputMessage: action.text}
             default:
                 return state
         }

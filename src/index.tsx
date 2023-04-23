@@ -3,13 +3,15 @@ import App from "./App";
 import React from "react";
 import {store} from "./redux/redux-store";
 import {StoreType} from "./redux/State";
-import {Provider} from "./redux/StoreContext";
+// import {Provider} from "./redux/StoreContext";
+import { Provider } from "react-redux";
 
-const reRenderEntireTree = (store: StoreType) => {
+
+const reRenderEntireTree = () => {
     ReactDOM.render(
         <Provider store={store}>
             <App
-                store={store}
+                friends={store.getState().friends}
             />
         </Provider>
         , document.getElementById('root')
@@ -17,7 +19,7 @@ const reRenderEntireTree = (store: StoreType) => {
     )
 }
 
-reRenderEntireTree(store)
-store.subscribe(() => reRenderEntireTree(store))
+reRenderEntireTree()
+store.subscribe(() => reRenderEntireTree())
 
 

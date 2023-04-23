@@ -26,18 +26,20 @@ export const profileReducer =
         switch (action.type) {
             case "ADD-POST":
                 const posts = state.postsData
-                const postText = state.postText
                 const newPost: PostItemType = {
                     id: posts[posts.length - 1].id + 1,
-                    text: postText,
+                    text: state.postText,
                     likes: 0
                 }
-                state.postText = '' //cleaning textarea after send
-                state.postsData.push(newPost)
-                return state
+                const copyState = {
+                    ...state, postsData: [
+                        ...state.postsData, newPost
+                    ]
+                }
+                copyState.postText = '' //cleaning textarea after send
+                return copyState
             case "CHANGE-INPUT-POST-TEXT":
-                state.postText = action.text
-                return state
+                return {...state, postText: action.text}
             default:
                 return state
         }

@@ -1,47 +1,35 @@
 import React from "react";
-import cl from "./profile.module.css";
-import {Posts} from "./Posts/Posts";
-import {PersonData} from "./PersonData/PersonData";
-import {StoreType} from "../../redux/State";
-import AddPost from "./AddPost/AddPost";
+import {ActionTypes, ProfilePageType} from "../../redux/State";
 import {addPostActionCreation, changeInputPostTextActionCreation} from "../../redux/profileReducer";
-import {StoreContext} from "../../redux/StoreContext";
 import Profile from "./Profile";
+import {AppStateType} from "../../redux/redux-store";
+import {connect} from "react-redux";
 
-type ProfileContainerPropsType = {
-    //store: StoreType
+type MapStateToProps = {
+    profilePage: ProfilePageType
 }
 
-export const ProfileContainer: React.FC<ProfileContainerPropsType> = (props) => {
-
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => {
-
-                    const srcImg = store.getState().profilePage.personData.mainImg
-                    const personData = store.getState().profilePage.personData
-
-                    const cbAddPost = () => store.dispatch(addPostActionCreation())
-                    const cbChangeInputPost = (text: string) => {
-                        return store.dispatch(changeInputPostTextActionCreation(text))
-                    }
-
-                    const inputValue = store.getState().profilePage.postText
-                    const postsData = store.getState().profilePage.postsData
-
-                    return (
-                        <Profile
-                            srcImg={srcImg}
-                            inputValue={inputValue}
-                            postsData={postsData}
-                            personData={personData}
-                            cbAddPost={cbAddPost}
-                            cbChangeInputPost={cbChangeInputPost}
-                        />
-                    )
-                }
-            }
-        </StoreContext.Consumer>
-    )
+type MapDispatchToPropsType = {
+    cbAddPost: () => void
+    cbChangeInputPost: (text: string) => void
 }
+
+const MapDispatchToProps = (dispatch: (action: ActionTypes) => void): MapDispatchToPropsType => {
+    return {
+        cbAddPost: () => {
+            dispatch(addPostActionCreation())
+        },
+        cbChangeInputPost: (text) => {
+            dispatch(changeInputPostTextActionCreation(text))
+        }
+    }
+}
+
+const mapStateToProps = (state: AppStateType): MapStateToProps => {
+    return {
+        profilePage: state.profilePage
+    }
+}
+
+export const ProfileContainer = connect(mapStateToProps, MapDispatchToProps)(Profile)
+

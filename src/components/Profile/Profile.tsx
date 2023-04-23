@@ -3,31 +3,35 @@ import cl from "./profile.module.css";
 import {PersonData} from "./PersonData/PersonData";
 import AddPost from "./AddPost/AddPost";
 import {Posts} from "./Posts/Posts";
-import {PersonDataType, PostsType} from "../../redux/State";
+import {ProfilePageType} from "../../redux/State";
+
 
 type ProfilePropsType = {
-    srcImg: string
-    personData: PersonDataType
     cbAddPost: () => void
     cbChangeInputPost: (text: string) => void
-    inputValue: string
-    postsData: PostsType
+    profilePage: ProfilePageType
 }
 
 const Profile: React.FC <ProfilePropsType> = (props) => {
+
+    const srcImg = props.profilePage.personData.mainImg
+    const personData = props.profilePage.personData
+    const inputValue = props.profilePage.postText
+    const postsData = props.profilePage.postsData
+
     return (
         <div>
             <div className={cl.profile}>
                 <img
-                    src={props.srcImg}
+                    src={srcImg}
                     alt={'#'}
                 />
-                <PersonData data={props.personData}/>
+                <PersonData data={personData}/>
                 <AddPost cbAddPost={props.cbAddPost}
                          changeInputPost={props.cbChangeInputPost}
-                         inputValue={props.inputValue}
+                         inputValue={inputValue}
                 />
-                <Posts postsData={props.postsData}/>
+                <Posts postsData={postsData}/>
             </div>
         </div>
     );
