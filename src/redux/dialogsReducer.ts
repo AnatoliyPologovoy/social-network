@@ -78,15 +78,16 @@ export const dialogsReducer =
                     text: state.inputMessage,
                     time: new Date().toLocaleTimeString().slice(0, -3)
                 }
-                const copyState = {
-                    ...state, messagesData: {
+                return {
+                    ...state,
+                    inputMessage: '', //cleaning textarea after send
+                    messagesData: {
                         ...state.messagesData, messages: [
                             ...state.messagesData.messages, newMessage
                         ]
                     }
                 }
-                copyState.inputMessage = '' //cleaning textarea after send
-                return copyState
+
             case "CHANGE-INPUT-MESSAGE-TEXT":
                 return {...state, inputMessage: action.text}
             default:
