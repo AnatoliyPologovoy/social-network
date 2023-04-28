@@ -4,13 +4,19 @@ const SET_USERS = 'SET-USERS'
 export type UserStateType = {
     id: number
     name: string
-    isFollow: boolean
-    status: string
-    avatar: string
-    location: {
-        cityName: string
-        country: string
+    followed: boolean
+    status: string | null
+//     avatar: string
+//     location: {
+//         cityName: string
+//         country: string
+//     }
+// }
+    photos?: {
+        small: string | null
+        large: string | null
     }
+    uniqueUrlName?: string | null
 }
 
 export type UsersStateType = {
@@ -20,28 +26,36 @@ export type UsersStateType = {
 let initialState: UsersStateType = {
     users: [
         {
-            id: 1, status: "Hello, world!", name: 'Roman', isFollow: true, location: {
-                cityName: 'Moscow', country: 'Russia'
+            id: 1, status: "Hello, world!", name: 'Roman', followed: true,
+            photos: {
+                small: null,
+                large: null
             },
-            avatar: "https://i.pravatar.cc/38"
+            uniqueUrlName: null
         },
         {
-            id: 2, status: "This is my new post", name: 'Andrew', isFollow: true, location: {
-                cityName: 'Berlin', country: 'Germany'
+            id: 2, status: "This is my new post", name: 'Andrew', followed: true,
+            photos: {
+                small: null,
+                large: null
             },
-            avatar: "https://i.pravatar.cc/38"
+            uniqueUrlName: null
         },
         {
-            id: 3, status: "I love React", name: 'Roman', isFollow: false, location: {
-                cityName: 'Minsk', country: 'Belarus'
+            id: 3, status: "I love React", name: 'Roman', followed: false,
+            photos: {
+                small: null,
+                large: null
             },
-            avatar: "https://i.pravatar.cc/38"
+            uniqueUrlName: null
         },
         {
-            id: 4, status: "Wait invite for friends", name: 'Julia', isFollow: false, location: {
-                cityName: 'Paris', country: 'France'
+            id: 4, status: "Wait invite for friends", name: 'Julia', followed: false,
+            photos: {
+                small: null,
+                large: null
             },
-            avatar: "https://i.pravatar.cc/38"
+            uniqueUrlName: null
         }
     ]
 }
@@ -53,8 +67,8 @@ export const usersReducer =
             case TOGGLE_FOLLOW:
                 return {
                     ...state, users: state.users.map(us => {
-                        return us.id === action.payload.id ? {...us, isFollow:
-                                !us.isFollow} : us
+                        return us.id === action.payload.id ? {...us, followed:
+                                !us.followed} : us
                     })
                 }
             case SET_USERS:
