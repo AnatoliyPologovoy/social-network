@@ -1,5 +1,7 @@
 const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW'
 const SET_USERS = 'SET-USERS'
+const SET_TOTAL_COUNT_USERS = 'SET_TOTAL_COUNT_USERS'
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 
 export type UserStateType = {
     id: number
@@ -21,6 +23,10 @@ export type UserStateType = {
 
 export type UsersStateType = {
     users: UserStateType[]
+    totalCountUsers: number
+    usersPerPage: number
+    currentPage: number
+    maxPage: number
 }
 
 let initialState: UsersStateType = {
@@ -57,7 +63,11 @@ let initialState: UsersStateType = {
             },
             uniqueUrlName: null
         }
-    ]
+    ],
+    totalCountUsers: 0,
+    usersPerPage: 8,
+    currentPage: 1,
+    maxPage: 20
 }
 
 export const usersReducer =
@@ -67,15 +77,20 @@ export const usersReducer =
             case TOGGLE_FOLLOW:
                 return {
                     ...state, users: state.users.map(us => {
-                        return us.id === action.payload.id ? {...us, followed:
-                                !us.followed} : us
+                        return us.id === action.payload.id ? {
+                            ...us, followed:
+                                !us.followed
+                        } : us
                     })
                 }
             case SET_USERS:
                 return {
-                    ...state, users: [...state.users, ...action.payload.users]
+                    ...state, users: [...action.payload.users]
                 }
-
+            case SET_TOTAL_COUNT_USERS:
+                return {...state, totalCountUsers: action.payload.totalCount}
+            case SET_CURRENT_PAGE:
+                return {...state, currentPage: action.payload.page}
             default:
                 return state
         }
@@ -96,7 +111,9 @@ export type SetUsersACType = {
     }
 }
 
-export type UsersActionsType = ToggleFollowACType | SetUsersACType
+export type UsersActionsType =
+    ToggleFollowACType | SetUsersACType | SetTotalCountACType
+    | setCurrentPageACType
 
 export const toggleFollowAC = (id: number): ToggleFollowACType => {
     return {
@@ -115,4 +132,26 @@ export const setUsersAC = (users: UserStateType[]): SetUsersACType => {
         }
     }
 }
+
+export const setTotalCountAC = (totalCount: number) => {
+    return {
+        type: SET_TOTAL_COUNT_USERS,
+        payload: {
+            totalCount
+        }
+    } as const
+}
+type SetTotalCountACType = ReturnType<typeof setTotalCountAC>
+
+export const setCurrentPageAC = (page: number) => {
+    return {
+        type: SET_CURRENT_PAGE,
+        payload: {
+            page
+        }
+    } as const
+}
+
+type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
+
 

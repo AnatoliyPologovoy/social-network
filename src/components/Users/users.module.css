@@ -1,0 +1,12 @@
+.numberPage {
+    cursor: pointer;
+}
+
+.numberPage:hover {
+    color: darkslateblue;
+}
+
+.currentPage {
+    font-weight: bold;
+    cursor: auto;
+}

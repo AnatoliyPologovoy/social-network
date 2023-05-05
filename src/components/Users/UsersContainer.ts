@@ -1,20 +1,37 @@
 import {connect} from "react-redux";
 import {Users} from "./Users";
-import {setUsersAC, toggleFollowAC, UsersActionsType, UserStateType} from "../../redux/usersReducer";
+import {
+    setCurrentPageAC,
+    setTotalCountAC,
+    setUsersAC,
+    toggleFollowAC,
+    UsersActionsType,
+    UserStateType
+} from "../../redux/usersReducer";
 import {AppStateType} from "../../redux/redux-store";
 
 export type mapStateToPropsType = {
     users: UserStateType[]
+    totalCountUsers: number
+    usersPerPage: number
+    currentPage: number
+    maxPage: number
 }
 
 export type mapDispatchToProps = {
     toggleFollow: (userId: number) => void
     setUsers: (users: UserStateType[]) => void
+    setTotalCountUsers: (count: number) => void
+    setCurrentPage: (page: number) => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        users: state.usersPage.users
+        totalCountUsers: state.usersPage.totalCountUsers,
+        users: state.usersPage.users,
+        usersPerPage: state.usersPage.usersPerPage,
+        currentPage: state.usersPage.currentPage,
+        maxPage: state.usersPage.maxPage
     }
 }
 
@@ -26,6 +43,12 @@ const mapDispatchToProps =
         },
         setUsers: (users) => {
             dispatch(setUsersAC(users))
+        },
+        setTotalCountUsers: (count) => {
+            dispatch(setTotalCountAC(count))
+        },
+        setCurrentPage: (page) => {
+            dispatch(setCurrentPageAC(page))
         }
     }
 }
