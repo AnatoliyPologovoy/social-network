@@ -15,7 +15,8 @@ beforeEach(()=>{
         totalCountUsers: 0,
         usersPerPage: 8,
         currentPage: 1,
-        maxPage: 20
+        maxPage: 20,
+        isFetching: false
     }
 })
 

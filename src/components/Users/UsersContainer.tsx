@@ -1,7 +1,6 @@
 import {connect} from "react-redux";
-// import {Users} from "./Users";
 import {
-    setCurrentPageAC,
+    setCurrentPageAC, setIsFetchingAC,
     setTotalCountAC,
     setUsersAC,
     toggleFollowAC,
@@ -11,8 +10,9 @@ import {
 import {AppStateType} from "../../redux/redux-store";
 import React from "react";
 import axios from "axios";
-import cl from "./users.module.css";
 import {Users} from "./Users";
+import preloader from "../../assets/Spinner.svg"
+import {Preloader} from "../common/Preloader";
 
 export type UsersAPIContainerPropsType = {
     users: UserStateType[]
@@ -20,10 +20,12 @@ export type UsersAPIContainerPropsType = {
     usersPerPage: number
     currentPage: number
     maxPage: number
+    isFetching: boolean
     toggleFollow: (userId: number) => void
     setUsers: (users: UserStateType[]) => void
     setTotalCountUsers: (count: number) => void
     setCurrentPage: (page: number) => void
+    setIsFetching: (value: boolean) => void
 }
 
 export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsType, any> {
@@ -33,10 +35,12 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
         const request = '?count=' + usersPerPage
         const url = 'https://social-network.samuraijs.com/api/1.0/users' + request
 
+        this.props.setIsFetching(true)
         axios.get(url)
             .then(response => {
                 this.props.setUsers(response.data.items)
                 this.props.setTotalCountUsers(response.data.totalCount)
+                this.props.setIsFetching(false)
             })
 
     }
@@ -46,10 +50,12 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
         const request = '?count=' + usersPerPage + '&page=' + page
         const url = 'https://social-network.samuraijs.com/api/1.0/users' + request
 
+        this.props.setIsFetching(true)
         axios.get(url)
             .then(response => {
                 this.props.setUsers(response.data.items)
                 this.props.setCurrentPage(page)
+                this.props.setIsFetching(false)
             })
     }
 
@@ -58,15 +64,20 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
     }
 
     render() {
-        return <Users
-            users={this.props.users}
-            totalCountUsers={this.props.totalCountUsers}
-            usersPerPage={this.props.usersPerPage}
-            currentPage={this.props.currentPage}
-            maxPage={this.props.maxPage}
-            onClickPageHandler={this.onClickPageHandler}
-            onClickButtonHandler={this.onClickButtonHandler}
-        />
+        return (
+            <>
+                {this.props.isFetching && <Preloader/>}
+                <Users
+                    users={this.props.users}
+                    totalCountUsers={this.props.totalCountUsers}
+                    usersPerPage={this.props.usersPerPage}
+                    currentPage={this.props.currentPage}
+                    maxPage={this.props.maxPage}
+                    onClickPageHandler={this.onClickPageHandler}
+                    onClickButtonHandler={this.onClickButtonHandler}
+                />
+            </>
+        )
     }
 }
 
@@ -77,6 +88,7 @@ export type mapStateToPropsType = {
     usersPerPage: number
     currentPage: number
     maxPage: number
+    isFetching: boolean
 }
 
 export type mapDispatchToProps = {
@@ -84,6 +96,7 @@ export type mapDispatchToProps = {
     setUsers: (users: UserStateType[]) => void
     setTotalCountUsers: (count: number) => void
     setCurrentPage: (page: number) => void
+    setIsFetching: (value: boolean) => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -92,7 +105,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         users: state.usersPage.users,
         usersPerPage: state.usersPage.usersPerPage,
         currentPage: state.usersPage.currentPage,
-        maxPage: state.usersPage.maxPage
+        maxPage: state.usersPage.maxPage,
+        isFetching: state.usersPage.isFetching
     }
 }
 const mapDispatchToProps =
@@ -109,6 +123,9 @@ const mapDispatchToProps =
             },
             setCurrentPage: (page) => {
                 dispatch(setCurrentPageAC(page))
+            },
+            setIsFetching: (value: boolean) => {
+                dispatch(setIsFetchingAC(value))
             }
         }
     }
