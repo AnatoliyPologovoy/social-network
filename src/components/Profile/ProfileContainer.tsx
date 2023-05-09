@@ -1,9 +1,9 @@
 import React from "react";
 import {ActionTypes, ProfilePageType} from "../../redux/State";
 import {addPostActionCreation, changeInputPostTextActionCreation} from "../../redux/profileReducer";
-import Profile from "./Profile";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
+import {ProfileAPIContainer} from "./ProfileAPIContainer";
 
 type MapStateToProps = {
     profilePage: ProfilePageType
@@ -31,5 +31,5 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
     }
 }
 
-export const ProfileContainer = connect(mapStateToProps, MapDispatchToProps)(Profile)
+export const ProfileContainer = connect(mapStateToProps, MapDispatchToProps)(ProfileAPIContainer)
 

@@ -1,5 +1,6 @@
 .background {
     background-color: rgba(217, 230, 238, 0.9);
+    position: absolute;
     display: flex;
     height: 100%;
     justify-content: center;
