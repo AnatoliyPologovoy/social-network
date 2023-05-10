@@ -1,5 +1,5 @@
 import avatar1 from "../img/maxim-ava.jpg";
-import {profileReducer} from "./profileReducer";
+import {profileReducer, ProfileType, setCurrentProfile} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 
 //dialogs types
@@ -54,6 +54,7 @@ export type ProfilePageType = {
     postsData: PostsType
     postText: string
     personData: PersonDataType
+    currentProfile: ProfileType
 }
 export type FriendType = {
     id: number
@@ -90,7 +91,7 @@ export type ActionSendMessage = {
 export type ActionTypes = ActionAddPostType |
     ActionChangeInputPostTextType |
     ActionChangeInputMessageType |
-    ActionSendMessage
+    ActionSendMessage | setCurrentProfile
 
 const changeInputPostText = 'CHANGE-INPUT-POST-TEXT'
 const addPost = 'ADD-POST'
@@ -187,7 +188,8 @@ export let Store: StoreType = {
                 id: 1,
                 avatar: avatar1,
                 mainImg: "https://n1s2.hsmedia.ru/60/b5/cc/60b5cc5266a98b966e2f35c57ed388c8/690x380_0x0a330c2a_12567029551616070388.jpeg"
-            }
+            },
+            currentProfile: null
         },
         friends: [
             {

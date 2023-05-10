@@ -1,22 +1,30 @@
 import React from "react";
 import cl from "./personData.module.css"
 import {PersonDataType} from "../../../redux/State";
+import {ProfileType} from "../../../redux/profileReducer";
 
 
 type PersonDataPropsType = {
     data : PersonDataType,
+    currentProfile: ProfileType
 }
 
 
 export const PersonData: React.FC<PersonDataPropsType> = (props) => {
+    // const isCurrentProfile = !!props.currentProfile
+
+    const srcImg = props.currentProfile?.photos?.large ?
+        props.currentProfile.photos.large : props.data.avatar
+
+    const fullName = props.currentProfile? props.currentProfile.fullName : props.data.name
     return (
         <div className={cl.personData}>
             <img
                 className={cl.imgAvatar}
-                src={props.data.avatar}
+                src={srcImg}
                 alt={"аватарка пользователя " + props.data.name}/>
-            <h2 className={cl.name}>{props.data.name}</h2>
-            <p className={cl.age}> {props.data.age}</p>
+            <h2 className={cl.name}>{fullName}</h2>
+            {/*<p className={cl.age}> {props.data.age}</p>*/}
         </div>
     )
 }

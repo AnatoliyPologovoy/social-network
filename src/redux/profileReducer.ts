@@ -3,6 +3,28 @@ import avatar1 from "../img/maxim-ava.jpg";
 
 const changeInputPostText = 'CHANGE-INPUT-POST-TEXT'
 const addPost = 'ADD-POST'
+const SET_CURRENT_PROFILE = 'SET_CURRENT_PROFILE'
+
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+    photos: {
+        small: string | null
+        large: string | null
+    }
+} | null
 
 let initialState: ProfilePageType = {
     postsData: [
@@ -17,7 +39,9 @@ let initialState: ProfilePageType = {
         id: 1,
         avatar: avatar1,
         mainImg: "https://n1s2.hsmedia.ru/60/b5/cc/60b5cc5266a98b966e2f35c57ed388c8/690x380_0x0a330c2a_12567029551616070388.jpeg"
-    }
+    },
+    currentProfile: null
+
 }
 
 export const profileReducer =
@@ -40,6 +64,8 @@ export const profileReducer =
                 return copyState
             case "CHANGE-INPUT-POST-TEXT":
                 return {...state, postText: action.text}
+            case "SET_CURRENT_PROFILE":
+                return {...state, currentProfile: action.profile}
             default:
                 return state
         }
@@ -54,3 +80,11 @@ export const changeInputPostTextActionCreation =
     }
 export const addPostActionCreation =
     (): ActionAddPostType => ({type: addPost})
+
+export const setCurrenProfileAC = (profile: ProfileType) => {
+    return {
+        type: SET_CURRENT_PROFILE,
+        profile
+    } as const
+}
+export type setCurrentProfile = ReturnType<typeof setCurrenProfileAC>
