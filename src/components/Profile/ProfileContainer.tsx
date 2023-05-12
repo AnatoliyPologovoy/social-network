@@ -9,6 +9,7 @@ import {
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {ProfileAPIContainer} from "./ProfileAPIContainer";
+import {withRouter} from "react-router-dom";
 
 type MapStateToProps = {
     profilePage: ProfilePageType
@@ -42,5 +43,7 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
     }
 }
 
-export const ProfileContainer = connect(mapStateToProps, MapDispatchToProps)(ProfileAPIContainer)
+const ProfileWithUrlData = withRouter(ProfileAPIContainer)
+
+export const ProfileContainer = connect(mapStateToProps, MapDispatchToProps)(ProfileWithUrlData)
 

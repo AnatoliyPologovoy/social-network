@@ -11,7 +11,6 @@ import {AppStateType} from "../../redux/redux-store";
 import React from "react";
 import axios from "axios";
 import {Users} from "./Users";
-import preloader from "../../assets/Spinner.svg"
 import {Preloader} from "../common/Preloader";
 
 export type UsersAPIContainerPropsType = {

@@ -1,6 +1,7 @@
 import React from 'react';
 import {UserStateType} from "../../redux/usersReducer";
 import cl from './users.module.css'
+import {NavLink} from "react-router-dom";
 
 
 export type UsersPropsType = {
@@ -13,7 +14,7 @@ export type UsersPropsType = {
     onClickPageHandler: (page: number) => void
 }
 
-export const Users:React.FC<UsersPropsType> = (props) => {
+export const Users: React.FC<UsersPropsType> = (props) => {
     let pages = []
     for (let i = 1; i <= props.maxPage; i++) {
         pages.push(i)
@@ -42,7 +43,9 @@ export const Users:React.FC<UsersPropsType> = (props) => {
 
         return (
             <li key={us.id}>
-                <img alt={'avatar ' + us.name} src={urlPhoto}/>
+                <NavLink to={'/profile/' + us.id}>
+                    <img alt={'avatar ' + us.name} src={urlPhoto}/>
+                </NavLink>
                 <button onClick={() => props.onClickButtonHandler(us.id)}>{buttonName}</button>
                 <div>
                     <span>{us.name}</span>
