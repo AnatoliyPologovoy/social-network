@@ -12,3 +12,7 @@
     height: auto;
     object-fit: cover;
 }
+
+.login {
+    float: right;
+}
