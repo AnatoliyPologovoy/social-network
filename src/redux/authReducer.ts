@@ -1,5 +1,6 @@
 const SET_IS_FETCHING_AUTH = 'SET_IS_FETCHING_AUTH'
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
+const SET_IS_AUTHORIZED = 'SET_IS_AUTHORIZED'
 
 export type AuthUserDataType = {
     id: number | null
@@ -10,6 +11,7 @@ export type AuthUserDataType = {
 export type AuthStateType = {
     data: AuthUserDataType
     isFetching: boolean
+    isAuthorized: boolean
 }
 
 const initialState: AuthStateType = {
@@ -18,11 +20,12 @@ const initialState: AuthStateType = {
         email: null,
         login: null,
     },
-    isFetching: false
+    isFetching: false,
+    isAuthorized: false
 }
 
 export type AuthActionsType = SetIsFetchingAuthType
-    | SetAuthUserDataActionType
+    | SetAuthUserDataActionType | SetISAuthorizedType
 
 export const authReducer =
     (state = initialState, action: AuthActionsType) => {
@@ -31,6 +34,8 @@ export const authReducer =
                 return {...state, isFetching: action.payload.value}
             case "SET_AUTH_USER_DATA":
                 return {...state, data: {...action.payload.userData}}
+            case "SET_IS_AUTHORIZED":
+                return {...state, isAuthorized: action.payload.value}
             default:
                 return state
         }
@@ -57,3 +62,14 @@ export const setAuthUserDataAC = (data: AuthUserDataType) => {
 }
 
 type SetAuthUserDataActionType = ReturnType<typeof setAuthUserDataAC>
+
+export const setIsAuthorizedAC = (value: boolean) => {
+    return {
+        type: SET_IS_AUTHORIZED,
+        payload: {
+            value
+        }
+    } as const
+}
+
+type SetISAuthorizedType = ReturnType<typeof setIsAuthorizedAC>
