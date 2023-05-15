@@ -35,7 +35,9 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
         const url = 'https://social-network.samuraijs.com/api/1.0/users' + request
 
         this.props.setIsFetching(true)
-        axios.get(url)
+        axios.get(url, {
+            withCredentials: true,
+        })
             .then(response => {
                 this.props.setUsers(response.data.items)
                 this.props.setTotalCountUsers(response.data.totalCount)
@@ -50,7 +52,9 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
         const url = 'https://social-network.samuraijs.com/api/1.0/users' + request
 
         this.props.setIsFetching(true)
-        axios.get(url)
+        axios.get(url, {
+            withCredentials: true,
+        })
             .then(response => {
                 this.props.setUsers(response.data.items)
                 this.props.setCurrentPage(page)
@@ -73,7 +77,7 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
                     currentPage={this.props.currentPage}
                     maxPage={this.props.maxPage}
                     onClickPageHandler={this.onClickPageHandler}
-                    onClickButtonHandler={this.onClickButtonHandler}
+                    setToggleFollow={this.onClickButtonHandler}
                 />
             </>
         )

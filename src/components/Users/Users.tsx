@@ -2,6 +2,7 @@ import React from 'react';
 import {UserStateType} from "../../redux/usersReducer";
 import cl from './users.module.css'
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 
 export type UsersPropsType = {
@@ -10,7 +11,7 @@ export type UsersPropsType = {
     usersPerPage: number
     currentPage: number
     maxPage: number
-    onClickButtonHandler: (userId: number) => void
+    setToggleFollow: (userId: number) => void
     onClickPageHandler: (page: number) => void
 }
 
@@ -37,24 +38,59 @@ export const Users: React.FC<UsersPropsType> = (props) => {
         )
     })
 
-    const usersRender = props.users.map(us => {
-        const buttonName = us.followed ? 'unFollow' : 'Follow'
-        const urlPhoto = us.photos?.small || "https://i.pravatar.cc/38"
 
-        return (
-            <li key={us.id}>
-                <NavLink to={'/profile/' + us.id}>
-                    <img alt={'avatar ' + us.name} src={urlPhoto}/>
-                </NavLink>
-                <button onClick={() => props.onClickButtonHandler(us.id)}>{buttonName}</button>
-                <div>
-                    <span>{us.name}</span>
-                    <span>{us.status}</span>
-                    {/*<span>{us.location.cityName} + ' ' + {us.location.country} </span>*/}
-                </div>
-            </li>
-        )
-    })
+    const usersRender = props.users.map(us => {
+            const isFollowName = us.followed ? 'unFollow' : 'Follow'
+            const urlPhoto = us.photos?.small || "https://i.pravatar.cc/38"
+
+            const onClickFollowButtonHandler = () => {
+                const url = 'https://social-network.samuraijs.com/api/1.0/follow/' + us.id
+
+                us.followed ?
+                    axios.delete(url, {
+                        withCredentials: true,
+                        headers: {
+                            "API_KEY": "92e42b1a-9c6c-405e-ad44-73ba793511a6"
+                        }
+                    })
+                        .then(response => {
+                            if (response.data.resultCode === 0) {
+
+                                props.setToggleFollow(us.id)
+                            }
+                        })
+
+                    :
+
+                    axios.post(url, null, {
+                        withCredentials: true,
+                        headers: {
+                            "API_KEY": "92e42b1a-9c6c-405e-ad44-73ba793511a6"
+                        }
+                    })
+                        .then(response => {
+                            debugger
+                            if (response.data.resultCode === 0) {
+                                props.setToggleFollow(us.id)
+                            }
+                        })
+            }
+
+            return (
+                <li key={us.id}>
+                    <NavLink to={'/profile/' + us.id}>
+                        <img alt={'avatar ' + us.name} src={urlPhoto}/>
+                    </NavLink>
+                    <button onClick={onClickFollowButtonHandler}>{isFollowName}</button>
+                    <div>
+                        <span>{us.name}</span>
+                        <span>{us.status}</span>
+                        {/*<span>{us.location.cityName} + ' ' + {us.location.country} </span>*/}
+                    </div>
+                </li>
+            )
+        }
+    )
 
     return (
         <ul>
