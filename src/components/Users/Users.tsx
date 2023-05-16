@@ -50,7 +50,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                     axios.delete(url, {
                         withCredentials: true,
                         headers: {
-                            "API_KEY": "92e42b1a-9c6c-405e-ad44-73ba793511a6"
+                            "API-KEY": "92e42b1a-9c6c-405e-ad44-73ba793511a6"
                         }
                     })
                         .then(response => {
@@ -65,11 +65,10 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                     axios.post(url, null, {
                         withCredentials: true,
                         headers: {
-                            "API_KEY": "92e42b1a-9c6c-405e-ad44-73ba793511a6"
+                            "API-KEY": "92e42b1a-9c6c-405e-ad44-73ba793511a6"
                         }
                     })
                         .then(response => {
-                            debugger
                             if (response.data.resultCode === 0) {
                                 props.setToggleFollow(us.id)
                             }

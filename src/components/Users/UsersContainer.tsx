@@ -37,6 +37,9 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
         this.props.setIsFetching(true)
         axios.get(url, {
             withCredentials: true,
+            headers: {
+                "API-KEY": "92e42b1a-9c6c-405e-ad44-73ba793511a6"
+            }
         })
             .then(response => {
                 this.props.setUsers(response.data.items)
@@ -54,6 +57,9 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
         this.props.setIsFetching(true)
         axios.get(url, {
             withCredentials: true,
+            headers: {
+                "API-KEY": "92e42b1a-9c6c-405e-ad44-73ba793511a6"
+            }
         })
             .then(response => {
                 this.props.setUsers(response.data.items)
