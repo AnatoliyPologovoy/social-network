@@ -12,6 +12,7 @@ import React from "react";
 import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader";
+import {usersAPI} from "../../DAL/API";
 
 export type UsersAPIContainerPropsType = {
     users: UserStateType[]
@@ -31,19 +32,12 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
 
     componentDidMount() {
         const usersPerPage = this.props.usersPerPage
-        const request = '?count=' + usersPerPage
-        const url = 'https://social-network.samuraijs.com/api/1.0/users' + request
-
         this.props.setIsFetching(true)
-        axios.get(url, {
-            withCredentials: true,
-            headers: {
-                "API-KEY": "92e42b1a-9c6c-405e-ad44-73ba793511a6"
-            }
-        })
-            .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalCountUsers(response.data.totalCount)
+
+        usersAPI.getUsers(usersPerPage)
+            .then(data => {
+                this.props.setUsers(data.items)
+                this.props.setTotalCountUsers(data.totalCount)
                 this.props.setIsFetching(false)
             })
 
@@ -51,18 +45,11 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
 
     onClickPageHandler = (page: number) => {
         const usersPerPage = this.props.usersPerPage
-        const request = '?count=' + usersPerPage + '&page=' + page
-        const url = 'https://social-network.samuraijs.com/api/1.0/users' + request
-
         this.props.setIsFetching(true)
-        axios.get(url, {
-            withCredentials: true,
-            headers: {
-                "API-KEY": "92e42b1a-9c6c-405e-ad44-73ba793511a6"
-            }
-        })
-            .then(response => {
-                this.props.setUsers(response.data.items)
+
+        usersAPI.getUsers(usersPerPage, page)
+            .then(data => {
+                this.props.setUsers(data.items)
                 this.props.setCurrentPage(page)
                 this.props.setIsFetching(false)
             })
