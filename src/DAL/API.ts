@@ -14,6 +14,16 @@ export const usersAPI = {
             + '&page=' + pageNumber
         return instance.get(requestUrl)
             .then(response => response.data)
-    }
+    },
     //need follow / unFollow user
+    unFollow(userId: number) {
+        const requestUrl = 'follow/' + userId
+        return instance.delete(requestUrl)
+            .then(response => response.data)
+    },
+    follow(userId: number) {
+        const requestUrl = 'follow/' + userId
+        return instance.post(requestUrl)
+            .then(response => response.data)
+    }
 }

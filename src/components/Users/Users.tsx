@@ -3,6 +3,7 @@ import {UserStateType} from "../../redux/usersReducer";
 import cl from './users.module.css'
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {usersAPI} from "../../DAL/API";
 
 
 export type UsersPropsType = {
@@ -44,35 +45,20 @@ export const Users: React.FC<UsersPropsType> = (props) => {
             const urlPhoto = us.photos?.small || "https://i.pravatar.cc/38"
 
             const onClickFollowButtonHandler = () => {
-                const url = 'https://social-network.samuraijs.com/api/1.0/follow/' + us.id
+                const userId = us.id
 
                 us.followed ?
-                    axios.delete(url, {
-                        withCredentials: true,
-                        headers: {
-                            "API-KEY": "92e42b1a-9c6c-405e-ad44-73ba793511a6"
+                    usersAPI.unFollow(userId).then(data => {
+                        if (data.resultCode === 0) {
+                            props.setToggleFollow(userId)
                         }
                     })
-                        .then(response => {
-                            if (response.data.resultCode === 0) {
-
-                                props.setToggleFollow(us.id)
-                            }
-                        })
-
                     :
-
-                    axios.post(url, null, {
-                        withCredentials: true,
-                        headers: {
-                            "API-KEY": "92e42b1a-9c6c-405e-ad44-73ba793511a6"
+                    usersAPI.follow(userId).then(data => {
+                        if (data.resultCode === 0) {
+                            props.setToggleFollow(userId)
                         }
                     })
-                        .then(response => {
-                            if (response.data.resultCode === 0) {
-                                props.setToggleFollow(us.id)
-                            }
-                        })
             }
 
             return (
