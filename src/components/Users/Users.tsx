@@ -12,6 +12,7 @@ export type UsersPropsType = {
     usersPerPage: number
     currentPage: number
     maxPage: number
+    inFollowingProgressUsers: Array<number | null>
     setToggleFollow: (userId: number) => void
     onClickPageHandler: (page: number) => void
 }
@@ -46,17 +47,20 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 
             const onClickFollowButtonHandler = () => {
                 const userId = us.id
-
+                //задиспатчить userId в inFollowingProgressUsers
                 us.followed ?
+
                     usersAPI.unFollow(userId).then(data => {
                         if (data.resultCode === 0) {
                             props.setToggleFollow(userId)
+                            //удалить userId в inFollowingProgressUsers
                         }
                     })
                     :
                     usersAPI.follow(userId).then(data => {
                         if (data.resultCode === 0) {
                             props.setToggleFollow(userId)
+                            //удалить userId в inFollowingProgressUsers
                         }
                     })
             }

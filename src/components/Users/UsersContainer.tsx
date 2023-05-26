@@ -21,6 +21,7 @@ export type UsersAPIContainerPropsType = {
     currentPage: number
     maxPage: number
     isFetching: boolean
+    inFollowingProgressUsers: Array<number | null>
     toggleFollow: (userId: number) => void
     setUsers: (users: UserStateType[]) => void
     setTotalCountUsers: (count: number) => void
@@ -69,6 +70,7 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
                     usersPerPage={this.props.usersPerPage}
                     currentPage={this.props.currentPage}
                     maxPage={this.props.maxPage}
+                    inFollowingProgressUsers={this.props.inFollowingProgressUsers}
                     onClickPageHandler={this.onClickPageHandler}
                     setToggleFollow={this.onClickButtonHandler}
                 />
@@ -85,6 +87,7 @@ export type mapStateToPropsType = {
     currentPage: number
     maxPage: number
     isFetching: boolean
+    inFollowingProgressUsers: Array<number | null>
 }
 
 export type mapDispatchToProps = {
@@ -102,7 +105,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         usersPerPage: state.usersPage.usersPerPage,
         currentPage: state.usersPage.currentPage,
         maxPage: state.usersPage.maxPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        inFollowingProgressUsers: state.usersPage.inFollowingProgressUsers
     }
 }
 // const mapDispatchToProps =

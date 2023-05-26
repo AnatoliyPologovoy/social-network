@@ -3,6 +3,7 @@ const SET_USERS = 'SET-USERS'
 const SET_TOTAL_COUNT_USERS = 'SET_TOTAL_COUNT_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_IS_FETCHING = 'SET_IS_FETCHING'
+const SET_USER_IN_FOLLOWING_PROGRESS = 'SET_USER_IN_FOLLOWING_PROGRESS'
 
 export type UserStateType = {
     id: number
@@ -29,6 +30,7 @@ export type UsersStateType = {
     currentPage: number
     maxPage: number
     isFetching: boolean
+    inFollowingProgressUsers: Array<number | null>
 }
 
 let initialState: UsersStateType = {
@@ -70,7 +72,8 @@ let initialState: UsersStateType = {
     usersPerPage: 8,
     currentPage: 1,
     maxPage: 20,
-    isFetching: false
+    isFetching: false,
+    inFollowingProgressUsers: []
 }
 
 export const usersReducer =
@@ -96,6 +99,13 @@ export const usersReducer =
                 return {...state, currentPage: action.payload.page}
             case SET_IS_FETCHING:
                 return {...state, isFetching: action.payload.value}
+            case SET_USER_IN_FOLLOWING_PROGRESS:
+                return {
+                    ...state, inFollowingProgressUsers:
+                        action.payload.isFetching
+                            ? [...state.inFollowingProgressUsers, action.payload.userId]
+                            : state.inFollowingProgressUsers.filter(id => id !== action.payload.userId)
+                }
             default:
                 return state
         }
@@ -118,7 +128,7 @@ export type SetUsersACType = {
 
 export type UsersActionsType =
     ToggleFollowACType | SetUsersACType | SetTotalCountACType
-    | SetCurrentPageACType | SetIsFetching
+    | SetCurrentPageACType | SetIsFetching | setUserInFollowingProgressACType
 
 export const toggleFollowAC = (id: number): ToggleFollowACType => {
     return {
@@ -168,3 +178,15 @@ export const setIsFetchingAC = (value: boolean) => {
     } as const
 }
 type SetIsFetching = ReturnType<typeof setIsFetchingAC>
+
+export const setUserInFollowingProgressAC = (userId: number, isFetching: boolean) => {
+    return {
+        type: SET_USER_IN_FOLLOWING_PROGRESS,
+        payload: {
+            isFetching,
+            userId
+        }
+    } as const
+}
+
+type setUserInFollowingProgressACType = ReturnType<typeof setUserInFollowingProgressAC>
