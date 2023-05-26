@@ -15,6 +15,7 @@ export type UsersPropsType = {
     inFollowingProgressUsers: Array<number | null>
     setToggleFollow: (userId: number) => void
     onClickPageHandler: (page: number) => void
+    setUserInFollowingProgress: (userId: number, isFetching: boolean) => void
 }
 
 export const Users: React.FC<UsersPropsType> = (props) => {
@@ -32,6 +33,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
         const className = isCurrentPage ? cl.currentPage : cl.numberPage
         return (
             <span
+                key={i}
                 className={className}
                 onClick={(e) => props.onClickPageHandler(p)}
             >
@@ -44,33 +46,35 @@ export const Users: React.FC<UsersPropsType> = (props) => {
     const usersRender = props.users.map(us => {
             const isFollowName = us.followed ? 'unFollow' : 'Follow'
             const urlPhoto = us.photos?.small || "https://i.pravatar.cc/38"
+            const userId = us.id
 
             const onClickFollowButtonHandler = () => {
-                const userId = us.id
-                //задиспатчить userId в inFollowingProgressUsers
+                props.setUserInFollowingProgress(userId, true)
                 us.followed ?
 
                     usersAPI.unFollow(userId).then(data => {
                         if (data.resultCode === 0) {
                             props.setToggleFollow(userId)
-                            //удалить userId в inFollowingProgressUsers
+                            props.setUserInFollowingProgress(userId, false)
                         }
                     })
                     :
                     usersAPI.follow(userId).then(data => {
                         if (data.resultCode === 0) {
                             props.setToggleFollow(userId)
-                            //удалить userId в inFollowingProgressUsers
+                            props.setUserInFollowingProgress(userId, false)
                         }
                     })
             }
+
+            const isDisableFollowButton = props.inFollowingProgressUsers.includes(userId)
 
             return (
                 <li key={us.id}>
                     <NavLink to={'/profile/' + us.id}>
                         <img alt={'avatar ' + us.name} src={urlPhoto}/>
                     </NavLink>
-                    <button onClick={onClickFollowButtonHandler}>{isFollowName}</button>
+                    <button disabled={isDisableFollowButton} onClick={onClickFollowButtonHandler}>{isFollowName}</button>
                     <div>
                         <span>{us.name}</span>
                         <span>{us.status}</span>

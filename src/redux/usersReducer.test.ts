@@ -16,7 +16,8 @@ beforeEach(()=>{
         usersPerPage: 8,
         currentPage: 1,
         maxPage: 20,
-        isFetching: false
+        isFetching: false,
+        inFollowingProgressUsers: []
     }
 })
 
