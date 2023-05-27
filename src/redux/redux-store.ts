@@ -3,8 +3,8 @@ import {dialogsReducer} from "./dialogsReducer";
 import {profileReducer} from "./profileReducer";
 import {friendsReducer} from "./friendsReducer";
 import {UsersActionsType, usersReducer} from "./usersReducer";
-import {authReducer} from "./authReducer";
-import thunkMiddleware, {ThunkAction} from "redux-thunk"
+import {AuthActionsType, authReducer} from "./authReducer";
+import thunkMiddleware, {ThunkAction, ThunkDispatch} from "redux-thunk"
 import {ActionsTypeProfileAndDialogsPages} from "./State";
 
 const rootReducer  = combineReducers({
@@ -24,6 +24,9 @@ export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 window.store = store
 // export type StoreType = ReturnType<typeof createStore>
 
-export type AllActionsType = UsersActionsType | ActionsTypeProfileAndDialogsPages
+export type AllActionsType = UsersActionsType | ActionsTypeProfileAndDialogsPages | AuthActionsType
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AllActionsType>
+
+export type RootState = ReturnType<typeof store.getState>
+// export type AppDispatch = ThunkDispatch<RootState, unknown, AllActionsType>

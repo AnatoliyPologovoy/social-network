@@ -15,7 +15,6 @@ export const usersAPI = {
         return instance.get(requestUrl)
             .then(response => response.data)
     },
-    //need follow / unFollow user
     unFollow(userId: number) {
         const requestUrl = 'follow/' + userId
         return instance.delete(requestUrl)
@@ -24,6 +23,20 @@ export const usersAPI = {
     follow(userId: number) {
         const requestUrl = 'follow/' + userId
         return instance.post(requestUrl)
+            .then(response => response.data)
+    }
+}
+
+export const authAPI = {
+    authMe() {
+        return instance.get('auth/me')
+            .then(response => response.data)
+    }
+}
+
+export const profileAPI = {
+    getProfile(userId: string) {
+        return instance.get('profile/' + userId)
             .then(response => response.data)
     }
 }

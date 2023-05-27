@@ -1,15 +1,16 @@
 import React from "react";
-import {ActionsTypeProfileAndDialogsPages, ProfilePageType} from "../../redux/State";
+import {ProfilePageType} from "../../redux/State";
 import {
     addPostActionCreation,
     changeInputPostTextActionCreation,
     ProfileType,
-    setCurrenProfileAC
+    setUserProfileTC
 } from "../../redux/profileReducer";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {ProfileAPIContainer} from "./ProfileAPIContainer";
 import {withRouter} from "react-router-dom";
+
 
 type MapStateToProps = {
     profilePage: ProfilePageType
@@ -19,21 +20,14 @@ type MapStateToProps = {
 type MapDispatchToPropsType = {
     cbAddPost: () => void
     cbChangeInputPost: (text: string) => void
-    setCurrentProfile: (profile: ProfileType) => void
+    setUserProfile: (userId: string) => void
 }
 
-const MapDispatchToProps = (dispatch: (action: ActionsTypeProfileAndDialogsPages) => void): MapDispatchToPropsType => {
-    return {
-        cbAddPost: () => {
-            dispatch(addPostActionCreation())
-        },
-        cbChangeInputPost: (text) => {
-            dispatch(changeInputPostTextActionCreation(text))
-        },
-        setCurrentProfile: (profile) => {
-            dispatch(setCurrenProfileAC(profile))
-        }
-    }
+
+const objForMapDispatchToProps: MapDispatchToPropsType = {
+    cbAddPost: addPostActionCreation,
+    cbChangeInputPost: changeInputPostTextActionCreation,
+    setUserProfile: setUserProfileTC
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToProps => {
@@ -45,5 +39,5 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
 
 const ProfileWithUrlData = withRouter(ProfileAPIContainer)
 
-export const ProfileContainer = connect(mapStateToProps, MapDispatchToProps)(ProfileWithUrlData)
+export const ProfileContainer = connect(mapStateToProps, objForMapDispatchToProps)(ProfileWithUrlData)
 

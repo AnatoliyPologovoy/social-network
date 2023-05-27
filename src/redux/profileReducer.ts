@@ -1,5 +1,7 @@
 import {ActionAddPostType, ActionChangeInputPostTextType, ActionsTypeProfileAndDialogsPages, PostItemType, ProfilePageType} from "./State";
 import avatar1 from "../img/maxim-ava.jpg";
+import {AppThunk} from "./redux-store";
+import {profileAPI} from "../DAL/API";
 
 const changeInputPostText = 'CHANGE-INPUT-POST-TEXT'
 const addPost = 'ADD-POST'
@@ -88,3 +90,14 @@ export const setCurrenProfileAC = (profile: ProfileType) => {
     } as const
 }
 export type setCurrentProfile = ReturnType<typeof setCurrenProfileAC>
+
+export const setUserProfileTC= (userId: string): AppThunk => {
+    return (dispatch) => {
+        profileAPI.getProfile(userId)
+            .then(data => dispatch(setCurrenProfileAC(data)))
+    }
+}
+
+// export type setUserProfileType = ReturnType<typeof setUserProfileTC>
+
+

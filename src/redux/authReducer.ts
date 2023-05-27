@@ -1,3 +1,6 @@
+import {AppThunk} from "./redux-store";
+import {authAPI} from "../DAL/API";
+
 const SET_IS_FETCHING_AUTH = 'SET_IS_FETCHING_AUTH'
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
 const SET_IS_AUTHORIZED = 'SET_IS_AUTHORIZED'
@@ -73,3 +76,14 @@ export const setIsAuthorizedAC = (value: boolean) => {
 }
 
 type SetISAuthorizedType = ReturnType<typeof setIsAuthorizedAC>
+
+export const authMeTC = (): AppThunk => {
+    return (dispatch) => {
+        authAPI.authMe().then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setAuthUserDataAC(data.data))
+                dispatch(setIsAuthorizedAC(true))
+            }
+        })
+    }
+}
