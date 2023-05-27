@@ -1,5 +1,5 @@
 import React from "react";
-import {ActionTypes, ProfilePageType} from "../../redux/State";
+import {ActionsTypeProfileAndDialogsPages, ProfilePageType} from "../../redux/State";
 import {
     addPostActionCreation,
     changeInputPostTextActionCreation,
@@ -22,7 +22,7 @@ type MapDispatchToPropsType = {
     setCurrentProfile: (profile: ProfileType) => void
 }
 
-const MapDispatchToProps = (dispatch: (action: ActionTypes) => void): MapDispatchToPropsType => {
+const MapDispatchToProps = (dispatch: (action: ActionsTypeProfileAndDialogsPages) => void): MapDispatchToPropsType => {
     return {
         cbAddPost: () => {
             dispatch(addPostActionCreation())

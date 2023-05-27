@@ -1,4 +1,4 @@
-import {ActionChangeInputMessageType, ActionSendMessage, ActionTypes, DialogsPageType, ItemMessagesType} from "./State";
+import {ActionChangeInputMessageType, ActionSendMessage, ActionsTypeProfileAndDialogsPages, DialogsPageType, ItemMessagesType} from "./State";
 
 const changeInputMessageText = 'CHANGE-INPUT-MESSAGE-TEXT'
 const sendMessage = 'SEND-MESSAGE'
@@ -68,7 +68,7 @@ let initialState: DialogsPageType = {
 }
 
 export const dialogsReducer =
-    (state: DialogsPageType = initialState, action: ActionTypes):DialogsPageType => {
+    (state: DialogsPageType = initialState, action: ActionsTypeProfileAndDialogsPages):DialogsPageType => {
         switch (action.type) {
             case "SEND-MESSAGE":
                 const messages = state.messagesData.messages

@@ -1,4 +1,4 @@
-import {ActionAddPostType, ActionChangeInputPostTextType, ActionTypes, PostItemType, ProfilePageType} from "./State";
+import {ActionAddPostType, ActionChangeInputPostTextType, ActionsTypeProfileAndDialogsPages, PostItemType, ProfilePageType} from "./State";
 import avatar1 from "../img/maxim-ava.jpg";
 
 const changeInputPostText = 'CHANGE-INPUT-POST-TEXT'
@@ -46,7 +46,7 @@ let initialState: ProfilePageType = {
 
 export const profileReducer =
     (state: ProfilePageType = initialState,
-     action: ActionTypes): ProfilePageType => {
+     action: ActionsTypeProfileAndDialogsPages): ProfilePageType => {
         switch (action.type) {
             case "ADD-POST":
                 const posts = state.postsData

@@ -13,9 +13,9 @@ export type UsersPropsType = {
     currentPage: number
     maxPage: number
     inFollowingProgressUsers: Array<number | null>
-    setToggleFollow: (userId: number) => void
     onClickPageHandler: (page: number) => void
-    setUserInFollowingProgress: (userId: number, isFetching: boolean) => void
+    followUser: (userId: number) => void
+    unFollowUser: (userId: number) => void
 }
 
 export const Users: React.FC<UsersPropsType> = (props) => {
@@ -49,22 +49,10 @@ export const Users: React.FC<UsersPropsType> = (props) => {
             const userId = us.id
 
             const onClickFollowButtonHandler = () => {
-                props.setUserInFollowingProgress(userId, true)
-                us.followed ?
+                us.followed
+                    ? props.unFollowUser(userId)
+                    : props.followUser(userId)
 
-                    usersAPI.unFollow(userId).then(data => {
-                        if (data.resultCode === 0) {
-                            props.setToggleFollow(userId)
-                            props.setUserInFollowingProgress(userId, false)
-                        }
-                    })
-                    :
-                    usersAPI.follow(userId).then(data => {
-                        if (data.resultCode === 0) {
-                            props.setToggleFollow(userId)
-                            props.setUserInFollowingProgress(userId, false)
-                        }
-                    })
             }
 
             const isDisableFollowButton = props.inFollowingProgressUsers.includes(userId)
@@ -74,7 +62,12 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                     <NavLink to={'/profile/' + us.id}>
                         <img alt={'avatar ' + us.name} src={urlPhoto}/>
                     </NavLink>
-                    <button disabled={isDisableFollowButton} onClick={onClickFollowButtonHandler}>{isFollowName}</button>
+                    <button
+                        disabled={isDisableFollowButton}
+                        onClick={onClickFollowButtonHandler}
+                    >
+                        {isFollowName}
+                    </button>
                     <div>
                         <span>{us.name}</span>
                         <span>{us.status}</span>

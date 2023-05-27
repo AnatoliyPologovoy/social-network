@@ -2,7 +2,7 @@ import React from "react";
 import {changeInputMessageTextActionCreation, sendMessageActionCreation} from "../../redux/dialogsReducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
-import {ActionTypes, DialogsPageType, StateType} from "../../redux/State";
+import {ActionsTypeProfileAndDialogsPages, DialogsPageType, StateType} from "../../redux/State";
 import {AppStateType} from "../../redux/redux-store";
 
 type mapStateToPropsType = {
@@ -20,7 +20,7 @@ const mapStateToProps = (state: AppStateType):mapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: (action: ActionTypes) => void): MapDispatchToProps => {
+const mapDispatchToProps = (dispatch: (action: ActionsTypeProfileAndDialogsPages) => void): MapDispatchToProps => {
     return {
         cbSendMessage: () => {
             dispatch(sendMessageActionCreation())

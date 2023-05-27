@@ -1,3 +1,8 @@
+import {usersAPI} from "../DAL/API";
+import {Dispatch} from "redux"
+import {ThunkAction} from "redux-thunk";
+import {AppThunk} from "./redux-store";
+
 const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW'
 const SET_USERS = 'SET-USERS'
 const SET_TOTAL_COUNT_USERS = 'SET_TOTAL_COUNT_USERS'
@@ -148,7 +153,7 @@ export const setUsersAC = (users: UserStateType[]): SetUsersACType => {
     }
 }
 
-export const setTotalCountAC = (totalCount: number) => {
+export const setTotalCountUsersAC = (totalCount: number) => {
     return {
         type: SET_TOTAL_COUNT_USERS,
         payload: {
@@ -156,7 +161,7 @@ export const setTotalCountAC = (totalCount: number) => {
         }
     } as const
 }
-type SetTotalCountACType = ReturnType<typeof setTotalCountAC>
+type SetTotalCountACType = ReturnType<typeof setTotalCountUsersAC>
 
 export const setCurrentPageAC = (page: number) => {
     return {
@@ -190,3 +195,46 @@ export const setUserInFollowingProgressAC = (userId: number, isFetching: boolean
 }
 
 type setUserInFollowingProgressACType = ReturnType<typeof setUserInFollowingProgressAC>
+
+//Thunks
+
+export const getUsersThunkCreator = (usersPerPage: number, currentPage: number = 1):
+    AppThunk => {
+    return (dispatch) => {
+        dispatch(setIsFetchingAC(true))
+
+        usersAPI.getUsers(usersPerPage, currentPage)
+            .then(data => {
+                dispatch(setUsersAC(data.items))
+                dispatch(setTotalCountUsersAC(data.totalCount))
+                dispatch(setCurrentPageAC(currentPage))
+                dispatch(setIsFetchingAC(false))
+            })
+
+    }
+}
+
+export const followUserThunkCreator = (userId: number): AppThunk => {
+    return (dispatch) => {
+        dispatch(setUserInFollowingProgressAC(userId, true))
+        usersAPI.follow(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(toggleFollowAC(userId))
+                dispatch(setUserInFollowingProgressAC(userId, false))
+            }
+        })
+    }
+}
+
+export const unFollowUserThunkCreator = (userId: number): AppThunk => {
+    return (dispatch) => {
+        dispatch(setUserInFollowingProgressAC(userId, true))
+        usersAPI.unFollow(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(toggleFollowAC(userId))
+                dispatch(setUserInFollowingProgressAC(userId, false))
+            }
+        })
+    }
+}
+

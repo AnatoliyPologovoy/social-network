@@ -88,7 +88,7 @@ export type ActionSendMessage = {
     type: 'SEND-MESSAGE'
 }
 
-export type ActionTypes = ActionAddPostType |
+export type ActionsTypeProfileAndDialogsPages = ActionAddPostType |
     ActionChangeInputPostTextType |
     ActionChangeInputMessageType |
     ActionSendMessage | setCurrentProfile
@@ -106,7 +106,7 @@ export type StoreType = {
     _callSubscriber: () => void
     subscribe: (observer: () => void) => void
     getState: () => StateType
-    dispatch: (action: ActionTypes) => void
+    dispatch: (action: ActionsTypeProfileAndDialogsPages) => void
 
 }
 
