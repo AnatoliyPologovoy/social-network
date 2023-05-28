@@ -2,10 +2,11 @@ import React from 'react';
 import {ProfilePageType} from "../../redux/State";
 import Profile from "./Profile";
 import {ProfileType} from "../../redux/profileReducer";
-import {RouteComponentProps} from "react-router-dom";
+import {Redirect, RouteComponentProps} from "react-router-dom";
 
 
 type ProfilePropsType = {
+    isAuth: boolean
     cbAddPost: () => void
     cbChangeInputPost: (text: string) => void
     profilePage: ProfilePageType
@@ -22,6 +23,10 @@ export class ProfileAPIContainer extends React.Component<ProfilePropsType, any> 
 
 
     render() {
+        if (!this.props.isAuth) {
+            return <Redirect to={'/login'}/>
+        }
+
         return (
             <Profile {...this.props}/>
         )
