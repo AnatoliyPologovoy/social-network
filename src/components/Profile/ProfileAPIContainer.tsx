@@ -6,7 +6,6 @@ import {Redirect, RouteComponentProps} from "react-router-dom";
 
 
 type ProfilePropsType = {
-    isAuth: boolean
     cbAddPost: () => void
     cbChangeInputPost: (text: string) => void
     profilePage: ProfilePageType
@@ -21,11 +20,7 @@ export class ProfileAPIContainer extends React.Component<ProfilePropsType, any> 
         this.props.setUserProfile(userProfile)
     }
 
-
     render() {
-        if (!this.props.isAuth) {
-            return <Redirect to={'/login'}/>
-        }
 
         return (
             <Profile {...this.props}/>

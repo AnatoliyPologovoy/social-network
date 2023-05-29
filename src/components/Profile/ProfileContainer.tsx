@@ -10,12 +10,12 @@ import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {ProfileAPIContainer} from "./ProfileAPIContainer";
 import {withRouter} from "react-router-dom";
+import {WithAuthRedirect} from "../HOC/withAuthRedirect";
 
 
 type MapStateToProps = {
     profilePage: ProfilePageType
     currentProfile: ProfileType
-    isAuth: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -35,11 +35,13 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
     return {
         profilePage: state.profilePage,
         currentProfile: state.profilePage.currentProfile,
-        isAuth: state.auth.isAuthorized
+
     }
 }
 
-const ProfileWithUrlData = withRouter(ProfileAPIContainer)
+const AuthRedirectComponent = WithAuthRedirect(ProfileAPIContainer)
+
+const ProfileWithUrlData = withRouter(AuthRedirectComponent)
 
 export const ProfileContainer = connect(mapStateToProps, objForMapDispatchToProps)(ProfileWithUrlData)
 

@@ -8,7 +8,7 @@ import {Redirect} from "react-router-dom";
 
 
 type DialogsPropsType = {
-    isAuth: boolean
+    // isAuth: boolean
     dialogsPage: DialogsPageType
     cbSendMessage: () => void
     changeInputMessageText: (text: string) => void
@@ -20,10 +20,10 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
     const dialogsNames = props.dialogsPage.dialogsNames
     const messages = props.dialogsPage.messagesData
     const inputValueMessage = props.dialogsPage.inputMessage
-
-    if (!props.isAuth) {
-        return <Redirect to={'/login'}/>
-    }
+    //
+    // if (!props.isAuth) {
+    //     return <Redirect to={'/login'}/>
+    // }
     return (
         <div className={cl.dialogsWrapper}>
             <DialogsNames dialogsNames={dialogsNames}/>

@@ -15,7 +15,6 @@ type ProfilePropsType = {
 }
 
 const Profile: React.FC <ProfilePropsType> = (props) => {
-
     const srcImg = props.profilePage.personData.mainImg
     const personData = props.profilePage.personData
     const inputValue = props.profilePage.postText
