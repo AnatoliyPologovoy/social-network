@@ -11,6 +11,8 @@ import React from "react";
 
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader";
+import {compose} from "redux";
+import {WithAuthRedirect} from "../HOC/withAuthRedirect";
 
 
 export type UsersAPIContainerPropsType = mapStateToPropsType & {
@@ -82,7 +84,13 @@ const objMapDispatchToProps = {
 }
 
 export const UsersContainer =
-    connect(mapStateToProps, objMapDispatchToProps)(UsersAPIContainer)
+    compose<React.ComponentType>(
+        connect(mapStateToProps, objMapDispatchToProps),
+        WithAuthRedirect
+    )
+    (UsersAPIContainer)
+
+
 
 // export type mapDispatchToProps = {
 //     toggleFollow: (userId: number) => void

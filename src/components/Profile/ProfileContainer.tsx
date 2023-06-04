@@ -11,6 +11,7 @@ import {connect} from "react-redux";
 import {ProfileAPIContainer} from "./ProfileAPIContainer";
 import {withRouter} from "react-router-dom";
 import {WithAuthRedirect} from "../HOC/withAuthRedirect";
+import {compose} from "redux";
 
 
 type MapStateToProps = {
@@ -39,9 +40,10 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
     }
 }
 
-const AuthRedirectComponent = WithAuthRedirect(ProfileAPIContainer)
 
-const ProfileWithUrlData = withRouter(AuthRedirectComponent)
-
-export const ProfileContainer = connect(mapStateToProps, objForMapDispatchToProps)(ProfileWithUrlData)
+export const ProfileContainer = compose<React.ComponentType>(
+    connect(mapStateToProps, objForMapDispatchToProps),
+    withRouter,
+    WithAuthRedirect
+)(ProfileAPIContainer)
 
