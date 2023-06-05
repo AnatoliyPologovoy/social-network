@@ -1,6 +1,7 @@
 .personData {
-    padding: 20px;
+    padding: 25px;
     position: relative;
+
 }
 
 .imgAvatar {
@@ -13,15 +14,21 @@
     float: left;
 }
 
-.age,.name {
-    margin-left: 250px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
 .name {
     font-size: 30px;
+    margin: 0;
 }
 
 .age {
     font-size: 20px;
+}
+
+.nameWrapper {
+    margin-left: 250px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.status {
+    margin: 10px 0;
 }

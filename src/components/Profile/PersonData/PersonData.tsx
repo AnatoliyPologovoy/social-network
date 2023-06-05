@@ -2,7 +2,7 @@ import React from "react";
 import cl from "./personData.module.css"
 import {PersonDataType} from "../../../redux/State";
 import {ProfileType} from "../../../redux/profileReducer";
-import {Status} from "./Status";
+import {ProfileStatus} from "./ProfileStatus";
 
 
 type PersonDataPropsType = {
@@ -24,8 +24,10 @@ export const PersonData: React.FC<PersonDataPropsType> = (props) => {
                 className={cl.imgAvatar}
                 src={srcImg}
                 alt={"аватарка пользователя " + props.data.name}/>
-            <h2 className={cl.name}>{fullName}</h2>
-            <Status status={'test'}/>
+            <div className={cl.nameWrapper}>
+                <h2 className={cl.name}>{fullName}</h2>
+                <ProfileStatus status={'test'}/>
+            </div>
             {/*<p className={cl.age}> {props.data.age}</p>*/}
         </div>
     )

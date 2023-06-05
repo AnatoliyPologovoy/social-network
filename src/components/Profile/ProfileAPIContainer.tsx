@@ -11,13 +11,16 @@ type ProfilePropsType = {
     profilePage: ProfilePageType
     currentProfile: ProfileType
     setUserProfile: (userId: string) => void
-} & RouteComponentProps<{userId: string}>
+} & RouteComponentProps<{ userId: string }>
 
 export class ProfileAPIContainer extends React.Component<ProfilePropsType, any> {
 
     componentDidMount() {
         const userProfile = this.props.match.params.userId
-        this.props.setUserProfile(userProfile)
+        if (userProfile) {
+
+            this.props.setUserProfile(userProfile)
+        }
     }
 
     render() {

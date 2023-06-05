@@ -36,7 +36,6 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
     return {
         profilePage: state.profilePage,
         currentProfile: state.profilePage.currentProfile,
-
     }
 }
 
