@@ -15,7 +15,7 @@ import {compose} from "redux";
 
 type MapStateToProps = {
     profilePage: ProfilePageType
-    currentProfile: CurrentProfileDomainType
+    // currentProfile: CurrentProfileDomainType
 }
 
 type MapDispatchToPropsType = {
@@ -37,7 +37,7 @@ const objForMapDispatchToProps: MapDispatchToPropsType = {
 const mapStateToProps = (state: AppStateType): MapStateToProps => {
     return {
         profilePage: state.profilePage,
-        currentProfile: state.profilePage.currentProfile,
+        // currentProfile: state.profilePage.currentProfile,
     }
 }
 

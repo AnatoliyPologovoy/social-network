@@ -10,7 +10,7 @@ type ProfilePropsType = {
     cbAddPost: () => void
     cbChangeInputPost: (text: string) => void
     profilePage: ProfilePageType
-    currentProfile: CurrentProfileDomainType
+    // currentProfile: CurrentProfileDomainType
 }
 
 const Profile: React.FC <ProfilePropsType> = (props) => {
@@ -19,6 +19,9 @@ const Profile: React.FC <ProfilePropsType> = (props) => {
     const inputValue = props.profilePage.postText
     const postsData = props.profilePage.postsData
     const profileStatus = props.profilePage.status
+    const currentProfile = props.profilePage.currentProfile
+
+
 
     return (
         <div>
@@ -29,7 +32,7 @@ const Profile: React.FC <ProfilePropsType> = (props) => {
                 />
                 <PersonData
                     data={personData}
-                    currentProfile={props.currentProfile}
+                    currentProfile={currentProfile}
                     profileStatus={profileStatus}
                 />
                 <AddPost cbAddPost={props.cbAddPost}
