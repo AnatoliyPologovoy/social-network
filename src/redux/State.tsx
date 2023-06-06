@@ -1,6 +1,6 @@
 import avatar1 from "../img/maxim-ava.jpg";
-import {profileReducer, ProfileType, setCurrentProfile} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
+import {ProfilePageType} from "./profileReducer";
 
 //dialogs types
 export type NameDialogsType = {
@@ -29,33 +29,14 @@ export type MessagesDataType = {
     users: UsersMessagesType
     messages: ItemMessagesType[]
 }
-//posts types
-export type PostItemType = {
-    id: number,
-    text: string,
-    likes: number
-}
-export type PostsType = PostItemType[]
-//profile types
-export type PersonDataType = {
-    age: number
-    name: string
-    id: number
-    avatar: string
-    mainImg: string
-}
+
 //Pages type
 export type DialogsPageType = {
     dialogsNames: DialogsNamesType
     inputMessage: string
     messagesData: MessagesDataType
 }
-export type ProfilePageType = {
-    postsData: PostsType
-    postText: string
-    personData: PersonDataType
-    currentProfile: ProfileType
-}
+
 export type FriendType = {
     id: number
     name: string
@@ -70,15 +51,6 @@ export type StateType = {
 
 //Action type for dispatch
 
-export type ActionAddPostType = {
-    type: 'ADD-POST'
-}
-
-export type ActionChangeInputPostTextType = {
-    type: 'CHANGE-INPUT-POST-TEXT'
-    text: string
-}
-
 export type ActionChangeInputMessageType = {
     type: 'CHANGE-INPUT-MESSAGE-TEXT'
     text: string
@@ -88,10 +60,9 @@ export type ActionSendMessage = {
     type: 'SEND-MESSAGE'
 }
 
-export type ActionsTypeProfileAndDialogsPages = ActionAddPostType |
-    ActionChangeInputPostTextType |
+export type DialogsPagesActions =
     ActionChangeInputMessageType |
-    ActionSendMessage | setCurrentProfile
+    ActionSendMessage
 
 const changeInputPostText = 'CHANGE-INPUT-POST-TEXT'
 const addPost = 'ADD-POST'
@@ -106,7 +77,7 @@ export type StoreType = {
     _callSubscriber: () => void
     subscribe: (observer: () => void) => void
     getState: () => StateType
-    dispatch: (action: ActionsTypeProfileAndDialogsPages) => void
+    dispatch: (action: DialogsPagesActions) => void
 
 }
 
@@ -189,7 +160,8 @@ export let Store: StoreType = {
                 avatar: avatar1,
                 mainImg: "https://n1s2.hsmedia.ru/60/b5/cc/60b5cc5266a98b966e2f35c57ed388c8/690x380_0x0a330c2a_12567029551616070388.jpeg"
             },
-            currentProfile: null
+            currentProfile: null,
+            status: ''
         },
         friends: [
             {
@@ -229,8 +201,8 @@ export let Store: StoreType = {
     getState: function () {
         return this._state
     },
-    dispatch(action) {
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
+    dispatch(action:DialogsPagesActions) {
+        // this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._callSubscriber()
     }

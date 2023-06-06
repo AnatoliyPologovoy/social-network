@@ -1,9 +1,8 @@
 import React from "react";
-import {ProfilePageType} from "../../redux/State";
 import {
     addPostActionCreation,
     changeInputPostTextActionCreation,
-    ProfileType,
+    CurrentProfileDomainType, ProfilePageType, setProfileStatusTC,
     setUserProfileTC
 } from "../../redux/profileReducer";
 import {AppStateType} from "../../redux/redux-store";
@@ -16,20 +15,23 @@ import {compose} from "redux";
 
 type MapStateToProps = {
     profilePage: ProfilePageType
-    currentProfile: ProfileType
+    currentProfile: CurrentProfileDomainType
 }
 
 type MapDispatchToPropsType = {
     cbAddPost: () => void
     cbChangeInputPost: (text: string) => void
     setUserProfile: (userId: string) => void
+    setProfileStatus: (userId: string) => void
 }
 
 
 const objForMapDispatchToProps: MapDispatchToPropsType = {
     cbAddPost: addPostActionCreation,
     cbChangeInputPost: changeInputPostTextActionCreation,
-    setUserProfile: setUserProfileTC
+    setUserProfile: setUserProfileTC,
+    setProfileStatus: setProfileStatusTC
+
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToProps => {

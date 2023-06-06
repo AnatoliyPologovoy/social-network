@@ -14,7 +14,7 @@ export class ProfileStatus extends React.Component<StatusPropsType, any> {
     toggleMode() {
         this.setState({
             isEditMode: !this.state.isEditMode,
-            input: this.state.input
+            // input: this.state.input
         })
     }
 
@@ -27,10 +27,12 @@ export class ProfileStatus extends React.Component<StatusPropsType, any> {
 
     render() {
         const toggleModeCB = this.toggleMode.bind(this)
+        const onChangeInputCB = this.changeInput.bind(this)
+        console.log(this.props.status)
         const viewStatus = <span onDoubleClick={toggleModeCB}>{this.state.input}</span>
         const changeStatus =
             <input
-                onChange={this.changeInput.bind(this)}
+                onChange={onChangeInputCB}
                 onBlur={toggleModeCB}
                 type={'text'}
                 value={this.state.input}

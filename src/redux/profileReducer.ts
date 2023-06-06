@@ -1,4 +1,3 @@
-import {ActionAddPostType, ActionChangeInputPostTextType, ActionsTypeProfileAndDialogsPages, PostItemType, ProfilePageType} from "./State";
 import avatar1 from "../img/maxim-ava.jpg";
 import {AppThunk} from "./redux-store";
 import {profileAPI} from "../DAL/API";
@@ -6,8 +5,33 @@ import {profileAPI} from "../DAL/API";
 const changeInputPostText = 'CHANGE-INPUT-POST-TEXT'
 const addPost = 'ADD-POST'
 const SET_CURRENT_PROFILE = 'SET_CURRENT_PROFILE'
+const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS'
 
-export type ProfileType = {
+//posts types
+export type PostItemType = {
+    id: number,
+    text: string,
+    likes: number
+}
+export type PostsType = PostItemType[]
+//profile types
+export type PersonDataType = {
+    age: number
+    name: string
+    id: number
+    avatar: string
+    mainImg: string
+}
+
+export type ProfilePageType = {
+    postsData: PostsType
+    postText: string
+    personData: PersonDataType
+    currentProfile: CurrentProfileDomainType
+    status: string
+}
+
+export type CurrentProfileDomainType = {
     userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
@@ -42,13 +66,25 @@ let initialState: ProfilePageType = {
         avatar: avatar1,
         mainImg: "https://n1s2.hsmedia.ru/60/b5/cc/60b5cc5266a98b966e2f35c57ed388c8/690x380_0x0a330c2a_12567029551616070388.jpeg"
     },
-    currentProfile: null
-
+    currentProfile: null,
+    status: ''
 }
+
+export type ActionAddPostType = {
+    type: 'ADD-POST'
+}
+
+export type ActionChangeInputPostTextType = {
+    type: 'CHANGE-INPUT-POST-TEXT'
+    text: string
+}
+
+export type ProfileActions = ActionAddPostType | setCurrentProfile |
+    setProfileStatusType | ActionChangeInputPostTextType
 
 export const profileReducer =
     (state: ProfilePageType = initialState,
-     action: ActionsTypeProfileAndDialogsPages): ProfilePageType => {
+     action: ProfileActions): ProfilePageType => {
         switch (action.type) {
             case "ADD-POST":
                 const posts = state.postsData
@@ -68,6 +104,8 @@ export const profileReducer =
                 return {...state, postText: action.text}
             case "SET_CURRENT_PROFILE":
                 return {...state, currentProfile: action.profile}
+            case "SET_PROFILE_STATUS" :
+                return {...state, status: action.status}
             default:
                 return state
         }
@@ -83,7 +121,7 @@ export const changeInputPostTextActionCreation =
 export const addPostActionCreation =
     (): ActionAddPostType => ({type: addPost})
 
-export const setCurrenProfileAC = (profile: ProfileType) => {
+export const setCurrenProfileAC = (profile: CurrentProfileDomainType) => {
     return {
         type: SET_CURRENT_PROFILE,
         profile
@@ -91,12 +129,36 @@ export const setCurrenProfileAC = (profile: ProfileType) => {
 }
 export type setCurrentProfile = ReturnType<typeof setCurrenProfileAC>
 
+export const setProfileStatusAC = (status: string) => {
+    return {
+        type: SET_PROFILE_STATUS,
+        status
+    } as const
+}
+
+export type setProfileStatusType = ReturnType<typeof setProfileStatusAC>
+
+
+//thunks
+
 export const setUserProfileTC= (userId: string): AppThunk => {
     return (dispatch) => {
         profileAPI.getProfile(userId)
             .then(data => dispatch(setCurrenProfileAC(data)))
     }
 }
+
+export const setProfileStatusTC = (userId: string): AppThunk => {
+    return (dispatch) => {
+        profileAPI.getProfileStatus(userId)
+            .then(data => {
+                data = data || 'No status'
+                dispatch(setProfileStatusAC(data))
+            })
+    }
+}
+
+
 
 // export type setUserProfileType = ReturnType<typeof setUserProfileTC>
 

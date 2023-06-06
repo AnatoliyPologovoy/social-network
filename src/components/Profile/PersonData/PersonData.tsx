@@ -1,19 +1,18 @@
 import React from "react";
 import cl from "./personData.module.css"
-import {PersonDataType} from "../../../redux/State";
-import {ProfileType} from "../../../redux/profileReducer";
+import {CurrentProfileDomainType, PersonDataType} from "../../../redux/profileReducer";
 import {ProfileStatus} from "./ProfileStatus";
 
 
 type PersonDataPropsType = {
     data: PersonDataType,
-    currentProfile: ProfileType
+    currentProfile: CurrentProfileDomainType,
+    profileStatus: string
 }
 
 
 export const PersonData: React.FC<PersonDataPropsType> = (props) => {
     // const isCurrentProfile = !!props.currentProfile
-
     const srcImg = props.currentProfile?.photos?.large ?
         props.currentProfile.photos.large : props.data.avatar
 
@@ -26,7 +25,7 @@ export const PersonData: React.FC<PersonDataPropsType> = (props) => {
                 alt={"аватарка пользователя " + props.data.name}/>
             <div className={cl.nameWrapper}>
                 <h2 className={cl.name}>{fullName}</h2>
-                <ProfileStatus status={'test'}/>
+                <ProfileStatus status={props.profileStatus}/>
             </div>
             {/*<p className={cl.age}> {props.data.age}</p>*/}
         </div>

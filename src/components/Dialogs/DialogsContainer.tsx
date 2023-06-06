@@ -2,7 +2,7 @@ import React from "react";
 import {changeInputMessageTextActionCreation, sendMessageActionCreation} from "../../redux/dialogsReducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
-import {ActionsTypeProfileAndDialogsPages, DialogsPageType, StateType} from "../../redux/State";
+import {DialogsPagesActions, DialogsPageType, StateType} from "../../redux/State";
 import {AppStateType} from "../../redux/redux-store";
 import {WithAuthRedirect} from "../HOC/withAuthRedirect";
 import {compose} from "redux";
@@ -24,7 +24,7 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: (action: ActionsTypeProfileAndDialogsPages) => void): MapDispatchToProps => {
+const mapDispatchToProps = (dispatch: (action: DialogsPagesActions) => void): MapDispatchToProps => {
     return {
         cbSendMessage: () => {
             dispatch(sendMessageActionCreation())

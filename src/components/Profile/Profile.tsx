@@ -3,15 +3,14 @@ import cl from "./profile.module.css";
 import {PersonData} from "./PersonData/PersonData";
 import AddPost from "./AddPost/AddPost";
 import {Posts} from "./Posts/Posts";
-import {ProfilePageType} from "../../redux/State";
-import {ProfileType} from "../../redux/profileReducer";
+import {CurrentProfileDomainType, ProfilePageType} from "../../redux/profileReducer";
 
 
 type ProfilePropsType = {
     cbAddPost: () => void
     cbChangeInputPost: (text: string) => void
     profilePage: ProfilePageType
-    currentProfile: ProfileType
+    currentProfile: CurrentProfileDomainType
 }
 
 const Profile: React.FC <ProfilePropsType> = (props) => {
@@ -19,6 +18,7 @@ const Profile: React.FC <ProfilePropsType> = (props) => {
     const personData = props.profilePage.personData
     const inputValue = props.profilePage.postText
     const postsData = props.profilePage.postsData
+    const profileStatus = props.profilePage.status
 
     return (
         <div>
@@ -27,7 +27,11 @@ const Profile: React.FC <ProfilePropsType> = (props) => {
                     src={srcImg}
                     alt={'#'}
                 />
-                <PersonData data={personData} currentProfile={props.currentProfile}/>
+                <PersonData
+                    data={personData}
+                    currentProfile={props.currentProfile}
+                    profileStatus={profileStatus}
+                />
                 <AddPost cbAddPost={props.cbAddPost}
                          changeInputPost={props.cbChangeInputPost}
                          inputValue={inputValue}
