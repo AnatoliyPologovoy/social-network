@@ -10,7 +10,7 @@ import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {FriendType} from "./redux/State";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
-import LoginPage from "./components/Login/Login";
+import {LoginPage} from "./components/Login/LoginPage";
 
 
 export type AppPropsType = {

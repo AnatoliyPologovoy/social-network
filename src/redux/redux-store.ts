@@ -4,15 +4,17 @@ import {ProfileActions, profileReducer} from "./profileReducer";
 import {friendsReducer} from "./friendsReducer";
 import {UsersActionsType, usersReducer} from "./usersReducer";
 import {AuthActionsType, authReducer} from "./authReducer";
-import thunkMiddleware, {ThunkAction, ThunkDispatch} from "redux-thunk"
+import thunkMiddleware, {ThunkAction} from "redux-thunk"
 import {DialogsPagesActions} from "./State";
+import {reducer as formReducer} from "redux-form"
 
 const rootReducer  = combineReducers({
     dialogsPage: dialogsReducer,
     profilePage: profileReducer,
     friends: friendsReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+    form: formReducer
 })
 
 type RootReducerType = typeof rootReducer
