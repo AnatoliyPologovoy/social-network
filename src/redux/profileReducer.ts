@@ -72,15 +72,11 @@ let initialState: ProfilePageType = {
 
 export type ActionAddPostType = {
     type: 'ADD-POST'
-}
-
-export type ActionChangeInputPostTextType = {
-    type: 'CHANGE-INPUT-POST-TEXT'
-    text: string
+    post: string
 }
 
 export type ProfileActions = ActionAddPostType | setCurrentProfile |
-    setProfileStatusType | ActionChangeInputPostTextType
+    setProfileStatusType
 
 export const profileReducer =
     (state: ProfilePageType = initialState,
@@ -90,7 +86,7 @@ export const profileReducer =
                 const posts = state.postsData
                 const newPost: PostItemType = {
                     id: posts[posts.length - 1].id + 1,
-                    text: state.postText,
+                    text: action.post,
                     likes: 0
                 }
                 const copyState = {
@@ -100,8 +96,6 @@ export const profileReducer =
                 }
                 copyState.postText = '' //cleaning textarea after send
                 return copyState
-            case "CHANGE-INPUT-POST-TEXT":
-                return {...state, postText: action.text}
             case "SET_CURRENT_PROFILE":
                 return {...state, currentProfile: action.profile}
             case "SET_PROFILE_STATUS" :
@@ -111,15 +105,8 @@ export const profileReducer =
         }
     }
 
-export const changeInputPostTextActionCreation =
-    (newText: string): ActionChangeInputPostTextType => {
-        return {
-            type: changeInputPostText,
-            text: newText
-        }
-    }
 export const addPostActionCreation =
-    (): ActionAddPostType => ({type: addPost})
+    (post: string): ActionAddPostType => ({type: addPost, post})
 
 export const setCurrenProfileAC = (profile: CurrentProfileDomainType) => {
     return {

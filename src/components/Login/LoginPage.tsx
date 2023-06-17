@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Field, FormSubmitHandler, reduxForm} from "redux-form";
+import {Field, reduxForm} from "redux-form";
 import cl from './loginPage.module.css'
 
 type LoginPageType = {
@@ -9,8 +9,7 @@ type LoginPageType = {
 export const LoginPage: FC<LoginPageType> = (props) => {
 
     const onSubmit = (formData: any) => {
-        console.log(formData)
-        props.submitForm(formData)
+        props.submitForm(formData) //dispatch submitFormTC
     }
 
     return (
@@ -28,7 +27,6 @@ type LoginFormProps = {
 
 const LoginForm: React.FC<LoginFormProps> = (props) => {
 
-    // console.log(props)
     return (
         <form className={cl.loginForm} onSubmit={props.handleSubmit}>
             <div className={cl.formField}>
