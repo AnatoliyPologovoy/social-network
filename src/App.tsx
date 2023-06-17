@@ -10,7 +10,7 @@ import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {FriendType} from "./redux/State";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
-import {LoginPage} from "./components/Login/LoginPage";
+import {LoginPageContainer} from "./components/Login/LoginPageContainer";
 
 
 export type AppPropsType = {
@@ -38,7 +38,7 @@ function App (props: AppPropsType) {
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/users'} component={UsersContainer}/>
                     <Route path={'/settings'} component={Settings}/>
-                    <Route path={'/login'} component={LoginPage}/>
+                    <Route path={'/login'} component={LoginPageContainer}/>
                 </div>
             </div>
         </BrowserRouter>

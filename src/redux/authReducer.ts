@@ -87,3 +87,12 @@ export const authMeTC = (): AppThunk => {
         })
     }
 }
+
+export const submitFormTC = (formData: any): AppThunk => (dispatch) => {
+    authAPI.logIn(formData)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(authMeTC())
+            }
+        })
+}

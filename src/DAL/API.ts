@@ -27,11 +27,30 @@ export const usersAPI = {
     }
 }
 
+export type LogInRequestType = {
+    email: string
+    password: string
+    rememberMe?: boolean
+    captcha?: boolean
+}
+
+type ResponseType<T = {}> = {
+    resultCode: number
+    messages: string[],
+    data: T
+}
+
 export const authAPI = {
     authMe() {
         return instance.get('auth/me')
             .then(response => response.data)
+    },
+    logIn(loginData: LogInRequestType) {
+        return instance
+            .post<ResponseType<{userId: number}>>('auth/login', {...loginData})
+            .then(res => res.data)
     }
+
 }
 
 export const profileAPI = {
