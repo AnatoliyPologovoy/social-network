@@ -2,7 +2,7 @@ import React from 'react';
 import cl from "./profile.module.css";
 import {PersonData} from "./PersonData/PersonData";
 import {Posts} from "./Posts/Posts";
-import {CurrentProfileDomainType, ProfilePageType} from "../../redux/profileReducer";
+import {ProfilePageType} from "redux/profileReducer";
 import {AddPost} from "./AddPost/AddPost";
 
 

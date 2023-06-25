@@ -1,6 +1,8 @@
 import React, {FC} from 'react';
 import {Field, reduxForm} from "redux-form";
 import cl from './loginPage.module.css'
+import {CustomInput} from "components/common/CustomInput";
+import {email, required} from "utils/validate";
 
 type LoginPageType = {
     submitForm: (formData: any) => void
@@ -25,15 +27,28 @@ type LoginFormProps = {
 }
 
 
+
 const LoginForm: React.FC<LoginFormProps> = (props) => {
 
     return (
         <form className={cl.loginForm} onSubmit={props.handleSubmit}>
             <div className={cl.formField}>
-                <Field name={'email'} placeholder={'email'} component={'input'}/>
+                <Field
+                    name={'email'}
+                    placeholder={'email'}
+                    component={CustomInput}
+                    tag={'input'}
+                    validate={[required, email]}
+                />
             </div>
             <div className={cl.formField}>
-                <Field name={'password'} placeholder={'password'} component={'input'}/>
+                <Field
+                    name={'password'}
+                    placeholder={'password'}
+                    component={CustomInput}
+                    tag={'input'}
+                    validate={[required]}
+                />
             </div>
             <div className={cl.formField}>
                 <Field name={'rememberMe'} type={'checkbox'} component={'input'}/>

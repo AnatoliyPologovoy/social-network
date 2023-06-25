@@ -2,7 +2,7 @@ import React from 'react';
 import cl from './addpost.module.css'
 import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "utils/validate";
-import {Textarea} from "components/common/Textarea";
+import {CustomInput} from "components/common/CustomInput";
 
 type addPostPropsType = {
     cbAddPost: (post: string) => void
@@ -19,7 +19,7 @@ export const AddPost: React.FC<addPostPropsType> = (props) => {
         <AddPostReduxForm onSubmit={addPost}/>
     );
 };
-
+//validate
 const maxLength50 = maxLengthCreator(50)
 
 const AddPostForm = (props: {handleSubmit: any}) => {
@@ -32,7 +32,8 @@ const AddPostForm = (props: {handleSubmit: any}) => {
                 validate={[required, maxLength50]}
                 name={'post'}
                 className={cl.textarea}
-                component={Textarea}
+                component={CustomInput}
+                tag={'textarea'}
             />
             <button className={cl.btnSend}>
                 Add post

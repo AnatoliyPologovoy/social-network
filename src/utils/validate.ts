@@ -12,3 +12,13 @@ export const maxLengthCreator =
     }
     return undefined
 }
+
+export const email = (value: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailRegex.test(value)) {
+        return undefined
+    }
+    else {
+        return 'Input should be has email'
+    }
+}
