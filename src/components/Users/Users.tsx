@@ -1,9 +1,7 @@
 import React from 'react';
-import {UserStateType} from "../../redux/usersReducer";
+import {UserStateType} from "redux/usersReducer";
 import cl from './users.module.css'
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {usersAPI} from "../../DAL/API";
 
 
 export type UsersPropsType = {

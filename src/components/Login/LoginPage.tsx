@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import cl from './loginPage.module.css'
 import {CustomInput} from "components/common/CustomInput";
 import {email, required} from "utils/validate";
@@ -13,7 +13,7 @@ type LoginPageType = {
 
 export const LoginPage: FC<LoginPageType> = (props) => {
 
-    const onSubmit = (formData: any) => {
+    const onSubmit = (formData: FormLoginData) => {
         props.submitForm(formData) //dispatch submitFormTC
     }
 
@@ -32,12 +32,9 @@ export const LoginPage: FC<LoginPageType> = (props) => {
     );
 }
 
-type LoginFormProps = {
-    handleSubmit: any
-}
 
 
-const LoginForm: React.FC<LoginFormProps> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormLoginData>> = (props) => {
 
     return (
         <form className={cl.loginForm} onSubmit={props.handleSubmit}>
@@ -64,12 +61,14 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
                 <Field name={'rememberMe'} type={'checkbox'} component={'input'}/>
                 remember me
             </div>
+            {/*Error from server*/}
+            {props.error && <p style={{color: 'red'}}>{props.error}</p>}
             <button>Отправить</button>
         </form>
     );
 };
 
-const LoginReduxForm = reduxForm({
+const LoginReduxForm = reduxForm<FormLoginData>({
     //unique name for the form
     form: 'login'
 })(LoginForm)

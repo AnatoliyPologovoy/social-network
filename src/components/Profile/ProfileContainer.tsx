@@ -1,15 +1,17 @@
 import React from "react";
 import {addPostActionCreation, ProfilePageType, setProfileStatusTC, setUserProfileTC} from "../../redux/profileReducer";
-import {AppStateType} from "../../redux/redux-store";
+import {AppStateType} from "redux/redux-store";
 import {connect} from "react-redux";
 import {ProfileAPIContainer} from "./ProfileAPIContainer";
 import {withRouter} from "react-router-dom";
 import {WithAuthRedirect} from "../HOC/withAuthRedirect";
 import {compose} from "redux";
+import {AuthUserDataType} from "redux/authReducer";
 
 
 type MapStateToProps = {
     profilePage: ProfilePageType
+    authData: AuthUserDataType
     // currentProfile: CurrentProfileDomainType
 }
 
@@ -30,6 +32,7 @@ const objForMapDispatchToProps: MapDispatchToPropsType = {
 const mapStateToProps = (state: AppStateType): MapStateToProps => {
     return {
         profilePage: state.profilePage,
+        authData: state.auth.data
         // currentProfile: state.profilePage.currentProfile,
     }
 }

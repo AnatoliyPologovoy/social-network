@@ -1,5 +1,6 @@
 import {AppThunk} from "./redux-store";
 import {authAPI} from "DAL/API";
+import {stopSubmit} from "redux-form";
 
 const SET_IS_FETCHING_AUTH = 'SET_IS_FETCHING_AUTH'
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
@@ -22,6 +23,7 @@ export type FormLoginData = {
     password: string
     rememberMe: boolean
 }
+
 
 const initialState: AuthStateType = {
     data: {
@@ -102,6 +104,14 @@ export const submitFormTC = (formData: FormLoginData): AppThunk => (dispatch) =>
             if (data.resultCode === 0) {
                 dispatch(authMeTC())
             }
+            else {
+                const errorMessage
+                    = data.messages.length > 0 ? data.messages[0] : 'Some error'
+                dispatch(stopSubmit('login', {_error: errorMessage}))
+            }
+        })
+        .catch(()=>{
+            dispatch(stopSubmit('login', {_error: 'Network error'}))
         })
 }
 
