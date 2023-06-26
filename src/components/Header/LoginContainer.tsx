@@ -1,13 +1,14 @@
 import React from "react";
 import {Login} from "./Login";
 import {connect} from "react-redux";
-import {AppStateType} from "../../redux/redux-store";
-import {authMeTC} from "../../redux/authReducer";
+import {AppStateType} from "redux/redux-store";
+import {authMeTC, logoutTC} from "redux/authReducer";
 
 export type LoginContainerPropsType = {
     isAuthorized: boolean
     login: string | null
     authMe: () => void
+    logOut: () => void
 }
 
 class LoginContainer extends React.Component<LoginContainerPropsType, {}> {
@@ -27,7 +28,8 @@ const mapStateToProps = (state: AppStateType) => ({
     login: state.auth.data.login
 })
 export default connect(mapStateToProps, {
-    authMe: authMeTC
+    authMe: authMeTC,
+    logOut: logoutTC
 
 })(LoginContainer)
 

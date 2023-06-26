@@ -1,5 +1,5 @@
 import {AppThunk} from "./redux-store";
-import {authAPI} from "../DAL/API";
+import {authAPI} from "DAL/API";
 
 const SET_IS_FETCHING_AUTH = 'SET_IS_FETCHING_AUTH'
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
@@ -15,6 +15,12 @@ export type AuthStateType = {
     data: AuthUserDataType
     isFetching: boolean
     isAuthorized: boolean
+}
+
+export type FormLoginData = {
+    email: string
+    password: string
+    rememberMe: boolean
 }
 
 const initialState: AuthStateType = {
@@ -77,6 +83,8 @@ export const setIsAuthorizedAC = (value: boolean) => {
 
 type SetISAuthorizedType = ReturnType<typeof setIsAuthorizedAC>
 
+
+//Thunks
 export const authMeTC = (): AppThunk => {
     return (dispatch) => {
         authAPI.authMe().then(data => {
@@ -88,11 +96,26 @@ export const authMeTC = (): AppThunk => {
     }
 }
 
-export const submitFormTC = (formData: any): AppThunk => (dispatch) => {
+export const submitFormTC = (formData: FormLoginData): AppThunk => (dispatch) => {
     authAPI.logIn(formData)
         .then(data => {
             if (data.resultCode === 0) {
                 dispatch(authMeTC())
             }
         })
+}
+
+export const logoutTC = (): AppThunk => {
+    return (dispatch) => {
+        authAPI.logOut().then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setIsAuthorizedAC(false))
+                dispatch(setAuthUserDataAC({
+                    id: null,
+                    email: null,
+                    login: null,
+                }))
+            }
+        })
+    }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import Profile from "./Profile";
-import {CurrentProfileDomainType, ProfilePageType} from "../../redux/profileReducer";
+import {CurrentProfileDomainType, ProfilePageType} from "redux/profileReducer";
 import {Redirect, RouteComponentProps} from "react-router-dom";
 
 

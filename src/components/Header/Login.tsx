@@ -5,13 +5,18 @@ import {NavLink} from "react-router-dom";
 export type LoginPropsType = {
     isAuthorized: boolean
     login: string | null
+    logOut: () => void
 }
 
 export const Login: React.FC<LoginPropsType> = (props) => {
     return (
         <div className={cl.login}>
-            {props.isAuthorized ?
-                <span>{props.login}</span>
+            {props.isAuthorized ? (
+                    <>
+                        <span>{props.login}</span>
+                        <button onClick={props.logOut}>Log out</button>
+                    </>
+                )
                 :
                 <NavLink to={'/login'}>Login</NavLink>
             }

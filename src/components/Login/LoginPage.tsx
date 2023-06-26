@@ -3,9 +3,12 @@ import {Field, reduxForm} from "redux-form";
 import cl from './loginPage.module.css'
 import {CustomInput} from "components/common/CustomInput";
 import {email, required} from "utils/validate";
+import {FormLoginData} from "redux/authReducer";
+import {Redirect} from "react-router-dom";
 
 type LoginPageType = {
-    submitForm: (formData: any) => void
+    submitForm: (formData: FormLoginData) => void
+    isAuth: boolean
 }
 
 export const LoginPage: FC<LoginPageType> = (props) => {
@@ -14,10 +17,17 @@ export const LoginPage: FC<LoginPageType> = (props) => {
         props.submitForm(formData) //dispatch submitFormTC
     }
 
+    if (props.isAuth) {
+        return <Redirect to={'/profile'}/>
+    }
+
     return (
         <div className={cl.loginPage}>
             <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={
+               onSubmit
+            }
+            />
         </div>
     );
 }
@@ -25,7 +35,6 @@ export const LoginPage: FC<LoginPageType> = (props) => {
 type LoginFormProps = {
     handleSubmit: any
 }
-
 
 
 const LoginForm: React.FC<LoginFormProps> = (props) => {
@@ -48,6 +57,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
                     component={CustomInput}
                     tag={'input'}
                     validate={[required]}
+                    type={'password'}
                 />
             </div>
             <div className={cl.formField}>
