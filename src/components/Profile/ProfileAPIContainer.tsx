@@ -27,8 +27,6 @@ export class ProfileAPIContainer extends React.Component<ProfilePropsType, any> 
         }
         else {
             return <Redirect to={'/login'}/>
-            //Что бы избежать редиректов с морганием пока идет запрос authMe
-            //необходимо провети инициализацию приложения в App
         }
     }
 

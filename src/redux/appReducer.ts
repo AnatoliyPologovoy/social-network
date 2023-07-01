@@ -13,7 +13,7 @@ const initialState: AppStateType = {
 
 export type AppActionsType = SetIsInitializedType
 
-export const authReducer =
+export const appReducer =
     (state = initialState, action: AppActionsType) => {
         switch (action.type) {
             case 'SET_IS_INITIALISED':

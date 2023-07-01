@@ -70,7 +70,7 @@ class App extends React.Component<AppPropsType> {
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 		return {
-				isInitialized: state.app.isAuthorized
+				isInitialized: state.app.isInitialized
 		}
 }
 

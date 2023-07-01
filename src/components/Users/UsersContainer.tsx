@@ -13,6 +13,13 @@ import {Users} from "./Users";
 import {Preloader} from "../common/Preloader";
 import {compose} from "redux";
 import {WithAuthRedirect} from "../HOC/withAuthRedirect";
+import {
+    getCurrentPage, getInFollowingProgressUsers, getIsFetching,
+    getMaxPage,
+    getTotalCountUsers,
+    getUsers,
+    getUsersPerPage
+} from "components/Users/users.selectors";
 
 
 export type UsersAPIContainerPropsType = mapStateToPropsType & {
@@ -66,13 +73,13 @@ export type mapStateToPropsType = {
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        totalCountUsers: state.usersPage.totalCountUsers,
-        users: state.usersPage.users,
-        usersPerPage: state.usersPage.usersPerPage,
-        currentPage: state.usersPage.currentPage,
-        maxPage: state.usersPage.maxPage,
-        isFetching: state.usersPage.isFetching,
-        inFollowingProgressUsers: state.usersPage.inFollowingProgressUsers
+        totalCountUsers: getTotalCountUsers(state),
+        users: getUsers(state),
+        usersPerPage: getUsersPerPage(state),
+        currentPage: getCurrentPage(state),
+        maxPage: getMaxPage(state),
+        isFetching: getIsFetching(state),
+        inFollowingProgressUsers: getInFollowingProgressUsers(state)
     }
 }
 

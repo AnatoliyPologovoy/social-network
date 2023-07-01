@@ -19,8 +19,6 @@ const Profile: React.FC <ProfilePropsType> = (props) => {
     const profileStatus = props.profilePage.status
     const currentProfile = props.profilePage.currentProfile
 
-
-
     return (
         <div>
             <div className={cl.profile}>
