@@ -7,6 +7,7 @@ import {withRouter} from "react-router-dom";
 import {WithAuthRedirect} from "../HOC/withAuthRedirect";
 import {compose} from "redux";
 import {AuthUserDataType} from "redux/authReducer";
+import {getAuthData, getProfilePage} from "components/Profile/profile.selectors";
 
 
 type MapStateToProps = {
@@ -31,8 +32,8 @@ const objForMapDispatchToProps: MapDispatchToPropsType = {
 
 const mapStateToProps = (state: AppStateType): MapStateToProps => {
     return {
-        profilePage: state.profilePage,
-        authData: state.auth.data
+        profilePage: getProfilePage(state),
+        authData: getAuthData(state)
         // currentProfile: state.profilePage.currentProfile,
     }
 }
