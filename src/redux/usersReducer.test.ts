@@ -1,4 +1,11 @@
-import {setUsersAC, toggleFollowAC, usersReducer, UsersStateType, UserStateType} from "./usersReducer";
+import {
+    setUserInFollowingProgressAC,
+    setUsersAC,
+    toggleFollowAC,
+    usersReducer,
+    UsersStateType,
+    UserStateType
+} from "./usersReducer";
 
 let testUsers: UsersStateType
 
@@ -43,5 +50,16 @@ test('Users length should be integer', () => {
 
     expect(endState.users.length).toBe(1)
     expect(endState.users[0].name).toBe('Roman')
+    // expect(endState.users[1].name).toBe('Andrew')
+})
+
+test('User should be added in inFollowingProgressUsers', () => {
+
+    const action = setUserInFollowingProgressAC(2, true)
+
+    const endState = usersReducer(testUsers, action)
+
+    expect(endState.inFollowingProgressUsers[0]).toBeDefined()
+    // expect(endState.users[0].name).toBe('Roman')
     // expect(endState.users[1].name).toBe('Andrew')
 })
