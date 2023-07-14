@@ -1,4 +1,5 @@
 import axios from "axios";
+import {CurrentProfileDomainType} from "redux/profileReducer";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -60,7 +61,7 @@ export const authAPI = {
 
 export const profileAPI = {
     getProfile(userId: string) {
-        return instance.get('profile/' + userId)
+        return instance.get<CurrentProfileDomainType>('profile/' + userId)
             .then(response => response.data)
     },
     getProfileStatus(userId: string) {
