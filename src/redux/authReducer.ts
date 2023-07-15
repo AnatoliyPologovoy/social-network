@@ -96,7 +96,7 @@ export const authMeTC = (): ThunkAction<Promise<any>, AppStateType, unknown, All
 										dispatch(setAuthUserDataAC(data.data))
 										dispatch(setIsAuthorizedAC(true))
 								} else {
-										console.log('Some error occurred')
+										console.log('You are not is authorized, please login')
 								}
 						})
 						.catch((e) => {

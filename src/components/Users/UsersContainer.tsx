@@ -1,20 +1,21 @@
 import {connect} from "react-redux";
 import {
     followUserThunkCreator,
-    getUsersThunkCreator, setUserInFollowingProgressAC,
+    getUsersThunkCreator,
     setUsersAC,
-    toggleFollowAC, unFollowUserThunkCreator,
+    unFollowUserThunkCreator,
     UserStateType
-} from "../../redux/usersReducer";
-import {AppStateType} from "../../redux/redux-store";
+} from "redux/usersReducer";
+import {AppStateType} from "redux/redux-store";
 import React from "react";
 
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader";
 import {compose} from "redux";
-import {WithAuthRedirect} from "../HOC/withAuthRedirect";
 import {
-    getCurrentPage, getInFollowingProgressUsers, getIsFetching,
+    getCurrentPage,
+    getInFollowingProgressUsers, getIsAuthorized,
+    getIsFetching,
     getMaxPage,
     getTotalCountUsers,
     getUsers,
@@ -39,7 +40,6 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
         this.props.getUsers(this.props.usersPerPage, page)
     }
 
-
     render() {
         return (
             <>
@@ -54,6 +54,7 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
                     onClickPageHandler={this.onClickPageHandler}
                     followUser={this.props.followUser}
                     unFollowUser={this.props.unFollowUser}
+                    isAuthorized={this.props.isAuthorized}
                 />
             </>
         )
@@ -69,6 +70,7 @@ export type mapStateToPropsType = {
     maxPage: number
     isFetching: boolean
     inFollowingProgressUsers: Array<number | null>
+    isAuthorized: boolean
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -79,7 +81,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         currentPage: getCurrentPage(state),
         maxPage: getMaxPage(state),
         isFetching: getIsFetching(state),
-        inFollowingProgressUsers: getInFollowingProgressUsers(state)
+        inFollowingProgressUsers: getInFollowingProgressUsers(state),
+        isAuthorized: getIsAuthorized(state)
     }
 }
 
@@ -93,37 +96,7 @@ const objMapDispatchToProps = {
 export const UsersContainer =
     compose<React.ComponentType>(
         connect(mapStateToProps, objMapDispatchToProps),
-        WithAuthRedirect
+        // WithAuthRedirect
     )
     (UsersAPIContainer)
 
-
-
-// export type mapDispatchToProps = {
-//     toggleFollow: (userId: number) => void
-//     setUsers: (users: UserStateType[]) => void
-//     setTotalCountUsers: (count: number) => void
-//     setCurrentPage: (page: number) => void
-//     setIsFetching: (value: boolean) => void
-// }
-
-// const mapDispatchToProps =
-//     (dispatch: (action: UsersActionsType) => void): mapDispatchToProps => {
-//         return {
-//             toggleFollow: (userId) => {
-//                 dispatch(toggleFollowAC(userId))
-//             },
-//             setUsers: (users) => {
-//                 dispatch(setUsersAC(users))
-//             },
-//             setTotalCountUsers: (count) => {
-//                 dispatch(setTotalCountAC(count))
-//             },
-//             setCurrentPage: (page) => {
-//                 dispatch(setCurrentPageAC(page))
-//             },
-//             setIsFetching: (value: boolean) => {
-//                 dispatch(setIsFetchingAC(value))
-//             }
-//         }
-//     }

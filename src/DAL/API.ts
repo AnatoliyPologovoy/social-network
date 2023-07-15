@@ -1,5 +1,6 @@
 import axios from "axios";
 import {CurrentProfileDomainType} from "redux/profileReducer";
+import {UserStateType} from "redux/usersReducer";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -13,19 +14,36 @@ export const usersAPI = {
     getUsers(usersPerPage: number, pageNumber: number = 1) {
         const requestUrl = 'users?count=' + usersPerPage
             + '&page=' + pageNumber
-        return instance.get(requestUrl)
+        return instance.get<ResponseUsersType>(requestUrl)
+            .then(response => response.data)
+    },
+    getFriends(usersPerPage: number, pageNumber: number = 1) {
+        const requestUrl = 'users?count=' + usersPerPage
+            + '&page=' + pageNumber + '&friend=true'
+        const params = {
+            count: usersPerPage,
+            page: pageNumber,
+            friend: true
+        }
+        return instance.get<ResponseUsersType>('users', {params})
             .then(response => response.data)
     },
     unFollow(userId: number) {
         const requestUrl = 'follow/' + userId
-        return instance.delete(requestUrl)
+        return instance.delete<ResponseType<{}>>(requestUrl)
             .then(response => response.data)
     },
     follow(userId: number) {
         const requestUrl = 'follow/' + userId
-        return instance.post(requestUrl)
+        return instance.post<ResponseType<{}>>(requestUrl)
             .then(response => response.data)
     }
+}
+
+type ResponseUsersType = {
+    items: UserStateType[]
+    error: string | null
+    totalCount: number
 }
 
 export type LogInRequestType = {
