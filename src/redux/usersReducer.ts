@@ -1,5 +1,6 @@
 import {usersAPI} from "DAL/API";
 import {AppThunk} from "./redux-store";
+import {toggleFollowingUser} from "utils/toggleFollowingUser";
 
 const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW'
 const SET_USERS = 'SET-USERS'
@@ -209,27 +210,15 @@ export const getUsersThunkCreator = (usersPerPage: number, currentPage: number =
 		}
 }
 
-export const followUserThunkCreator = (userId: number): AppThunk => {
+export const followUser = (userId: number): AppThunk => {
 		return (dispatch) => {
-				dispatch(setUserInFollowingProgressAC(userId, true))
-				usersAPI.follow(userId).then(data => {
-						if (data.resultCode === 0) {
-								dispatch(toggleFollowAC(userId))
-								dispatch(setUserInFollowingProgressAC(userId, false))
-						}
-				})
+				toggleFollowingUser(userId, usersAPI.follow, dispatch)
 		}
 }
 
-export const unFollowUserThunkCreator = (userId: number): AppThunk => {
+export const unFollowUser = (userId: number): AppThunk => {
 		return (dispatch) => {
-				dispatch(setUserInFollowingProgressAC(userId, true))
-				usersAPI.unFollow(userId).then(data => {
-						if (data.resultCode === 0) {
-								dispatch(toggleFollowAC(userId))
-								dispatch(setUserInFollowingProgressAC(userId, false))
-						}
-				})
+				toggleFollowingUser(userId, usersAPI.unFollow, dispatch)
 		}
 }
 

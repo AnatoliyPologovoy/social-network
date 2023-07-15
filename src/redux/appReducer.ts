@@ -36,7 +36,7 @@ type SetIsInitializedType = ReturnType<typeof setIsInitialized>
 export const initializeApp = (): AppThunk => async (dispatch) => {
 		try {
 				await dispatch(authMeTC())
-				usersAPI.getFriends(10).then(res => console.log(res) )
+				usersAPI.getFriends(10).then(res => console.log(res.items) )
 		} catch (e) {
 				console.log(e)
 				//need errors handler

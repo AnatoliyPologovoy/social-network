@@ -1,9 +1,9 @@
 import {connect} from "react-redux";
 import {
-    followUserThunkCreator,
+    followUser,
     getUsersThunkCreator,
     setUsersAC,
-    unFollowUserThunkCreator,
+    unFollowUser,
     UserStateType
 } from "redux/usersReducer";
 import {AppStateType} from "redux/redux-store";
@@ -89,8 +89,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 const objMapDispatchToProps = {
     setUsers: setUsersAC,
     getUsers: getUsersThunkCreator,
-    followUser: followUserThunkCreator,
-    unFollowUser: unFollowUserThunkCreator
+    followUser: followUser,
+    unFollowUser: unFollowUser
 }
 
 export const UsersContainer =

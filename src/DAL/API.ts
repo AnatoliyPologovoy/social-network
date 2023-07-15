@@ -18,8 +18,6 @@ export const usersAPI = {
             .then(response => response.data)
     },
     getFriends(usersPerPage: number, pageNumber: number = 1) {
-        const requestUrl = 'users?count=' + usersPerPage
-            + '&page=' + pageNumber + '&friend=true'
         const params = {
             count: usersPerPage,
             page: pageNumber,
@@ -30,12 +28,12 @@ export const usersAPI = {
     },
     unFollow(userId: number) {
         const requestUrl = 'follow/' + userId
-        return instance.delete<ResponseType<{}>>(requestUrl)
+        return instance.delete<ResponseType>(requestUrl)
             .then(response => response.data)
     },
     follow(userId: number) {
         const requestUrl = 'follow/' + userId
-        return instance.post<ResponseType<{}>>(requestUrl)
+        return instance.post<ResponseType>(requestUrl)
             .then(response => response.data)
     }
 }
@@ -53,7 +51,7 @@ export type LogInRequestType = {
     captcha?: boolean
 }
 
-type ResponseType<T = {}> = {
+export type ResponseType<T = {}> = {
     resultCode: number
     messages: string[],
     data: T
