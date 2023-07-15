@@ -1,0 +1,20 @@
+.pages {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 15px;
+}
+
+.numberPage {
+    padding: 0 2px;
+    cursor: pointer;
+}
+
+.numberPage:not(.currentPage):hover {
+    color: #99092a;
+}
+
+.currentPage {
+    font-weight: bold;
+    cursor: auto;
+}

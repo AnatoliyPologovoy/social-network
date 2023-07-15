@@ -36,7 +36,7 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
         this.props.getUsers(this.props.usersPerPage)
     }
 
-    onClickPageHandler = (page: number) => {
+    handlerClickPage = (page: number) => {
         this.props.getUsers(this.props.usersPerPage, page)
     }
 
@@ -51,7 +51,7 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
                     currentPage={this.props.currentPage}
                     maxPage={this.props.maxPage}
                     inFollowingProgressUsers={this.props.inFollowingProgressUsers}
-                    onClickPageHandler={this.onClickPageHandler}
+                    handlerClickPage={this.handlerClickPage}
                     followUser={this.props.followUser}
                     unFollowUser={this.props.unFollowUser}
                     isAuthorized={this.props.isAuthorized}
