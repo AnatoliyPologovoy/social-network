@@ -170,7 +170,7 @@ export const setUsersPerPage = (elemWidth: number, elemHeight: number) => {
 		if (usersPerPage % 2 !== 0) {
 				usersPerPage -= 1
 		}
-		console.log(usersPerPage)
+		console.log('usersPerPage ', usersPerPage)
 		return {
 				type: SET_USERS_PER_PAGE,
 				payload: {
@@ -186,6 +186,7 @@ type setUsersForPageACType = ReturnType<typeof setUsersPerPage>
 export const getUsersThunkCreator = (currentPage: number = 1):
 		AppThunk => {
 		return async (dispatch, getState) => {
+
 				dispatch(setIsFetchingAC(true))
 				const usersPerPage = getState().usersPage.usersPerPage
 				try {

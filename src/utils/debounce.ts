@@ -1,8 +1,8 @@
 export const debounce = function (cb: (...arg: any) => void, timeout: number) {
 		let idTimeout: any
-		return () => {
+		return function (...arg: any) {
 				const callCB = () => {
-						cb()
+						cb.apply(null, arg)
 				}
 				clearTimeout(idTimeout)
 				idTimeout = setTimeout(callCB, timeout)

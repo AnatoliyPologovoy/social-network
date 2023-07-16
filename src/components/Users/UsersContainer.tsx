@@ -42,7 +42,6 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
     }
 
     render() {
-        console.log('renderUsers')
         return (
             <>
                 {this.props.isFetching && <Preloader/>}

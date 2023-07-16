@@ -1,9 +1,10 @@
-import React, {useRef} from 'react';
-import {UserStateType} from "redux/usersReducer";
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import {getUsersThunkCreator, setUsersPerPage, UserStateType} from "redux/usersReducer";
 import {Paginator} from "components/common/Paginator/Paginator";
 import {User} from "components/Users/User/User";
 import cl from "components/Users/users.module.css"
 import {debounce} from "utils/debounce";
+import {useDispatch} from "react-redux";
 
 
 export type UsersPropsType = {
@@ -20,9 +21,31 @@ export type UsersPropsType = {
 }
 
 export const Users: React.FC<UsersPropsType> = (props) => {
+		const usersNode = useRef<null | HTMLUListElement>(null)
+		const dispatch = useDispatch()
+		const [resize, setResize] = useState<null | number>(null)
+
+		useEffect(() => {
+				window.addEventListener('resize', debounce((e) => {
+						console.log(e.currentTarget.innerWidth)
+						setResize(e.currentTarget.innerWidth)
+				}, 1000));
+		}, [])
+
+
+		useLayoutEffect(() => {
+				if (usersNode.current) {
+						const elemWidth = usersNode.current.offsetWidth
+						const elemHeight = usersNode.current.offsetHeight
+						dispatch(setUsersPerPage(elemWidth, elemHeight))
+						dispatch(getUsersThunkCreator(props.currentPage))
+						console.log(elemWidth)
+				}
+		}, [resize])
 
 		const disablingButton = (userId: number) => {
-				return props.inFollowingProgressUsers.includes(userId) || !props.isAuthorized
+				return props.inFollowingProgressUsers.includes(userId)
+						|| !props.isAuthorized
 		}
 		const mappedUsers = props.users.map(user => {
 						return <User
@@ -44,7 +67,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 								totalCountUsers={props.totalCountUsers}
 								usersPerPage={props.usersPerPage}
 						/>
-						<ul className={cl.users}>
+						<ul className={cl.users} ref={usersNode}>
 								{mappedUsers}
 						</ul>
 				</>
