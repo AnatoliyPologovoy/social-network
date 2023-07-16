@@ -2,6 +2,7 @@ import React from 'react';
 import {UserStateType} from "redux/usersReducer";
 import {NavLink} from "react-router-dom";
 import {Paginator} from "components/common/Paginator/Paginator";
+import {User} from "components/Users/User/User";
 
 
 export type UsersPropsType = {
@@ -19,37 +20,17 @@ export type UsersPropsType = {
 
 export const Users: React.FC<UsersPropsType> = (props) => {
 
-		const usersRender = props.users.map(us => {
-						const followTitle = us.followed ? 'unFollow' : 'Follow'
-						const urlPhoto = us.photos?.small || "https://i.pravatar.cc/38"
-						const userId = us.id
-
-						const onClickFollowButtonHandler = () => {
-								us.followed
-										? props.unFollowUser(userId)
-										: props.followUser(userId)
-						}
-
-						const isDisableFollowButton =
-								props.inFollowingProgressUsers.includes(userId) || !props.isAuthorized
-
-						return (
-								<li key={us.id}>
-										<NavLink to={'/profile/' + us.id}>
-												<img alt={'avatar ' + us.name} src={urlPhoto}/>
-										</NavLink>
-										<button
-												disabled={isDisableFollowButton}
-												onClick={onClickFollowButtonHandler}
-										>
-												{followTitle}
-										</button>
-										<div>
-												<span>{us.name}</span>
-												<span>{us.status}</span>
-										</div>
-								</li>
-						)
+		const disablingButton = (userId: number) => {
+				return props.inFollowingProgressUsers.includes(userId) || !props.isAuthorized
+		}
+		const mappedUsers = props.users.map((user, i) => {
+						return <User
+								key={i}
+								user={user}
+								disablingButton={disablingButton}
+								followUser={props.followUser}
+								unFollowUser={props.unFollowUser}
+						/>
 				}
 		)
 
@@ -63,7 +44,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 								usersPerPage={props.usersPerPage}
 						/>
 						<ul>
-								{usersRender}
+								{mappedUsers}
 						</ul>
 				</>
 		)
