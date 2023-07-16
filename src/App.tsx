@@ -1,24 +1,26 @@
-import React from 'react';
+import React, {FC, useEffect, useLayoutEffect, useRef} from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
-import {Sidebar} from "./components/Sidebar/Sidebar";
+import {Sidebar} from "components/Sidebar/Sidebar";
 import {BrowserRouter, Route} from "react-router-dom";
-import {News} from "./components/News/News";
-import {Music} from "./components/Music/Music";
-import {Settings} from "./components/Settings/Settings";
-import {ProfileContainer} from "./components/Profile/ProfileContainer";
-import {FriendType} from "./redux/State";
-import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-import {UsersContainer} from "./components/Users/UsersContainer";
-import {LoginPageContainer} from "./components/Login/LoginPageContainer";
-import {connect} from "react-redux";
+import {News} from "components/News/News";
+import {Music} from "components/Music/Music";
+import {Settings} from "components/Settings/Settings";
+import {ProfileContainer} from "components/Profile/ProfileContainer";
+import {FriendType} from "redux/State";
+import {DialogsContainer} from "components/Dialogs/DialogsContainer";
+import {UsersContainer} from "components/Users/UsersContainer";
+import {LoginPageContainer} from "components/Login/LoginPageContainer";
+import {connect, useDispatch} from "react-redux";
 import {initializeApp} from "redux/appReducer";
 import {AppStateType} from "redux/redux-store";
 import {Preloader} from "components/common/Preloader";
+import {debounce} from "utils/debounce";
+import {setUsersPerPage} from "redux/usersReducer";
 
 
 export type AppPropsType = {
-		friends: FriendType[]
+		// friends: FriendType[]
 		initializeApp: () => void
 } & MapStateToPropsType
 
@@ -26,46 +28,61 @@ type MapStateToPropsType = {
 		isInitialized: boolean
 }
 
-class App extends React.Component<AppPropsType> {
-		componentDidMount() {
-				this.props.initializeApp()
+const App:FC<AppPropsType> = ({isInitialized, initializeApp}) => {
+		const mainSectionNode = useRef<null | HTMLDivElement>(null)
+		const dispatch = useDispatch()
+
+		useEffect(() => {
+				// console.log(mainSectionNode.current) // null
+				initializeApp()
+				// isInitialized ? console.log(mainSectionNode.current) : initializeApp()
+				// window.addEventListener('resize', debounce((e) => {
+				// 		// console.log(e)
+				// 		console.log(mainSection.current?.offsetWidth )
+				// 		console.log(mainSection.current?.offsetHeight )
+				// }, 1000));
+		}, [isInitialized])
+
+		// useLayoutEffect(() => {
+		// 		if (isInitialized && mainSectionNode.current) {
+		// 				const elemWidth = mainSectionNode.current.offsetWidth
+		// 				const elemHeight = mainSectionNode.current.offsetHeight
+		// 				dispatch(setUsersPerPage(elemWidth, elemHeight))
+		// 		}
+		// })
+
+		if (!isInitialized) {
+				return <Preloader/> //protect routing
 		}
 
-		render() {
-				if (!this.props.isInitialized) {
-						return <Preloader/>
-				}
+		return (
+				<BrowserRouter>
+						<div className="App">
+								<Header/>
+								<Sidebar/>
+								<div className="main_section" ref={mainSectionNode}>
+										<Route path={'/news'} component={News}/>
 
-				return (
-						<BrowserRouter>
-								<div className="App">
-										<Header/>
-										<Sidebar friends={this.props.friends}/>
-										<div className="main_section">
-												<Route path={'/news'} component={News}/>
+										<Route path={'/dialogs'} render={() =>
+												<DialogsContainer
+												/>}/>
+										<Route exact path={'/'} render={() =>
+												<DialogsContainer
+												/>}/>
 
-												<Route path={'/dialogs'} render={() =>
-														<DialogsContainer
-														/>}/>
-												<Route exact path={'/'} render={() =>
-														<DialogsContainer
-														/>}/>
+										<Route path={'/profile/:userId?'} render={() =>
+												<ProfileContainer
+												/>}/>
 
-												<Route path={'/profile/:userId?'} render={() =>
-														<ProfileContainer
-														/>}/>
-
-												<Route path={'/music'} component={Music}/>
-												<Route path={'/users'} component={UsersContainer}/>
-												<Route path={'/settings'} component={Settings}/>
-												<Route path={'/login'} component={LoginPageContainer}/>
-										</div>
+										<Route path={'/music'} component={Music}/>
+										<Route path={'/users'} render={() => <UsersContainer/>}/>
+										<Route path={'/settings'} component={Settings}/>
+										<Route path={'/login'} component={LoginPageContainer}/>
 								</div>
-						</BrowserRouter>
-				);
-		}
+						</div>
+				</BrowserRouter>
+		);
 }
-
 
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {

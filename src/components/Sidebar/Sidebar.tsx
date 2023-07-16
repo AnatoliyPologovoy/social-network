@@ -1,11 +1,10 @@
 import React from "react";
 import cl from "./sidebar.module.css";
 import {NavLink} from "react-router-dom";
-import {FriendsBar} from "./Friends/FriendsBar";
-import {FriendType} from "../../redux/State";
+import {FriendType} from "redux/State";
 
 type SidebarPropsType = {
-    friends: FriendType[]
+    // friends: FriendType[]
 }
 
 export const Sidebar: React.FC<SidebarPropsType> = (props) => {
@@ -19,7 +18,7 @@ export const Sidebar: React.FC<SidebarPropsType> = (props) => {
                 <li><NavLink to="/users" activeClassName={cl.active}>Users</NavLink></li>
                 <li><NavLink to="/settings" activeClassName={cl.active}>Settings</NavLink></li>
             </ul>
-            <FriendsBar friends={props.friends}/>
+            {/*<FriendsBar friends={props.friends}/>*/}
         </div>
     )
 }

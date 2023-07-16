@@ -7,7 +7,7 @@ import {
     UserStateType
 } from "redux/usersReducer";
 import {AppStateType} from "redux/redux-store";
-import React from "react";
+import React, {MutableRefObject} from "react";
 
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader";
@@ -25,22 +25,24 @@ import {
 
 export type UsersAPIContainerPropsType = mapStateToPropsType & {
     setUsers: (users: UserStateType[]) => void
-    getUsers: (usersPerPage: number, currentPage?: number) => void
+    getUsers: (currentPage?: number) => void
     followUser: (userId: number) => void
     unFollowUser: (userId: number) => void
+
 }
 
 export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsType, any> {
 
     componentDidMount() {
-        this.props.getUsers(this.props.usersPerPage)
+        this.props.getUsers()
     }
 
     handlerClickPage = (page: number) => {
-        this.props.getUsers(this.props.usersPerPage, page)
+        this.props.getUsers(page)
     }
 
     render() {
+        console.log('renderUsers')
         return (
             <>
                 {this.props.isFetching && <Preloader/>}
@@ -82,7 +84,7 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         maxPage: getMaxPage(state),
         isFetching: getIsFetching(state),
         inFollowingProgressUsers: getInFollowingProgressUsers(state),
-        isAuthorized: getIsAuthorized(state)
+        isAuthorized: getIsAuthorized(state),
     }
 }
 

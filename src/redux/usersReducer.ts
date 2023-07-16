@@ -9,6 +9,7 @@ const SET_TOTAL_COUNT_USERS = 'SET_TOTAL_COUNT_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_IS_FETCHING = 'SET_IS_FETCHING'
 const SET_USER_IN_FOLLOWING_PROGRESS = 'SET_USER_IN_FOLLOWING_PROGRESS'
+const SET_USERS_PER_PAGE = 'SET_USERS_PER_PAGE'
 
 export type UserStateType = {
 		id: number
@@ -35,7 +36,7 @@ export type UsersStateType = {
 let initialState: UsersStateType = {
 		users: [],
 		totalCountUsers: 0,
-		usersPerPage: 20,
+		usersPerPage: 16,
 		currentPage: 1,
 		maxPage: 20,
 		isFetching: false,
@@ -46,6 +47,8 @@ export const usersReducer =
 		(state: UsersStateType = initialState,
 		 action: UsersActionsType): UsersStateType => {
 				switch (action.type) {
+						case SET_USERS_PER_PAGE:
+								return {...state, usersPerPage: action.payload.usersPerPage}
 						case TOGGLE_FOLLOW:
 								return {
 										...state, users: state.users.map(us => {
@@ -93,8 +96,13 @@ export type SetUsersACType = {
 }
 
 export type UsersActionsType =
-		ToggleFollowACType | SetUsersACType | SetTotalCountACType
-		| SetCurrentPageACType | SetIsFetching | setUserInFollowingProgressACType
+		| ToggleFollowACType
+		| SetUsersACType
+		| SetTotalCountACType
+		| SetCurrentPageACType
+		| SetIsFetching
+		| setUserInFollowingProgressACType
+		| setUsersForPageACType
 
 export const toggleFollowAC = (id: number): ToggleFollowACType => {
 		return {
@@ -157,12 +165,29 @@ export const setUserInFollowingProgressAC = (userId: number, isFetching: boolean
 
 type setUserInFollowingProgressACType = ReturnType<typeof setUserInFollowingProgressAC>
 
-//Thunks
+export const setUsersPerPage = (elemWidth: number, elemHeight: number) => {
+		let usersPerPage = Math.floor((elemWidth * elemHeight) / 30000)
+		if (usersPerPage % 2 !== 0) {
+				usersPerPage -= 1
+		}
+		console.log(usersPerPage)
+		return {
+				type: SET_USERS_PER_PAGE,
+				payload: {
+						usersPerPage
+				}
+		} as const
+}
 
-export const getUsersThunkCreator = (usersPerPage: number, currentPage: number = 1):
+type setUsersForPageACType = ReturnType<typeof setUsersPerPage>
+
+
+//Thunks
+export const getUsersThunkCreator = (currentPage: number = 1):
 		AppThunk => {
-		return async (dispatch) => {
+		return async (dispatch, getState) => {
 				dispatch(setIsFetchingAC(true))
+				const usersPerPage = getState().usersPage.usersPerPage
 				try {
 						const data = await
 								usersAPI.getUsers(usersPerPage, currentPage)

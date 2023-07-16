@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {UserStateType} from "redux/usersReducer";
 import {Paginator} from "components/common/Paginator/Paginator";
 import {User} from "components/Users/User/User";
 import cl from "components/Users/users.module.css"
+import {debounce} from "utils/debounce";
 
 
 export type UsersPropsType = {

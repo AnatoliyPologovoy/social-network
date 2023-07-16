@@ -1,8 +1,8 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC} from 'react';
 import {NavLink} from "react-router-dom";
 import {UserStateType} from "redux/usersReducer";
 import cl from "components/Users/User/user.module.css"
-
+import avatarPlaceholder from "assets/avatar_placeholder.png"
 
 type Props = {
 		user: UserStateType
@@ -16,22 +16,7 @@ export const User: FC<Props> = ({user, disablingButton, followUser, unFollowUser
 		const followTitle = isFollowed ? 'unFollow' : 'Follow'
 		const userId = user.id
 
-		const initialUrlPhoto = user.photos?.small || "https://placehold.co/100"
-		const [urlPhoto, setUrlPhoto] = useState(initialUrlPhoto)
-		// console.log(delay)
-		let id: any
-		useEffect(() => {
-				if (!user.photos?.small) {
-						const delay = Math.ceil((Math.random() * 1000) + Math.random() * 1000)
-						id = setTimeout(() => {
-								console.log(delay)
-								setUrlPhoto("https://i.pravatar.cc/100")
-						}, delay);
-				}
-				return () => {
-						clearTimeout(id)
-				}
-		}, [])
+		const urlPhoto = user.photos?.small || avatarPlaceholder
 
 
 		const handlerClickButtonFollow = () => {

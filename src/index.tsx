@@ -8,7 +8,7 @@ import {Provider} from "react-redux";
 ReactDOM.render(
     <Provider store={store}>
         <App
-            friends={store.getState().friends}
+            // friends={store.getState().friends}
         />
     </Provider>
     , document.getElementById('root')
