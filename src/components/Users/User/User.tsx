@@ -1,6 +1,8 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {NavLink} from "react-router-dom";
 import {UserStateType} from "redux/usersReducer";
+import cl from "components/Users/User/user.module.css"
+
 
 type Props = {
 		user: UserStateType
@@ -12,8 +14,25 @@ type Props = {
 export const User: FC<Props> = ({user, disablingButton, followUser, unFollowUser}) => {
 		const isFollowed = user.followed
 		const followTitle = isFollowed ? 'unFollow' : 'Follow'
-		const urlPhoto = user.photos?.small || "https://i.pravatar.cc/38"
 		const userId = user.id
+
+		const initialUrlPhoto = user.photos?.small || "https://placehold.co/100"
+		const [urlPhoto, setUrlPhoto] = useState(initialUrlPhoto)
+		// console.log(delay)
+		let id: any
+		useEffect(() => {
+				if (!user.photos?.small) {
+						const delay = Math.ceil((Math.random() * 1000) + Math.random() * 1000)
+						id = setTimeout(() => {
+								console.log(delay)
+								setUrlPhoto("https://i.pravatar.cc/100")
+						}, delay);
+				}
+				return () => {
+						clearTimeout(id)
+				}
+		}, [])
+
 
 		const handlerClickButtonFollow = () => {
 				isFollowed
@@ -24,9 +43,9 @@ export const User: FC<Props> = ({user, disablingButton, followUser, unFollowUser
 		const isDisableFollowButton = disablingButton(userId)
 
 		return (
-				<li key={user.id}>
+				<li key={user.id} className={cl.user}>
 						<NavLink to={'/profile/' + userId}>
-								<img alt={'avatar ' + user.name} src={urlPhoto}/>
+								<img alt={'avatar ' + user.name} src={urlPhoto} width={100} height={100}/>
 						</NavLink>
 						<button
 								disabled={isDisableFollowButton}

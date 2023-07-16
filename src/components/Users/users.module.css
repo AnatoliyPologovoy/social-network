@@ -1,12 +1,6 @@
-/*.numberPage {*/
-/*    cursor: pointer;*/
-/*}*/
-
-/*.numberPage:hover {*/
-/*    color: #99092a;*/
-/*}*/
-
-/*.currentPage {*/
-/*    font-weight: bold;*/
-/*    cursor: auto;*/
-/*}*/
+.users {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}

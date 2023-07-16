@@ -1,6 +1,7 @@
 import {usersAPI} from "DAL/API";
 import {AppThunk} from "./redux-store";
 import {toggleFollowingUser} from "utils/toggleFollowingUser";
+import ReactDOM from "react-dom";
 
 const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW'
 const SET_USERS = 'SET-USERS'
@@ -32,42 +33,9 @@ export type UsersStateType = {
 }
 
 let initialState: UsersStateType = {
-		users: [
-				{
-						id: 1, status: "Hello, world!", name: 'Roman', followed: true,
-						photos: {
-								small: null,
-								large: null
-						},
-						uniqueUrlName: null
-				},
-				{
-						id: 2, status: "This is my new post", name: 'Andrew', followed: true,
-						photos: {
-								small: null,
-								large: null
-						},
-						uniqueUrlName: null
-				},
-				{
-						id: 3, status: "I love React", name: 'Roman', followed: false,
-						photos: {
-								small: null,
-								large: null
-						},
-						uniqueUrlName: null
-				},
-				{
-						id: 4, status: "Wait invite for friends", name: 'Julia', followed: false,
-						photos: {
-								small: null,
-								large: null
-						},
-						uniqueUrlName: null
-				}
-		],
+		users: [],
 		totalCountUsers: 0,
-		usersPerPage: 8,
+		usersPerPage: 20,
 		currentPage: 1,
 		maxPage: 20,
 		isFetching: false,

@@ -1,8 +1,8 @@
 import React from 'react';
 import {UserStateType} from "redux/usersReducer";
-import {NavLink} from "react-router-dom";
 import {Paginator} from "components/common/Paginator/Paginator";
 import {User} from "components/Users/User/User";
+import cl from "components/Users/users.module.css"
 
 
 export type UsersPropsType = {
@@ -23,9 +23,9 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 		const disablingButton = (userId: number) => {
 				return props.inFollowingProgressUsers.includes(userId) || !props.isAuthorized
 		}
-		const mappedUsers = props.users.map((user, i) => {
+		const mappedUsers = props.users.map(user => {
 						return <User
-								key={i}
+								key={user.id}
 								user={user}
 								disablingButton={disablingButton}
 								followUser={props.followUser}
@@ -43,7 +43,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 								totalCountUsers={props.totalCountUsers}
 								usersPerPage={props.usersPerPage}
 						/>
-						<ul>
+						<ul className={cl.users}>
 								{mappedUsers}
 						</ul>
 				</>
