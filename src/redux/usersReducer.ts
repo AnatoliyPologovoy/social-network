@@ -36,7 +36,7 @@ export type UsersStateType = {
 let initialState: UsersStateType = {
 		users: [],
 		totalCountUsers: 0,
-		usersPerPage: 16,
+		usersPerPage: 10,
 		currentPage: 1,
 		maxPage: 20,
 		isFetching: false,
@@ -166,11 +166,12 @@ export const setUserInFollowingProgressAC = (userId: number, isFetching: boolean
 type setUserInFollowingProgressACType = ReturnType<typeof setUserInFollowingProgressAC>
 
 export const setUsersPerPage = (elemWidth: number, elemHeight: number) => {
-		let usersPerPage = Math.floor((elemWidth * elemHeight) / 30000)
-		if (usersPerPage % 2 !== 0) {
-				usersPerPage -= 1
-		}
-		console.log('usersPerPage ', usersPerPage)
+		const usersForWidth = Math.floor((elemWidth - 30) / 130)
+		const usersForHeight = Math.floor((elemHeight - 30) / 200)
+
+		let usersPerPage = usersForWidth * usersForHeight
+		console.log('usersPerPage ',  usersForWidth, usersForHeight)
+		console.log('width/height ',  elemWidth, elemHeight)
 		return {
 				type: SET_USERS_PER_PAGE,
 				payload: {
@@ -186,9 +187,9 @@ type setUsersForPageACType = ReturnType<typeof setUsersPerPage>
 export const getUsersThunkCreator = (currentPage: number = 1):
 		AppThunk => {
 		return async (dispatch, getState) => {
-
 				dispatch(setIsFetchingAC(true))
 				const usersPerPage = getState().usersPage.usersPerPage
+				console.log('getUsersThunkCreator, usersPerPage - ', usersPerPage)
 				try {
 						const data = await
 								usersAPI.getUsers(usersPerPage, currentPage)

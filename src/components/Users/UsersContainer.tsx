@@ -28,14 +28,13 @@ export type UsersAPIContainerPropsType = mapStateToPropsType & {
     getUsers: (currentPage?: number) => void
     followUser: (userId: number) => void
     unFollowUser: (userId: number) => void
-
 }
 
 export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsType, any> {
 
-    componentDidMount() {
-        this.props.getUsers()
-    }
+    // componentDidMount() {
+    //     this.props.getUsers()
+    // }
 
     handlerClickPage = (page: number) => {
         this.props.getUsers(page)

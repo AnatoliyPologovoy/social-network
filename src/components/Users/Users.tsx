@@ -27,19 +27,20 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 
 		useEffect(() => {
 				window.addEventListener('resize', debounce((e) => {
-						console.log(e.currentTarget.innerWidth)
-						setResize(e.currentTarget.innerWidth)
+						setResize(e.currentTarget.innerWidth + e.currentTarget.innerHeight)
 				}, 1000));
+				return () => {
+
+				}
 		}, [])
 
-
-		useLayoutEffect(() => {
+		useEffect(() => {
+				console.log('USERS useEffect')
 				if (usersNode.current) {
 						const elemWidth = usersNode.current.offsetWidth
 						const elemHeight = usersNode.current.offsetHeight
 						dispatch(setUsersPerPage(elemWidth, elemHeight))
 						dispatch(getUsersThunkCreator(props.currentPage))
-						console.log(elemWidth)
 				}
 		}, [resize])
 

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useLayoutEffect, useRef} from 'react';
 import {NavLink} from "react-router-dom";
 import {UserStateType} from "redux/usersReducer";
 import cl from "components/Users/User/user.module.css"
@@ -11,13 +11,21 @@ type Props = {
 		unFollowUser: (userId: number) => void
 }
 
-export const User: FC<Props> = ({user, disablingButton, followUser, unFollowUser}) => {
+export const User: FC<Props> = (
+		{
+				user,
+				disablingButton,
+				followUser,
+				unFollowUser,
+		}
+) => {
+
+
 		const isFollowed = user.followed
 		const followTitle = isFollowed ? 'unFollow' : 'Follow'
 		const userId = user.id
 
 		const urlPhoto = user.photos?.small || avatarPlaceholder
-
 
 		const handlerClickButtonFollow = () => {
 				isFollowed
