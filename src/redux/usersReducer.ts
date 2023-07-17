@@ -165,13 +165,7 @@ export const setUserInFollowingProgressAC = (userId: number, isFetching: boolean
 
 type setUserInFollowingProgressACType = ReturnType<typeof setUserInFollowingProgressAC>
 
-export const setUsersPerPage = (elemWidth: number, elemHeight: number) => {
-		const usersForWidth = Math.floor((elemWidth - 30) / 130)
-		const usersForHeight = Math.floor((elemHeight - 30) / 200)
-
-		let usersPerPage = usersForWidth * usersForHeight
-		console.log('usersPerPage ',  usersForWidth, usersForHeight)
-		console.log('width/height ',  elemWidth, elemHeight)
+export const setUsersPerPage = (usersPerPage: number) => {
 		return {
 				type: SET_USERS_PER_PAGE,
 				payload: {

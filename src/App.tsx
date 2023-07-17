@@ -25,13 +25,12 @@ type MapStateToPropsType = {
 		isInitialized: boolean
 }
 
-const App:FC<AppPropsType> = ({isInitialized, initializeApp}) => {
+const App: FC<AppPropsType> = ({isInitialized, initializeApp}) => {
+		const divNode = useRef<null | HTMLDivElement>(null)
 
 		useEffect(() => {
 				initializeApp()
 		}, [])
-
-
 
 		if (!isInitialized) {
 				return <Preloader/> //protect routing
@@ -42,7 +41,7 @@ const App:FC<AppPropsType> = ({isInitialized, initializeApp}) => {
 						<div className="App">
 								<Header/>
 								<Sidebar/>
-								<div className="main_section" >
+								<div className="main_section" ref={divNode}>
 										<Route path={'/news'} component={News}/>
 
 										<Route path={'/dialogs'} render={() =>
@@ -57,7 +56,8 @@ const App:FC<AppPropsType> = ({isInitialized, initializeApp}) => {
 												/>}/>
 
 										<Route path={'/music'} component={Music}/>
-										<Route path={'/users'} render={() => <UsersContainer/>}/>
+										<Route path={'/users'} render={() =>
+												<UsersContainer/>}/>
 										<Route path={'/settings'} component={Settings}/>
 										<Route path={'/login'} component={LoginPageContainer}/>
 								</div>

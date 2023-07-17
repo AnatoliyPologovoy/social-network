@@ -32,9 +32,10 @@ export type UsersAPIContainerPropsType = mapStateToPropsType & {
 
 export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsType, any> {
 
-    // componentDidMount() {
-    //     this.props.getUsers()
-    // }
+    componentDidMount() {
+        console.log(' Users componentDidMount')
+        this.props.getUsers()
+    }
 
     handlerClickPage = (page: number) => {
         this.props.getUsers(page)

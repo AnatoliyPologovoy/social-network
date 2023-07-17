@@ -5,6 +5,7 @@ import {User} from "components/Users/User/User";
 import cl from "components/Users/users.module.css"
 import {debounce} from "utils/debounce";
 import {useDispatch} from "react-redux";
+import {getNeedUsesPerPage} from "utils/getNeedUserPerPage";
 
 
 export type UsersPropsType = {
@@ -26,22 +27,27 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 		const [resize, setResize] = useState<null | number>(null)
 
 		useEffect(() => {
-				window.addEventListener('resize', debounce((e) => {
-						setResize(e.currentTarget.innerWidth + e.currentTarget.innerHeight)
-				}, 1000));
+				const setResizeCallBack = debounce((e) => {
+						setResize(e.currentTarget.innerWidth +
+								e.currentTarget.innerHeight)
+				}, 1000)
+				window.addEventListener('resize', setResizeCallBack)
 				return () => {
-
+						window.removeEventListener('resize', setResizeCallBack)
 				}
 		}, [])
 
-		useEffect(() => {
-				console.log('USERS useEffect')
+		useLayoutEffect(() => {
 				if (usersNode.current) {
 						const elemWidth = usersNode.current.offsetWidth
 						const elemHeight = usersNode.current.offsetHeight
-						dispatch(setUsersPerPage(elemWidth, elemHeight))
-						dispatch(getUsersThunkCreator(props.currentPage))
+						const userPerPage = getNeedUsesPerPage(elemWidth, elemHeight)
+						dispatch(setUsersPerPage(userPerPage))
 				}
+		}, [resize])
+
+		useEffect(() => {
+				resize && dispatch(getUsersThunkCreator(props.currentPage))
 		}, [resize])
 
 		const disablingButton = (userId: number) => {
@@ -58,6 +64,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 						/>
 				}
 		)
+
 
 		return (
 				<>
