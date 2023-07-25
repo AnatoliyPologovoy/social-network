@@ -37,6 +37,11 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 				}
 		}, [])
 
+		useEffect(() => {
+				resize && dispatch(getUsersThunkCreator(props.currentPage))
+		}, [resize])
+
+		//setUsersPerPage before call componentDidMount in parent UsersAPIContainer
 		useLayoutEffect(() => {
 				if (usersNode.current) {
 						const elemWidth = usersNode.current.offsetWidth
@@ -46,9 +51,6 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 				}
 		}, [resize])
 
-		useEffect(() => {
-				resize && dispatch(getUsersThunkCreator(props.currentPage))
-		}, [resize])
 
 		const disablingButton = (userId: number) => {
 				return props.inFollowingProgressUsers.includes(userId)
@@ -64,7 +66,6 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 						/>
 				}
 		)
-
 
 		return (
 				<>
