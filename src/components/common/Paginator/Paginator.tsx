@@ -1,5 +1,5 @@
 import cl from "components/common/Paginator/paginator.module.css";
-import React, {FC, MouseEvent, useState} from "react";
+import React, {FC, MouseEvent, useEffect, useState} from "react";
 
 type Props = {
 		maxPage: number
@@ -10,24 +10,46 @@ type Props = {
 }
 
 export const Paginator: FC<Props> = (props) => {
-		const [portion, setPortion] = useState(0)
+		const totalPages = Math.ceil(props.totalCountUsers / props.usersPerPage)
+		const startPortion = 0
+		const lastPortion = Math.floor(totalPages / props.maxPage)
+		const [portion, setPortion] = useState(startPortion)
+
+		useEffect(() => {
+				if (portion > lastPortion) {
+						setPortion(lastPortion)
+				}
+		}, [props.usersPerPage])
+
 		const firstPage = portion * props.maxPage + 1
-		const lastPage = (portion + 1) * props.maxPage
+		const lastPage = portion >= lastPortion ? totalPages : ((portion + 1) * props.maxPage)
 
 		let pages = []
 		for (let i = firstPage; i <= lastPage; i++) {
 				pages.push(i)
 		}
 
-		const totalPages = Math.ceil(props.totalCountUsers / props.usersPerPage)
 		pages.push(totalPages)
 
 		const handlerClickPageCallBack =
 				(isCurrentPage: boolean, page: number) => (e: MouseEvent<HTMLLIElement>) => {
 						!isCurrentPage && props.handlerClickPage(page)
+				}
+
+		const handlerClickButtonLeft = () => {
+				setPortion(prevState => {
+						return prevState === startPortion ? 0 : portion - 1
+				})
 		}
 
-const buttonRight = <button onClick={() => setPortion(portion+1)}> {'>>'} </button>
+		const handlerClickButtonRight = () => {
+				setPortion(prevState => {
+						return prevState === lastPortion ? lastPortion : portion + 1
+				})
+		}
+
+		const buttonRight = <button onClick={handlerClickButtonRight}> {'>>'} </button>
+		const buttonLeft = <button onClick={handlerClickButtonLeft}> {'<<'} </button>
 
 		const mappedPages = pages.map((p, i) => {
 				const dots = i === pages.length - 1 ? '...' : ''
@@ -35,18 +57,19 @@ const buttonRight = <button onClick={() => setPortion(portion+1)}> {'>>'} </butt
 				const className = cl.numberPage + ' ' + (isCurrentPage ? cl.currentPage : '')
 				return (
 						<li
-								key={p}
+								key={i}
 								className={className}
 								onClick={handlerClickPageCallBack(isCurrentPage, p)}
 						>
-            {dots}{p}
-            </li>
+								{dots}{p}
+						</li>
 				)
 		})
 		return (
 				<ul className={cl.pages}>
+						{startPortion ? null : buttonLeft}
 						{mappedPages}
-						{buttonRight}
+						{portion === lastPortion? null : buttonRight}
 				</ul>
 		)
 }
