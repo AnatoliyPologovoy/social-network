@@ -24,7 +24,7 @@ export type UsersPropsType = {
 export const Users: React.FC<UsersPropsType> = (props) => {
 		const usersNode = useRef<null | HTMLUListElement>(null)
 		const dispatch = useDispatch()
-		const [resize, setResize] = useState<null | number>(null)
+		const [resize, setResize] = useState<number>(0)
 
 		useEffect(() => {
 				const setResizeCallBack = debounce((e) => {
@@ -32,6 +32,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 								e.currentTarget.innerHeight)
 				}, 1000)
 				window.addEventListener('resize', setResizeCallBack)
+
 				return () => {
 						window.removeEventListener('resize', setResizeCallBack)
 				}
@@ -45,6 +46,10 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 		useLayoutEffect(() => {
 				if (usersNode.current) {
 						const elemWidth = usersNode.current.offsetWidth
+						// usersNode.current.addEventListener('resize', () => {
+						// 		setResize(elemWidth)
+						// })
+						console.log(elemWidth)
 						const elemHeight = usersNode.current.offsetHeight
 						const userPerPage = getNeedUsesPerPage(elemWidth, elemHeight)
 						dispatch(setUsersPerPage(userPerPage))
