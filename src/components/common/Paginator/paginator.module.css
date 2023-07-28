@@ -1,8 +1,15 @@
+.pagesWrapper {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
 .pages {
     display: flex;
+    flex-wrap: wrap;
     list-style: none;
     margin: 0;
-    padding: 15px;
+    padding: 5px;
 }
 
 .numberPage {

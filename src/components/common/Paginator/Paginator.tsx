@@ -26,11 +26,11 @@ export const Paginator: FC<Props> = (props) => {
 				}
 		}, [usersPerPage])
 
-		const firstPage = portion * maxPage + 1
-		const lastPage = portion >= lastPortion ? totalPages : ((portion + 1) * maxPage)
+		const firstPortionPage = portion * maxPage + 1
+		const lastPortionPage = portion >= lastPortion ? totalPages : ((portion + 1) * maxPage)
 
 		let pages = []
-		for (let i = firstPage; i <= lastPage; i++) {
+		for (let i = firstPortionPage; i <= lastPortionPage; i++) {
 				pages.push(i)
 		}
 
@@ -68,25 +68,31 @@ export const Paginator: FC<Props> = (props) => {
 				)
 		})
 
-		const handlerClickBorderPageCallBack = (numberPage: number) => () => {
-				currentPage !== numberPage && handlerClickPage(totalPages)
-				setPortion(numberPage === 1 ? 0 : lastPortion)
+		const renderFirstOrLastPage = (isFirstPage: boolean) => {
+				const numberPage = isFirstPage ? 1 : totalPages
+				const isCurrentPage = numberPage === currentPage
+				return <span
+						className={cl.numberPage + ' ' + (isCurrentPage && cl.currentPage)}
+						onClick={() => {
+								!isCurrentPage && handlerClickPage(numberPage)
+								setPortion(numberPage === 1 ? 0 : lastPortion)
+						}}
+				>
+						{!isFirstPage && '...'}
+						{numberPage}
+						{isFirstPage && '...'}
+				</span>
 		}
 
-		const totalLastPage =
-				<li
-						className={cl.numberPage + ' ' + (currentPage === totalPages && cl.currentPage)}
-						onClick={handlerClickBorderPageCallBack(totalPages)}
-				>
-						...{totalPages}
-				</li>
-
 		return (
-				<ul className={cl.pages}>
-						{portion > 0 && buttonLeft}
-						{mappedPages}
-						{portion !== lastPortion && buttonRight}
-						{portion !== lastPortion && totalLastPage}
-				</ul>
+				<div className={cl.pagesWrapper}>
+						{portion > 0 && renderFirstOrLastPage(true)}
+						<ul className={cl.pages}>
+								{portion > 0 && buttonLeft}
+								{mappedPages}
+								{portion !== lastPortion && buttonRight}
+						</ul>
+						{portion !== lastPortion && renderFirstOrLastPage(false)}
+				</div>
 		)
 }
