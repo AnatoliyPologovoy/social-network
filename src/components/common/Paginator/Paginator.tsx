@@ -10,8 +10,10 @@ type Props = {
 }
 
 export const Paginator: FC<Props> = (props) => {
-		const {maxPage, totalCountUsers,
-				usersPerPage, currentPage, handlerClickPage } = props
+		const {
+				maxPage, totalCountUsers,
+				usersPerPage, currentPage, handlerClickPage
+		} = props
 
 		const startPortion = 0
 		const totalPages = Math.ceil(totalCountUsers / usersPerPage)
@@ -31,8 +33,6 @@ export const Paginator: FC<Props> = (props) => {
 		for (let i = firstPage; i <= lastPage; i++) {
 				pages.push(i)
 		}
-
-		pages.push(totalPages)
 
 		const handlerClickPageCallBack =
 				(isCurrentPage: boolean, page: number) => (e: MouseEvent<HTMLLIElement>) => {
@@ -55,7 +55,6 @@ export const Paginator: FC<Props> = (props) => {
 		const buttonLeft = <button onClick={handlerClickButtonLeft}> {'<<'} </button>
 
 		const mappedPages = pages.map((p, i) => {
-				const dots = i === pages.length - 1 ? '...' : ''
 				const isCurrentPage = p === currentPage
 				const className = cl.numberPage + ' ' + (isCurrentPage ? cl.currentPage : '')
 				return (
@@ -64,15 +63,30 @@ export const Paginator: FC<Props> = (props) => {
 								className={className}
 								onClick={handlerClickPageCallBack(isCurrentPage, p)}
 						>
-								{dots}{p}
+								{p}
 						</li>
 				)
 		})
+
+		const handlerClickBorderPageCallBack = (numberPage: number) => () => {
+				currentPage !== numberPage && handlerClickPage(totalPages)
+				setPortion(numberPage === 1 ? 0 : lastPortion)
+		}
+
+		const totalLastPage =
+				<li
+						className={cl.numberPage + ' ' + (currentPage === totalPages && cl.currentPage)}
+						onClick={handlerClickBorderPageCallBack(totalPages)}
+				>
+						...{totalPages}
+				</li>
+
 		return (
 				<ul className={cl.pages}>
-						{startPortion ? null : buttonLeft}
+						{portion > 0 && buttonLeft}
 						{mappedPages}
-						{portion === lastPortion? null : buttonRight}
+						{portion !== lastPortion && buttonRight}
+						{portion !== lastPortion && totalLastPage}
 				</ul>
 		)
 }

@@ -22,35 +22,44 @@ export type UsersPropsType = {
 }
 
 export const Users: React.FC<UsersPropsType> = (props) => {
-		const usersNode = useRef<null | HTMLUListElement>(null)
+		const usersNode = useRef<null | HTMLDivElement>(null)
 		const dispatch = useDispatch()
 		const [resize, setResize] = useState<number>(0)
+		const [usersNodeSize, setusersNodeSize] = useState<number>(0)
 
 		useEffect(() => {
-				const setResizeCallBack = debounce((e) => {
-						setResize(e.currentTarget.innerWidth +
-								e.currentTarget.innerHeight)
-				}, 1000)
-				window.addEventListener('resize', setResizeCallBack)
-
-				return () => {
-						window.removeEventListener('resize', setResizeCallBack)
+				if (usersNode.current) {
+						const elemWidth = usersNode.current.offsetWidth
+						setusersNodeSize(elemWidth)
 				}
-		}, [])
+		})
 
+		// useEffect(() => {
+		// 		const setResizeCallBack = debounce((e) => {
+		// 				setResize(e.currentTarget.innerWidth +
+		// 						e.currentTarget.innerHeight)
+		// 		}, 1000)
+		// 		window.addEventListener('resize', setResizeCallBack)
+		//
+		// 		return () => {
+		// 				window.removeEventListener('resize', setResizeCallBack)
+		// 		}
+		// }, [])
+		//
 		// useEffect(() => {
 		// 		resize && dispatch(getUsersThunkCreator(props.currentPage))
 		// }, [resize])
-
+		// console.log('window.document.body.scrollWidth:  ', window.document.body.scrollWidth)
 		//setUsersPerPage before call componentDidMount in parent UsersAPIContainer
 		useLayoutEffect(() => {
 				if (usersNode.current) {
 						const elemWidth = usersNode.current.offsetWidth
+						console.log('usersNode.current: ', elemWidth)
 						const elemHeight = usersNode.current.offsetHeight
 						const userPerPage = getNeedUsesPerPage(elemWidth, elemHeight)
 						dispatch(setUsersPerPage(userPerPage))
 				}
-		}, [resize])
+		}, [usersNodeSize])
 
 
 		const disablingButton = (userId: number) => {
@@ -69,7 +78,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 		)
 
 		return (
-				<>
+				<div ref={usersNode}>
 						<Paginator
 								handlerClickPage={props.handlerClickPage}
 								currentPage={props.currentPage}
@@ -77,9 +86,9 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 								totalCountUsers={props.totalCountUsers}
 								usersPerPage={props.usersPerPage}
 						/>
-						<ul className={cl.users} ref={usersNode}>
+						<ul className={cl.users} >
 								{mappedUsers}
 						</ul>
-				</>
+				</div>
 		)
 }

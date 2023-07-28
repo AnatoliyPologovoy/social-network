@@ -1,20 +1,15 @@
 import {connect} from "react-redux";
-import {
-    followUser,
-    getUsersThunkCreator,
-    setUsersAC,
-    unFollowUser,
-    UserStateType
-} from "redux/usersReducer";
+import {followUser, getUsersThunkCreator, setUsersAC, unFollowUser, UserStateType} from "redux/usersReducer";
 import {AppStateType} from "redux/redux-store";
-import React, {MutableRefObject} from "react";
+import React from "react";
 
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader";
 import {compose} from "redux";
 import {
     getCurrentPage,
-    getInFollowingProgressUsers, getIsAuthorized,
+    getInFollowingProgressUsers,
+    getIsAuthorized,
     getIsFetching,
     getMaxPage,
     getTotalCountUsers,
