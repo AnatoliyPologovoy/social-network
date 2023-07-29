@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     padding: 15px;
+
 }
 
 .pages {
@@ -12,16 +13,43 @@
     padding: 5px;
 }
 
-.numberPage {
-    padding: 0 2px;
+.numberPage, .btn {
+    background-color: var(--paginator-btn-main-color);
+    padding: 2px;
+    margin-right: 2px;
+    margin-bottom: 5px;
     cursor: pointer;
+    outline: none;
+    border-radius: 1px;
+    box-shadow: 0 1px 1px var(--paginator-btn-shadow-color);
 }
 
-.numberPage:not(.currentPage):hover {
-    color: #99092a;
+.btn {
+    border: none;
+    padding: 3.5px;
+    width: 30px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.numberPage:not(.currentPage):hover,
+.btn:hover {
+    background-color: var(--paginator-btn-hover-main-color);
+    box-shadow: none;
+    color: #ffffff;
+}
+
+.numberPage:not(.currentPage):active,
+.btn:active {
+    background-color: var(--paginator-btn-active-main-color);
+    color: #ffffff;
+    box-shadow: none;
 }
 
 .currentPage {
+    background-color: var(--paginator-btn-current-color);
+    box-shadow: none;
+    color: #ffffff;
     font-weight: bold;
     cursor: auto;
 }

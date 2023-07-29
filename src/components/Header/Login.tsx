@@ -14,7 +14,9 @@ export const Login: React.FC<LoginPropsType> = (props) => {
             {props.isAuthorized ? (
                     <>
                         <span>{props.login}</span>
-                        <button onClick={props.logOut}>Log out</button>
+                        <button
+                            onClick={props.logOut}
+                        >Log out</button>
                     </>
                 )
                 :

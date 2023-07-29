@@ -10,6 +10,13 @@
   --gray-color: #8B8C89;
   --white-color: #E7ECEF;
 
+  --paginator-btn-main-color: #fce3c2;
+  --paginator-btn-shadow-color: #a96b1a;
+
+  --paginator-btn-hover-main-color: #986a2d;
+  --paginator-btn-active-main-color: #2d8898;
+  --paginator-btn-current-color: #11598f;
+
 }
 
 .App {

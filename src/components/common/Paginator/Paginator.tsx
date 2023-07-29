@@ -51,8 +51,14 @@ export const Paginator: FC<Props> = (props) => {
 				})
 		}
 
-		const buttonRight = <button onClick={handlerClickButtonRight}> {'>>'} </button>
-		const buttonLeft = <button onClick={handlerClickButtonLeft}> {'<<'} </button>
+		const buttonRight = <button
+				className={cl.btn}
+				onClick={handlerClickButtonRight}>
+				{'>'} </button>
+		const buttonLeft = <button
+				className={cl.btn}
+				onClick={handlerClickButtonLeft}>
+				{'<'} </button>
 
 		const mappedPages = pages.map((p, i) => {
 				const isCurrentPage = p === currentPage
@@ -87,11 +93,11 @@ export const Paginator: FC<Props> = (props) => {
 		return (
 				<div className={cl.pagesWrapper}>
 						{portion > 0 && renderFirstOrLastPage(true)}
+						{portion > 0 && buttonLeft}
 						<ul className={cl.pages}>
-								{portion > 0 && buttonLeft}
 								{mappedPages}
-								{portion !== lastPortion && buttonRight}
 						</ul>
+						{portion !== lastPortion && buttonRight}
 						{portion !== lastPortion && renderFirstOrLastPage(false)}
 				</div>
 		)
