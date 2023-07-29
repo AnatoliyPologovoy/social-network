@@ -1,5 +1,30 @@
 .user {
-    padding: 5px;
+    padding: 15px 5px;
     width: 120px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 5px;
+    background-color: var(--user-background);
+    line-height: 1.2;
+}
 
+.nameWrapper {
+    width: 100%;
+}
+
+.user p {
+    margin: 0;
+    word-break: break-all;
+    text-align: center;
+}
+
+p.status {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.user button {
+    margin-top: auto;
 }

@@ -1,7 +1,6 @@
 import {usersAPI} from "DAL/API";
 import {AppThunk} from "./redux-store";
 import {toggleFollowingUser} from "utils/toggleFollowingUser";
-import ReactDOM from "react-dom";
 
 const TOGGLE_FOLLOW = 'TOGGLE-FOLLOW'
 const SET_USERS = 'SET-USERS'
