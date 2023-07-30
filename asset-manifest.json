@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/social-network/static/css/main.3608c471.css",
+    "main.js": "/social-network/static/js/main.10aeab99.js",
+    "static/css/891.3cd0c1e6.chunk.css": "/social-network/static/css/891.3cd0c1e6.chunk.css",
+    "static/js/891.7050084d.chunk.js": "/social-network/static/js/891.7050084d.chunk.js",
+    "static/media/inheat-logo.png": "/social-network/static/media/inheat-logo.cdccda14e16454d13e41.png",
+    "static/media/Spinner.svg": "/social-network/static/media/Spinner.37f9204022e0b2246b0157b2da2ea509.svg",
+    "index.html": "/social-network/index.html",
+    "main.3608c471.css.map": "/social-network/static/css/main.3608c471.css.map",
+    "main.10aeab99.js.map": "/social-network/static/js/main.10aeab99.js.map",
+    "891.3cd0c1e6.chunk.css.map": "/social-network/static/css/891.3cd0c1e6.chunk.css.map",
+    "891.7050084d.chunk.js.map": "/social-network/static/js/891.7050084d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3608c471.css",
+    "static/js/main.10aeab99.js"
+  ]
+}
