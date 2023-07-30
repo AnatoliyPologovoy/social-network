@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useRef} from 'react';
+import React, {FC, lazy, useEffect, useRef} from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
 import {Sidebar} from "components/Sidebar/Sidebar";
@@ -6,7 +6,6 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "components/News/News";
 import {Music} from "components/Music/Music";
 import {Settings} from "components/Settings/Settings";
-import {ProfileContainer} from "components/Profile/ProfileContainer";
 import {DialogsContainer} from "components/Dialogs/DialogsContainer";
 import {UsersContainer} from "components/Users/UsersContainer";
 import {LoginPageContainer} from "components/Login/LoginPageContainer";
@@ -14,7 +13,10 @@ import {connect} from "react-redux";
 import {initializeApp} from "redux/appReducer";
 import {AppStateType} from "redux/redux-store";
 import {Preloader} from "components/common/Preloader";
+import {WithSuspenseComponent} from "components/HOC/WithSuspenseComponent";
 
+const ProfileContainer = lazy(() => import('components/Profile/ProfileContainer'));
+const SuspendedProfile = WithSuspenseComponent(ProfileContainer)
 
 export type AppPropsType = {
 		// friends: FriendType[]
@@ -51,9 +53,10 @@ const App: FC<AppPropsType> = ({isInitialized, initializeApp}) => {
 												<DialogsContainer
 												/>}/>
 
-										<Route path={'/profile/:userId?'} render={() =>
-												<ProfileContainer
-												/>}/>
+										<Route path={'/profile/:userId?'}
+													 render={() => <SuspendedProfile/>
+													 }
+										/>
 
 										<Route path={'/music'} component={Music}/>
 										<Route path={'/users'} render={() =>

@@ -39,9 +39,11 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
 }
 
 
-export const ProfileContainer = compose<React.ComponentType>(
+const ProfileContainer = compose<React.ComponentType>(
     connect(mapStateToProps, objForMapDispatchToProps),
     withRouter,
     WithAuthRedirect
 )(ProfileAPIContainer)
+
+export default ProfileContainer
 
