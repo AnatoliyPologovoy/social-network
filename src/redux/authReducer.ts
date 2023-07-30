@@ -8,7 +8,7 @@ const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
 const SET_IS_AUTHORIZED = 'SET_IS_AUTHORIZED'
 
 export type AuthUserDataType = {
-		id: number | null
+		id: string | null
 		email: string | null
 		login: string | null
 }

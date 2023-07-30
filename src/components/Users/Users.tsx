@@ -46,8 +46,8 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 		useLayoutEffect(() => {
 				if (usersNode.current) {
 						const elemWidth = usersNode.current.scrollWidth
-						console.log('usersNode.current: ', elemWidth)
 						const elemHeight = usersNode.current.scrollHeight
+						console.log('usersNode.current: ', elemWidth, ' x ', elemHeight)
 						const userPerPage = getNeedUsesPerPage(elemWidth, elemHeight)
 						dispatch(setUsersPerPage(userPerPage))
 				}

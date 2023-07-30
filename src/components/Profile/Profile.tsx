@@ -9,7 +9,6 @@ import {AddPost} from "./AddPost/AddPost";
 type ProfilePropsType = {
     cbAddPost: (post: string) => void
     profilePage: ProfilePageType
-    // currentProfile: CurrentProfileDomainType
 }
 
 const Profile: React.FC <ProfilePropsType> = (props) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import {addPostActionCreation, ProfilePageType, setProfileStatusTC, setUserProfileTC} from "../../redux/profileReducer";
+import {addPostActionCreation, ProfilePageType, getProfileStatusTC, getUserProfileTC} from "../../redux/profileReducer";
 import {AppStateType} from "redux/redux-store";
 import {connect} from "react-redux";
 import {ProfileAPIContainer} from "./ProfileAPIContainer";
@@ -18,15 +18,15 @@ type MapStateToProps = {
 
 type MapDispatchToPropsType = {
     cbAddPost: (post: string) => void
-    setUserProfile: (userId: string) => void
-    setProfileStatus: (userId: string) => void
+    getUserProfile: (userId: string) => void
+    getProfileStatus: (userId: string) => void
 }
 
 
 const objForMapDispatchToProps: MapDispatchToPropsType = {
     cbAddPost: addPostActionCreation,
-    setUserProfile: setUserProfileTC,
-    setProfileStatus: setProfileStatusTC
+    getUserProfile: getUserProfileTC,
+    getProfileStatus: getProfileStatusTC
 
 }
 

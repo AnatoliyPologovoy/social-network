@@ -1,6 +1,6 @@
 const paddingWrapper = 30
-const itemUserWidth = 130
-const itemUserHeight = 200
+const itemUserWidth = 135
+const itemUserHeight = 220
 
 export const getNeedUsesPerPage =
 		(elemWidth: number, elemHeight: number) => {

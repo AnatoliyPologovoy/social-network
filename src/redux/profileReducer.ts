@@ -128,7 +128,7 @@ export type setProfileStatusType = ReturnType<typeof setProfileStatusAC>
 
 //thunks
 
-export const setUserProfileTC = (userId: string): AppThunk => {
+export const getUserProfileTC = (userId: string): AppThunk => {
 		return async (dispatch) => {
 				try {
 						const data = await profileAPI.getProfile(userId)
@@ -140,7 +140,7 @@ export const setUserProfileTC = (userId: string): AppThunk => {
 		}
 }
 
-export const setProfileStatusTC = (userId: string): AppThunk => {
+export const getProfileStatusTC = (userId: string): AppThunk => {
 		return async (dispatch) => {
 				try {
 						let data = await profileAPI.getProfileStatus(userId)

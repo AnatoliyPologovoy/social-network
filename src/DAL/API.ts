@@ -1,6 +1,7 @@
 import axios from "axios";
 import {CurrentProfileDomainType} from "redux/profileReducer";
 import {UserStateType} from "redux/usersReducer";
+import {AuthUserDataType} from "redux/authReducer";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -57,9 +58,10 @@ export type ResponseType<T = {}> = {
     data: T
 }
 
+
 export const authAPI = {
     authMe() {
-        return instance.get('auth/me')
+        return instance.get<ResponseType<AuthUserDataType>>('auth/me')
             .then(response => response.data)
     },
     logIn(loginData: LogInRequestType) {

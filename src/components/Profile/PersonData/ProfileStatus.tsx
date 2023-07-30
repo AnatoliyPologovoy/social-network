@@ -1,4 +1,4 @@
-import React, {ChangeEvent, JSXElementConstructor} from "react";
+import React, {ChangeEvent} from "react";
 import cl from "./personData.module.css"
 
 type StatusPropsType = {

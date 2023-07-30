@@ -1,6 +1,6 @@
 import React from 'react';
 import Profile from "./Profile";
-import {CurrentProfileDomainType, ProfilePageType} from "redux/profileReducer";
+import {ProfilePageType} from "redux/profileReducer";
 import {Redirect, RouteComponentProps} from "react-router-dom";
 import {AuthUserDataType} from "redux/authReducer";
 
@@ -9,21 +9,20 @@ type ProfilePropsType = {
     cbAddPost: (post: string) => void
     profilePage: ProfilePageType
     authData: AuthUserDataType
-    // currentProfile: CurrentProfileDomainType
-    setUserProfile: (userId: string) => void
-    setProfileStatus: (userId: string) => void
+    getUserProfile: (userId: string) => void
+    getProfileStatus: (userId: string) => void
 } & RouteComponentProps<{ userId: string }>
 
 export class ProfileAPIContainer extends React.Component<ProfilePropsType, any> {
 
     componentDidMount() {
         const userId = this.props.match.params.userId
-        const ownUserId = this.props.authData.id && this.props.authData.id.toString()
+        const ownUserId = this.props.authData.id
         const currentUserId = userId || ownUserId
 
         if (currentUserId) {
-            this.props.setUserProfile(currentUserId)
-            this.props.setProfileStatus(currentUserId)
+            this.props.getUserProfile(currentUserId)
+            this.props.getProfileStatus(currentUserId)
         }
         else {
             return <Redirect to={'/login'}/>

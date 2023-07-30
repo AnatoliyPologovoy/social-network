@@ -2,7 +2,7 @@ import React, {FC, lazy, useEffect, useRef} from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
 import {Sidebar} from "components/Sidebar/Sidebar";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route} from "react-router-dom";
 import {News} from "components/News/News";
 import {Music} from "components/Music/Music";
 import {Settings} from "components/Settings/Settings";
@@ -39,7 +39,7 @@ const App: FC<AppPropsType> = ({isInitialized, initializeApp}) => {
 		}
 
 		return (
-				<BrowserRouter>
+				<HashRouter>
 						<div className="App">
 								<Header/>
 								<Sidebar/>
@@ -65,7 +65,7 @@ const App: FC<AppPropsType> = ({isInitialized, initializeApp}) => {
 										<Route path={'/login'} component={LoginPageContainer}/>
 								</div>
 						</div>
-				</BrowserRouter>
+				</HashRouter>
 		);
 }
 

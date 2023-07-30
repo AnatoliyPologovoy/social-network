@@ -14,7 +14,8 @@ a {
 }
 
 .sidebar .active {
-    color: chocolate;
+    text-decoration: underline;
+    text-underline-position: under;
 }
 
 a:visited {
