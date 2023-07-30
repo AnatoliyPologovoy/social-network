@@ -12,8 +12,8 @@ type ProfilePropsType = {
 }
 
 const Profile: React.FC <ProfilePropsType> = (props) => {
-    const srcImg = props.profilePage.personData.mainImg
-    const personData = props.profilePage.personData
+    // const srcImg = props.profilePage.personData.mainImg
+    // const personData = props.profilePage.personData
     const postsData = props.profilePage.postsData
     const profileStatus = props.profilePage.status
     const currentProfile = props.profilePage.currentProfile
@@ -21,12 +21,12 @@ const Profile: React.FC <ProfilePropsType> = (props) => {
     return (
         <div>
             <div className={cl.profile}>
-                <img
-                    src={srcImg}
-                    alt={'#'}
-                />
+                {/*<img*/}
+                {/*    src={srcImg}*/}
+                {/*    alt={'#'}*/}
+                {/*/>*/}
                 <PersonData
-                    data={personData}
+                    // data={personData}
                     currentProfile={currentProfile}
                     profileStatus={profileStatus}
                 />

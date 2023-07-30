@@ -9,9 +9,9 @@
     height: auto;
     border-radius: 50%;
     position: relative;
-    margin-bottom: -100px;
-    top: -100px;
-    float: left;
+    /*margin-bottom: -100px;*/
+    /*top: -100px;*/
+    /*float: left;*/
 }
 
 .name {
