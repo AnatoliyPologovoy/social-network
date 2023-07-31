@@ -9,6 +9,7 @@ import {AddPost} from "./AddPost/AddPost";
 type ProfilePropsType = {
     cbAddPost: (post: string) => void
     profilePage: ProfilePageType
+    isHostUser: boolean
 }
 
 const Profile: React.FC <ProfilePropsType> = (props) => {
@@ -21,12 +22,8 @@ const Profile: React.FC <ProfilePropsType> = (props) => {
     return (
         <div>
             <div className={cl.profile}>
-                {/*<img*/}
-                {/*    src={srcImg}*/}
-                {/*    alt={'#'}*/}
-                {/*/>*/}
                 <PersonData
-                    // data={personData}
+                    isHostUser={props.isHostUser}
                     currentProfile={currentProfile}
                     profileStatus={profileStatus}
                 />

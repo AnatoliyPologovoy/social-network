@@ -1,5 +1,5 @@
 import {AllActionsType, AppStateType, AppThunk} from "./redux-store";
-import {authAPI} from "DAL/API";
+import {authAPI, ResponseAuthUserDataType} from "DAL/API";
 import {stopSubmit} from "redux-form";
 import {ThunkAction} from "redux-thunk";
 
@@ -8,7 +8,7 @@ const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
 const SET_IS_AUTHORIZED = 'SET_IS_AUTHORIZED'
 
 export type AuthUserDataType = {
-		id: string | null
+		id: number | null
 		email: string | null
 		login: string | null
 }
@@ -30,7 +30,7 @@ const initialState: AuthStateType = {
 		data: {
 				id: null,
 				email: null,
-				login: null,
+				login: null
 		},
 		isFetching: false,
 		isAuthorized: false
@@ -93,6 +93,7 @@ export const authMeTC = (): ThunkAction<Promise<any>, AppStateType, unknown, All
 				return authAPI.authMe()
 						.then(data => {
 								if (data.resultCode === 0) {
+										// dispatch(setAuthUserDataAC({...data.data, id: data.data.id.toString()}))
 										dispatch(setAuthUserDataAC(data.data))
 										dispatch(setIsAuthorizedAC(true))
 								} else {
@@ -130,7 +131,7 @@ export const logoutTC = (): AppThunk => {
 								dispatch(setAuthUserDataAC({
 										id: null,
 										email: null,
-										login: null,
+										login: null
 								}))
 						}
 				})

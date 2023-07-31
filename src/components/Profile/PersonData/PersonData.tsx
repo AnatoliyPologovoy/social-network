@@ -1,19 +1,24 @@
 import React from "react";
 import cl from "./personData.module.css"
-import {CurrentProfileDomainType, PersonDataType} from "redux/profileReducer";
+import {CurrentProfileDomainType, PersonDataType, updateUserProfileTC} from "redux/profileReducer";
 import {ProfileStatus} from "./ProfileStatus";
 import avatarPlaceholder from "assets/avatar_placeholder.png"
+import {useDispatch} from "react-redux";
 
 
 type PersonDataPropsType = {
-    // data: PersonDataType,
+    isHostUser: boolean
     currentProfile: CurrentProfileDomainType,
     profileStatus: string
 }
 
 
 export const PersonData: React.FC<PersonDataPropsType> = (props) => {
-    // const isCurrentProfile = !!props.currentProfile
+    const dispatch = useDispatch()
+    const updateStatus = (status: string) => {
+        dispatch(updateUserProfileTC(status))
+    }
+
     const srcImg = props.currentProfile?.photos?.large ?
         props.currentProfile.photos.large : avatarPlaceholder
 
@@ -26,9 +31,12 @@ export const PersonData: React.FC<PersonDataPropsType> = (props) => {
                 alt={"аватарка пользователя " + props.currentProfile?.fullName}/>
             <div className={cl.nameWrapper}>
                 <h2 className={cl.name}>{fullName}</h2>
-                <ProfileStatus status={props.profileStatus}/>
+                <ProfileStatus
+                    isHostUser={props.isHostUser}
+                    status={props.profileStatus}
+                    updateStatus={updateStatus}
+                />
             </div>
-            {/*<p className={cl.age}> {props.data.age}</p>*/}
         </div>
     )
 }

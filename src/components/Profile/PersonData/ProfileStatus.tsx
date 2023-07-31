@@ -3,6 +3,8 @@ import cl from "./personData.module.css"
 
 type StatusPropsType = {
     status: string
+    updateStatus: (status: string) => void
+    isHostUser: boolean
 }
 
 export class ProfileStatus extends React.Component<StatusPropsType, any> {
@@ -33,13 +35,22 @@ export class ProfileStatus extends React.Component<StatusPropsType, any> {
 
 
     render() {
+        const handlerClickButtonStatus = () => {
+            if (this.state.isEditMode) {
+                this.props.updateStatus(this.state.input)
+                toggleModeCB()
+            }
+            else {
+                toggleModeCB()
+            }
+        }
         const toggleModeCB = this.toggleMode.bind(this)
         const onChangeInputCB = this.changeInput.bind(this)
         const viewStatus = <span onDoubleClick={toggleModeCB}>{this.state.input}</span>
         const changeStatus =
             <input
                 onChange={onChangeInputCB}
-                onBlur={toggleModeCB}
+                // onBlur={toggleModeCB}
                 type={'text'}
                 value={this.state.input}
                 autoFocus
@@ -48,6 +59,9 @@ export class ProfileStatus extends React.Component<StatusPropsType, any> {
         return (
             <div className={cl.status}>
                 {renderStatus}
+                {this.props.isHostUser &&
+                    <button onClick={handlerClickButtonStatus}>{this.state.isEditMode ? 'Save' : 'Edit'}</button>
+                }
             </div>
         )
     }

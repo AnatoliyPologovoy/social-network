@@ -34,7 +34,6 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
     return {
         profilePage: getProfilePage(state),
         authData: getAuthData(state)
-        // currentProfile: state.profilePage.currentProfile,
     }
 }
 

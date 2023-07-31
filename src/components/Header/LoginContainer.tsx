@@ -12,9 +12,10 @@ export type LoginContainerPropsType = {
 }
 
 class LoginContainer extends React.Component<LoginContainerPropsType, {}> {
-    componentDidMount() {
-        this.props.authMe()
-    }
+    // componentDidMount() {
+    //     console.log('LoginContainer did mount')
+    //     this.props.authMe()
+    // }
 
     render() {
         return (

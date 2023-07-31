@@ -58,10 +58,16 @@ export type ResponseType<T = {}> = {
     data: T
 }
 
+export type ResponseAuthUserDataType = {
+    id: number
+    email: string
+    login: string
+}
+
 
 export const authAPI = {
     authMe() {
-        return instance.get<ResponseType<AuthUserDataType>>('auth/me')
+        return instance.get<ResponseType<ResponseAuthUserDataType>>('auth/me')
             .then(response => response.data)
     },
     logIn(loginData: LogInRequestType) {
@@ -87,7 +93,7 @@ export const profileAPI = {
             .then(res => res.data)
     },
     updateProfileStatus(status: string) {
-        return instance.put('profile/status/', {status})
+        return instance.put<ResponseType>('profile/status/', {status})
             .then(res => res.data)
     },
 

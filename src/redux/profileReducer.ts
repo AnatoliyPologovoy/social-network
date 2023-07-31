@@ -26,7 +26,6 @@ export type PersonDataType = {
 export type ProfilePageType = {
 		postsData: PostsType
 		postText: string
-		// personData: PersonDataType
 		currentProfile: CurrentProfileDomainType
 		status: string
 }
@@ -59,13 +58,6 @@ let initialState: ProfilePageType = {
 				{id: 3, text: "I love React", likes: 125},
 		],
 		postText: '',
-		// personData: {
-		// 		age: 20,
-		// 		name: 'Anatoliy',
-		// 		id: 1,
-		// 		avatar: avatar1,
-		// 		mainImg: "https://n1s2.hsmedia.ru/60/b5/cc/60b5cc5266a98b966e2f35c57ed388c8/690x380_0x0a330c2a_12567029551616070388.jpeg"
-		// },
 		currentProfile: null,
 		status: ''
 }
@@ -140,6 +132,20 @@ export const getUserProfileTC = (userId: string): AppThunk => {
 		}
 }
 
+export const updateUserProfileTC = (status: string): AppThunk => {
+	return async (dispatch) => {
+			try {
+					const data = await profileAPI.updateProfileStatus(status)
+					if (data.resultCode === 0) {
+							dispatch(setProfileStatusAC(status))
+					}
+			} catch (e) {
+					console.log(e)
+					//need errors handler
+			}
+	}
+}
+
 export const getProfileStatusTC = (userId: string): AppThunk => {
 		return async (dispatch) => {
 				try {
@@ -153,7 +159,5 @@ export const getProfileStatusTC = (userId: string): AppThunk => {
 		}
 }
 
-
-// export type setUserProfileType = ReturnType<typeof setUserProfileTC>
 
 
