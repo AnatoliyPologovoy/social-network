@@ -1,17 +1,12 @@
 .personData {
     padding: 25px;
-    position: relative;
-
+    display: flex;
 }
 
 .imgAvatar {
     width: 200px;
     height: auto;
     border-radius: 50%;
-    position: relative;
-    /*margin-bottom: -100px;*/
-    /*top: -100px;*/
-    /*float: left;*/
 }
 
 .name {
@@ -19,14 +14,33 @@
     margin: 0;
 }
 
-.age {
-    font-size: 20px;
+.inputFile {
+    visibility: hidden;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+
+.inputFileLabel {
+    position: absolute;
+}
+
+.updatePhotoIcon {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 170px;
+    left: 170px;
+    cursor: pointer;
+    fill: #274C77;
+}
+
+.updatePhotoIcon:hover {
+    fill: #a96b1a;
 }
 
 .nameWrapper {
-    margin-left: 250px;
-    margin-top: 5px;
-    margin-bottom: 10px;
+    margin-left: 35px;
 }
 
 .status {
@@ -46,5 +60,4 @@
 
 .statusIcon:hover {
     fill: #a96b1a;
-    /*box-shadow: 0 0 5px 0 #274C77;*/
 }

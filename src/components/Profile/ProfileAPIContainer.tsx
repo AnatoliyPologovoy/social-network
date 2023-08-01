@@ -15,7 +15,7 @@ type ProfilePropsType = {
 
 export class ProfileAPIContainer extends React.Component<ProfilePropsType, any> {
 
-		componentDidMount() {
+		getUserData() {
 				const userId = this.props.match.params.userId
 				const ownUserId = this.props.authData?.id
 				const currentUserId = userId || ownUserId
@@ -28,10 +28,19 @@ export class ProfileAPIContainer extends React.Component<ProfilePropsType, any> 
 				}
 		}
 
+		componentDidMount() {
+				this.getUserData()
+		}
 
-		//применить profileAPI.updateProfileStatus(status) для обновления статуса
-		// обновить можно только свой статус
-		// state.auth.data.id === profilePage.currentProfile.userId
+		componentDidUpdate(
+				prevProps: Readonly<ProfilePropsType>,
+				prevState: Readonly<any>,
+				snapshot?: any) {
+				if (prevProps.match.params.userId !== this.props.match.params.userId) {
+						this.getUserData()
+				}
+		}
+
 
 		render() {
 				const isHostUser = this.props.authData.id === this.props.profilePage.currentProfile?.userId

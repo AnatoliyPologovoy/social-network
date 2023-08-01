@@ -32,6 +32,7 @@ export type ProfilePageType = {
 
 export type CurrentProfileDomainType = {
 		userId: number
+		aboutMe: string
 		lookingForAJob: boolean
 		lookingForAJobDescription: string
 		fullName: string
@@ -132,7 +133,7 @@ export const getUserProfileTC = (userId: string): AppThunk => {
 		}
 }
 
-export const updateUserProfileTC = (status: string): AppThunk => {
+export const updateUserProfileStatusTC = (status: string): AppThunk => {
 	return async (dispatch) => {
 			try {
 					const data = await profileAPI.updateProfileStatus(status)

@@ -35,23 +35,23 @@ export class ProfileStatus extends React.Component<StatusPropsType, any> {
 						})
 		}
 
+		handlerClickButtonStatus = () => {
+				if (this.state.isEditMode) {
+						this.props.updateStatus(this.state.input)
+						this.toggleMode()
+				} else {
+						this.toggleMode()
+				}
+		}
+
 
 		render() {
-				const handlerClickButtonStatus = () => {
-						if (this.state.isEditMode) {
-								this.props.updateStatus(this.state.input)
-								toggleModeCB()
-						} else {
-								toggleModeCB()
-						}
-				}
 				const toggleModeCB = this.toggleMode.bind(this)
 				const onChangeInputCB = this.changeInput.bind(this)
 				const viewStatus = <span onDoubleClick={toggleModeCB}>{this.state.input}</span>
 				const changeStatus =
 						<input
 								onChange={onChangeInputCB}
-								// onBlur={toggleModeCB}
 								type={'text'}
 								value={this.state.input}
 								autoFocus
@@ -61,13 +61,13 @@ export class ProfileStatus extends React.Component<StatusPropsType, any> {
 						<div className={cl.status}>
 								{renderStatus}
 								{this.props.isHostUser &&
-								this.state.isEditMode ?
+										(this.state.isEditMode ?
 										<SaveIcon className={cl.statusIcon}
-															onClick={handlerClickButtonStatus}/>
+															onClick={this.handlerClickButtonStatus}/>
 										:
 										<EditIcon
 												className={cl.statusIcon}
-												onClick={handlerClickButtonStatus}/>
+												onClick={this.handlerClickButtonStatus}/>)
 								}
 						</div>
 				)
