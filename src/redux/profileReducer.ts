@@ -6,6 +6,7 @@ const changeInputPostText = 'CHANGE-INPUT-POST-TEXT'
 const addPost = 'ADD-POST'
 const SET_CURRENT_PROFILE = 'SET_CURRENT_PROFILE'
 const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS'
+const SET_PROFILE_PHOTOS = 'SET_PROFILE_PHOTOS'
 
 //posts types
 export type PostItemType = {
@@ -30,27 +31,29 @@ export type ProfilePageType = {
 		status: string
 }
 
+export type ProfilePhotos = {
+		small: string | null
+		large: string | null
+}
+
 export type CurrentProfileDomainType = {
-		userId: number
-		aboutMe: string
-		lookingForAJob: boolean
-		lookingForAJobDescription: string
-		fullName: string
+		userId: number | null
+		aboutMe: string | null
+		lookingForAJob: boolean | null
+		lookingForAJobDescription: string | null
+		fullName: string | null
 		contacts: {
-				github: string
-				vk: string
-				facebook: string
-				instagram: string
-				twitter: string
-				website: string
-				youtube: string
-				mainLink: string
+				github: string | null
+				vk: string | null
+				facebook: string | null
+				instagram: string | null
+				twitter: string | null
+				website: string | null
+				youtube: string | null
+				mainLink: string | null
 		}
-		photos: {
-				small: string | null
-				large: string | null
-		}
-} | null
+		photos: ProfilePhotos
+}
 
 let initialState: ProfilePageType = {
 		postsData: [
@@ -59,7 +62,27 @@ let initialState: ProfilePageType = {
 				{id: 3, text: "I love React", likes: 125},
 		],
 		postText: '',
-		currentProfile: null,
+		currentProfile: {
+				userId: null,
+				aboutMe: null,
+				lookingForAJob: null,
+				lookingForAJobDescription: null,
+				fullName: null,
+				contacts: {
+						github: null,
+						vk: null,
+						facebook: null,
+						instagram: null,
+						twitter: null,
+						website: null,
+						youtube: null,
+						mainLink: null,
+				},
+				photos: {
+						small: null,
+						large: null,
+				}
+		},
 		status: ''
 }
 
@@ -69,7 +92,7 @@ export type ActionAddPostType = {
 }
 
 export type ProfileActions = ActionAddPostType | setCurrentProfile |
-		setProfileStatusType
+		setProfileStatusType | setProfilePhotoType
 
 export const profileReducer =
 		(state: ProfilePageType = initialState,
@@ -93,6 +116,10 @@ export const profileReducer =
 								return {...state, currentProfile: action.profile}
 						case "SET_PROFILE_STATUS" :
 								return {...state, status: action.status}
+						case "SET_PROFILE_PHOTOS":
+								return {...state, currentProfile: {
+										...state.currentProfile, photos: action.photos
+										}}
 						default:
 								return state
 				}
@@ -118,6 +145,15 @@ export const setProfileStatusAC = (status: string) => {
 
 export type setProfileStatusType = ReturnType<typeof setProfileStatusAC>
 
+export const setProfilePhotoAC = (photos: ProfilePhotos) => {
+		return {
+				type: SET_PROFILE_PHOTOS,
+				photos
+		} as const
+}
+
+export type setProfilePhotoType = ReturnType<typeof setProfilePhotoAC>
+
 
 //thunks
 
@@ -134,17 +170,17 @@ export const getUserProfileTC = (userId: string): AppThunk => {
 }
 
 export const updateUserProfileStatusTC = (status: string): AppThunk => {
-	return async (dispatch) => {
-			try {
-					const data = await profileAPI.updateProfileStatus(status)
-					if (data.resultCode === 0) {
-							dispatch(setProfileStatusAC(status))
-					}
-			} catch (e) {
-					console.log(e)
-					//need errors handler
-			}
-	}
+		return async (dispatch) => {
+				try {
+						const data = await profileAPI.updateProfileStatus(status)
+						if (data.resultCode === 0) {
+								dispatch(setProfileStatusAC(status))
+						}
+				} catch (e) {
+						console.log(e)
+						//need errors handler
+				}
+		}
 }
 
 export const getProfileStatusTC = (userId: string): AppThunk => {
@@ -153,6 +189,21 @@ export const getProfileStatusTC = (userId: string): AppThunk => {
 						let data = await profileAPI.getProfileStatus(userId)
 						data = data || 'No status'
 						dispatch(setProfileStatusAC(data))
+				} catch (e) {
+						console.log(e)
+						//need errors handler
+				}
+		}
+}
+
+export const updateProfilePhotoTC = (photo: File): AppThunk => {
+		return async (dispatch) => {
+				try {
+						let data = await profileAPI.updateProfilePhoto(photo)
+						if (data.resultCode === 0) {
+								dispatch(setProfilePhotoAC(data.data))
+								console.log('photo upload')
+						}
 				} catch (e) {
 						console.log(e)
 						//need errors handler

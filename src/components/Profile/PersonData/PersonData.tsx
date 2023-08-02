@@ -1,6 +1,11 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import cl from "./personData.module.css"
-import {CurrentProfileDomainType, PersonDataType, updateUserProfileStatusTC} from "redux/profileReducer";
+import {
+		CurrentProfileDomainType,
+		PersonDataType,
+		updateProfilePhotoTC,
+		updateUserProfileStatusTC
+} from "redux/profileReducer";
 import {ProfileStatus} from "./ProfileStatus";
 import avatarPlaceholder from "assets/avatar_placeholder.png"
 import {useDispatch} from "react-redux";
@@ -16,10 +21,17 @@ type PersonDataPropsType = {
 
 export const PersonData: React.FC<PersonDataPropsType> = (props) => {
 		const dispatch = useDispatch()
+
 		const updateStatus = (status: string) => {
 				dispatch(updateUserProfileStatusTC(status))
 		}
 
+		const updatePhoto = (e: ChangeEvent<HTMLInputElement>) => {
+				if (e.currentTarget.files) {
+						dispatch(updateProfilePhotoTC(e.currentTarget.files[0]))
+				}
+		}
+		console.log('props.currentProfile: ', props.currentProfile)
 		const srcImg = props.currentProfile?.photos?.large ?
 				props.currentProfile.photos.large : avatarPlaceholder
 
@@ -35,6 +47,7 @@ export const PersonData: React.FC<PersonDataPropsType> = (props) => {
 									 className={cl.inputFile}
 									 value={''}
 									 id={'input-file'}
+									 onChange={updatePhoto}
 						/>
 						<label htmlFor={'input-file'}
 									 className={cl.inputFileLabel}>

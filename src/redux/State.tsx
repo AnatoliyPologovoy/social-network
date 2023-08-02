@@ -160,7 +160,27 @@ export let Store: StoreType = {
             //     avatar: avatar1,
             //     mainImg: "https://n1s2.hsmedia.ru/60/b5/cc/60b5cc5266a98b966e2f35c57ed388c8/690x380_0x0a330c2a_12567029551616070388.jpeg"
             // },
-            currentProfile: null,
+            currentProfile: {
+                userId: null,
+                aboutMe: null,
+                lookingForAJob: null,
+                lookingForAJobDescription: null,
+                fullName: null,
+                contacts: {
+                    github: null,
+                    vk: null,
+                    facebook: null,
+                    instagram: null,
+                    twitter: null,
+                    website: null,
+                    youtube: null,
+                    mainLink: null,
+                },
+                photos: {
+                    small: null,
+                    large: null,
+                }
+            },
             status: ''
         },
         friends: [
