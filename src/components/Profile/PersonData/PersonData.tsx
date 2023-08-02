@@ -31,18 +31,13 @@ export const PersonData: React.FC<PersonDataPropsType> = (props) => {
 						dispatch(updateProfilePhotoTC(e.currentTarget.files[0]))
 				}
 		}
-		console.log('props.currentProfile: ', props.currentProfile)
-		const srcImg = props.currentProfile?.photos?.large ?
+		const srcImg = props.currentProfile.photos.large ?
 				props.currentProfile.photos.large : avatarPlaceholder
 
 		const fullName = props.currentProfile ? props.currentProfile.fullName : 'null'
-		return (
-				<div className={cl.personData}>
-						<img
-								className={cl.imgAvatar}
-								src={srcImg}
-								alt={"аватарка пользователя " + props.currentProfile?.fullName}
-						/>
+
+		const uploadPhotoIcon =
+				<>
 						<input type={"file"}
 									 className={cl.inputFile}
 									 value={''}
@@ -54,6 +49,16 @@ export const PersonData: React.FC<PersonDataPropsType> = (props) => {
 								<UpdateIcon
 										className={cl.updatePhotoIcon}/>
 						</label>
+				</>
+
+		return (
+				<div className={cl.personData}>
+						<img
+								className={cl.imgAvatar}
+								src={srcImg}
+								alt={"аватарка пользователя " + props.currentProfile?.fullName}
+						/>
+						{props.isHostUser && uploadPhotoIcon}
 						<div className={cl.nameWrapper}>
 								<h2 className={cl.name}>{fullName}</h2>
 								<ProfileStatus

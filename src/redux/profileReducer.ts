@@ -118,7 +118,7 @@ export const profileReducer =
 								return {...state, status: action.status}
 						case "SET_PROFILE_PHOTOS":
 								return {...state, currentProfile: {
-										...state.currentProfile, photos: action.photos
+										...state.currentProfile, photos: {...action.payload}
 										}}
 						default:
 								return state
@@ -148,7 +148,7 @@ export type setProfileStatusType = ReturnType<typeof setProfileStatusAC>
 export const setProfilePhotoAC = (photos: ProfilePhotos) => {
 		return {
 				type: SET_PROFILE_PHOTOS,
-				photos
+				payload: photos
 		} as const
 }
 
@@ -201,8 +201,8 @@ export const updateProfilePhotoTC = (photo: File): AppThunk => {
 				try {
 						let data = await profileAPI.updateProfilePhoto(photo)
 						if (data.resultCode === 0) {
-								dispatch(setProfilePhotoAC(data.data))
 								console.log('photo upload')
+								dispatch(setProfilePhotoAC(data.data.photos))
 						}
 				} catch (e) {
 						console.log(e)

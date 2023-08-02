@@ -29,7 +29,10 @@ const Profile: React.FC <ProfilePropsType> = (props) => {
                 />
                 <AddPost cbAddPost={props.cbAddPost}
                 />
-                <Posts postsData={postsData}/>
+                <Posts
+                    smallPhoto={props.profilePage.currentProfile.photos.small}
+                    postsData={postsData}
+                />
             </div>
         </div>
     );

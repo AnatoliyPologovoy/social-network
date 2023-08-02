@@ -99,7 +99,7 @@ export const profileAPI = {
 		updateProfilePhoto(photo: File) {
 				const formData = new FormData()
 				formData.append('image', photo)
-				return instance.put<ResponseType<ProfilePhotos>>('profile/photo', formData, {
+				return instance.put<ResponseType<UpdateProfilePhotoResponseType>>('profile/photo', formData, {
 						headers: {
 								"Content-Type": "multipart/form-data",
 						}
@@ -107,4 +107,8 @@ export const profileAPI = {
 						.then(res => res.data)
 		}
 
+}
+
+type UpdateProfilePhotoResponseType = {
+		photos: ProfilePhotos
 }
