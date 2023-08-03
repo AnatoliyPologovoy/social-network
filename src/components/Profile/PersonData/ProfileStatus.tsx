@@ -46,7 +46,6 @@ export class ProfileStatus extends React.Component<StatusPropsType, any> {
 
 
 		render() {
-				const toggleModeCB = this.toggleMode.bind(this)
 				const onChangeInputCB = this.changeInput.bind(this)
 				const viewStatus = <span>{this.state.input}</span>
 				const changeStatus =

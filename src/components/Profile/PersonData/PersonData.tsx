@@ -1,11 +1,6 @@
 import React, {ChangeEvent} from "react";
 import cl from "./personData.module.css"
-import {
-		CurrentProfileDomainType,
-		PersonDataType,
-		updateProfilePhotoTC,
-		updateUserProfileStatusTC
-} from "redux/profileReducer";
+import {CurrentProfileDomainType, updateProfilePhotoTC, updateUserProfileStatusTC} from "redux/profileReducer";
 import {ProfileStatus} from "./ProfileStatus";
 import avatarPlaceholder from "assets/avatar_placeholder.png"
 import {useDispatch} from "react-redux";
