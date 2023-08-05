@@ -12,7 +12,6 @@ export const AddPost: React.FC<addPostPropsType> = (props) => {
 
     const addPost = (formData: any) => {
         props.cbAddPost(formData.post)
-
     }
 
     return (
@@ -25,7 +24,11 @@ const maxLength50 = maxLengthCreator(50)
 const AddPostForm = (props: {handleSubmit: any}) => {
     return (
         <form
-            onSubmit={props.handleSubmit}
+            onSubmit={() => {
+                props.handleSubmit()
+                // props.resetForm()
+            }
+        }
             className={cl.wrapper}
         >
             <Field
