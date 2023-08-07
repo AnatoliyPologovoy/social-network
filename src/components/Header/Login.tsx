@@ -13,7 +13,7 @@ export const Login: React.FC<LoginPropsType> = (props) => {
         <div className={cl.login}>
             {props.isAuthorized ? (
                     <>
-                        <span>{props.login}</span>
+                        <span className={cl.title}>{props.login}</span>
                         <button
                             onClick={props.logOut}
                         >Log out</button>

@@ -10,13 +10,13 @@ import {reducer as formReducer} from "redux-form"
 import {AppActionsType, appReducer} from "redux/appReducer";
 
 const rootReducer = combineReducers({
-		dialogsPage: dialogsReducer,
-		profilePage: profileReducer,
-		friends: friendsReducer,
-		usersPage: usersReducer,
-		auth: authReducer,
-		app: appReducer,
-		form: formReducer
+    dialogsPage: dialogsReducer,
+    profilePage: profileReducer,
+    friends: friendsReducer,
+    usersPage: usersReducer,
+    auth: authReducer,
+    app: appReducer,
+    form: formReducer
 })
 
 type RootReducerType = typeof rootReducer
@@ -29,11 +29,11 @@ window.store = store
 // export type StoreType = ReturnType<typeof createStore>
 
 export type AllActionsType =
-		| UsersActionsType
-		| DialogsPagesActions
-		| AuthActionsType
-		| ProfileActions
-		| AppActionsType
+    | UsersActionsType
+    | DialogsPagesActions
+    | AuthActionsType
+    | ProfileActions
+    | AppActionsType
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AllActionsType>
 

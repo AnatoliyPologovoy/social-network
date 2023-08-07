@@ -1,6 +1,7 @@
 .personData {
     padding: 25px;
     display: flex;
+    align-items: flex-start;
 }
 
 .imgAvatar {
@@ -39,7 +40,7 @@
     fill: #a96b1a;
 }
 
-.nameWrapper {
+.profileWrapper {
     margin-left: 35px;
 }
 
@@ -60,4 +61,9 @@
 
 .statusIcon:hover {
     fill: #a96b1a;
+}
+
+.aboutMeWrapper {
+    display: flex;
+    flex-direction: column;
 }

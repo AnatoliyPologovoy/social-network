@@ -1,4 +1,3 @@
-import avatar1 from "../img/maxim-ava.jpg";
 import {dialogsReducer} from "./dialogsReducer";
 import {ProfilePageType} from "./profileReducer";
 
