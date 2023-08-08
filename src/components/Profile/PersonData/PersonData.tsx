@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 import cl from "./personData.module.css"
 import {
     CurrentProfileDomainType,
@@ -9,7 +9,10 @@ import {
 import {ProfileStatus} from "./ProfileStatus";
 import avatarPlaceholder from "assets/avatar_placeholder.png"
 import {useDispatch} from "react-redux";
-import {ReactComponent as UpdateIcon} from "assets/update-photo.svg"
+import {ReactComponent as UpdateIcon} from "assets/update-photo.svg";
+import {ReactComponent as EditIcon} from "assets/edit-btn.svg"
+import {ReactComponent as SaveIcon} from "assets/ok-btn.svg"
+import ProfileAboutMe from "../ProfileAboutMe/ProfileAboutMe";
 
 
 type PersonDataPropsType = {
@@ -21,6 +24,7 @@ type PersonDataPropsType = {
 
 export const PersonData: React.FC<PersonDataPropsType> = (props) => {
     const {isHostUser,profileStatus, currentProfile } = props
+
 
     const dispatch = useDispatch()
 
@@ -52,7 +56,7 @@ export const PersonData: React.FC<PersonDataPropsType> = (props) => {
                     className={cl.updatePhotoIcon}/>
             </label>
         </>
-    console.log(Object.keys(currentProfile.contacts))
+
     return (
         <div className={cl.personData}>
             <img
@@ -68,26 +72,7 @@ export const PersonData: React.FC<PersonDataPropsType> = (props) => {
                     status={profileStatus}
                     updateStatus={updateStatus}
                 />
-                <div className={cl.aboutMeWrapper}>
-                    <div>
-                        <b>About me:</b>
-                        <span>{currentProfile.aboutMe}</span>
-                    </div>
-                    {currentProfile.lookingForAJob &&
-                        <div>
-                            <b>Looking for a job</b>
-                            <span>{currentProfile.lookingForAJobDescription}</span>
-                        </div>
-                    }
-                    <div className={cl.contacts}>
-                        {Object.keys(currentProfile.contacts).map(key => {
-                            return <div>
-                                <b>{key}</b>
-                                <span>{currentProfile.contacts[key as keyof SocialProfile]}</span>
-                            </div>
-                        })}
-                    </div>
-                </div>
+                <ProfileAboutMe currentProfile={currentProfile}/>
             </div>
         </div>
     )

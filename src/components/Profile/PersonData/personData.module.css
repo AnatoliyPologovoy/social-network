@@ -66,4 +66,18 @@
 .aboutMeWrapper {
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+.aboutMeIcon {
+    position: absolute;
+    left: 100%;
+}
+
+.aboutMeWrapper span, .contactsValue {
+    margin-left: 10px;
+}
+
+.contacts {
+    margin-top: 10px;
 }
