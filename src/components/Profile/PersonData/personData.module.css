@@ -15,7 +15,7 @@
     margin: 0;
 }
 
-.inputFile {
+.inputFile, .inputSubmit {
     visibility: hidden;
     position: absolute;
     width: 30px;

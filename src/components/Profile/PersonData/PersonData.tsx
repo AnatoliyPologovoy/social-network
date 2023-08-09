@@ -6,13 +6,13 @@ import {
     updateProfilePhotoTC,
     updateUserProfileStatusTC
 } from "redux/profileReducer";
-import {ProfileStatus} from "./ProfileStatus";
+import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 import avatarPlaceholder from "assets/avatar_placeholder.png"
 import {useDispatch} from "react-redux";
 import {ReactComponent as UpdateIcon} from "assets/update-photo.svg";
 import {ReactComponent as EditIcon} from "assets/edit-btn.svg"
-import {ReactComponent as SaveIcon} from "assets/ok-btn.svg"
-import ProfileAboutMe from "../ProfileAboutMe/ProfileAboutMe";
+
+import ProfileAboutMe from "./ProfileAboutMe/ProfileAboutMe";
 
 
 type PersonDataPropsType = {
@@ -23,7 +23,7 @@ type PersonDataPropsType = {
 
 
 export const PersonData: React.FC<PersonDataPropsType> = (props) => {
-    const {isHostUser,profileStatus, currentProfile } = props
+    const {isHostUser, profileStatus, currentProfile} = props
 
 
     const dispatch = useDispatch()
@@ -72,7 +72,10 @@ export const PersonData: React.FC<PersonDataPropsType> = (props) => {
                     status={profileStatus}
                     updateStatus={updateStatus}
                 />
-                <ProfileAboutMe currentProfile={currentProfile}/>
+                <ProfileAboutMe
+                    currentProfile={currentProfile}
+                    isHostUser={isHostUser}
+                />
             </div>
         </div>
     )

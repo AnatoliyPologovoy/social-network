@@ -1,5 +1,5 @@
 import {create} from "react-test-renderer";
-import {ProfileStatus} from "components/Profile/PersonData/ProfileStatus";
+import {ProfileStatus} from "components/Profile/PersonData/ProfileStatus/ProfileStatus";
 
 describe('test profileComponent', () => {
     test('input should to be status props text', () => {

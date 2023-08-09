@@ -24,14 +24,10 @@ export const LoginPage: FC<LoginPageType> = (props) => {
     return (
         <div className={cl.loginPage}>
             <h1>Login</h1>
-            <LoginReduxForm onSubmit={
-               onSubmit
-            }
-            />
+            <LoginReduxForm onSubmit={onSubmit}/>
         </div>
     );
 }
-
 
 
 const LoginForm: React.FC<InjectedFormProps<FormLoginData>> = (props) => {

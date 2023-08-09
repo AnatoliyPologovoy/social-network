@@ -1,17 +1,22 @@
-import React, {FC, useState} from 'react';
-import cl from "../PersonData/personData.module.css";
-import {ReactComponent as EditIcon} from "../../../assets/edit-btn.svg";
-import {CurrentProfileDomainType, SocialProfile} from "../../../redux/profileReducer";
+import React, {FC} from 'react';
+import cl from "../personData.module.css";
+import {CurrentProfileDomainType, SocialProfile} from "../../../../redux/profileReducer";
+import {ReactComponent as EditIcon} from "../../../../assets/edit-btn.svg";
 
 type PropsType = {
     currentProfile: CurrentProfileDomainType
+    isHostUser: boolean
+    toggleEditMode: () => void
 }
 
-const ProfileAboutMe: FC<PropsType> = ({currentProfile}) => {
-    const [editMode, setEditMode] = useState(false)
-
-    return <div className={cl.aboutMeWrapper}>
-        {!editMode && <EditIcon className={cl.statusIcon + ' ' + cl.aboutMeIcon}/>}
+export const ProfileShow: FC<PropsType> =
+    ({currentProfile, isHostUser, toggleEditMode}) => {
+    return <>
+        {isHostUser &&
+            <EditIcon
+                className={cl.statusIcon + ' ' + cl.aboutMeIcon}
+                onClick={toggleEditMode}
+            />}
         <div>
             <b>About me:</b>
             <span>{currentProfile.aboutMe}</span>
@@ -30,7 +35,5 @@ const ProfileAboutMe: FC<PropsType> = ({currentProfile}) => {
                 </div>
             })}
         </div>
-    </div>
+    </>
 }
-
-export default ProfileAboutMe;

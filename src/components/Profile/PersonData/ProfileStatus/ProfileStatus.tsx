@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from "react";
-import cl from "./personData.module.css"
+import cl from "../personData.module.css"
 import {ReactComponent as EditIcon} from "assets/edit-btn.svg"
 import {ReactComponent as SaveIcon} from "assets/ok-btn.svg"
 
