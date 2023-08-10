@@ -1,12 +1,12 @@
-import {dialogsReducer} from "./dialogsReducer";
-import {ProfilePageType} from "./profileReducer";
+import {dialogsReducer} from './dialogsReducer'
+import {ProfilePageType} from './profileReducer'
 
 //dialogs types
 export type NameDialogsType = {
     id: number
     name: string
 }
-export type DialogsNamesType = NameDialogsType[];
+export type DialogsNamesType = NameDialogsType[]
 //messages types
 export type ItemMessagesType = {
     id: number
@@ -60,14 +60,13 @@ export type ActionSendMessage = {
 }
 
 export type DialogsPagesActions =
-    ActionChangeInputMessageType |
-    ActionSendMessage
+    | ActionChangeInputMessageType
+    | ActionSendMessage
 
 const changeInputPostText = 'CHANGE-INPUT-POST-TEXT'
 const addPost = 'ADD-POST'
 const changeInputMessageText = 'CHANGE-INPUT-MESSAGE-TEXT'
 const sendMessage = 'SEND-MESSAGE'
-
 
 //Store type
 
@@ -77,7 +76,6 @@ export type StoreType = {
     subscribe: (observer: () => void) => void
     getState: () => StateType
     dispatch: (action: DialogsPagesActions) => void
-
 }
 
 export let Store: StoreType = {
@@ -99,7 +97,7 @@ export let Store: StoreType = {
                 {
                     id: 4,
                     name: 'Kostya',
-                }
+                },
             ],
             inputMessage: '',
             messagesData: {
@@ -108,48 +106,48 @@ export let Store: StoreType = {
                         id: 1,
                         userId: 111,
                         name: 'Anatoliy',
-                        avatar: "https://i.pravatar.cc/30?u=fake@pravatar.com"
+                        avatar: 'https://i.pravatar.cc/30?u=fake@pravatar.com',
                     },
                     companion: {
                         id: 2,
                         userId: 222,
                         name: 'Valeria',
-                        avatar: 'https://i.pravatar.cc/30'
-                    }
+                        avatar: 'https://i.pravatar.cc/30',
+                    },
                 },
                 messages: [
                     {
                         id: 1,
                         userId: 222,
                         text: 'hello',
-                        time: '22:00'
+                        time: '22:00',
                     },
                     {
                         id: 2,
                         userId: 111,
                         text: 'hi',
-                        time: '22:01'
+                        time: '22:01',
                     },
                     {
                         id: 3,
                         userId: 222,
                         text: 'how are you',
-                        time: '22:02'
+                        time: '22:02',
                     },
                     {
                         id: 4,
                         userId: 111,
                         text: 'i am fine',
-                        time: '22:03'
-                    }
-                ]
-            }
+                        time: '22:03',
+                    },
+                ],
+            },
         },
         profilePage: {
             postsData: [
-                {id: 1, text: "Hello, world!", likes: 11},
-                {id: 2, text: "This is my new post", likes: 5},
-                {id: 3, text: "I love React", likes: 125},
+                {id: 1, text: 'Hello, world!', likes: 11},
+                {id: 2, text: 'This is my new post', likes: 5},
+                {id: 3, text: 'I love React', likes: 125},
             ],
             postText: '',
             // personData: {
@@ -178,41 +176,43 @@ export let Store: StoreType = {
                 photos: {
                     small: null,
                     large: null,
-                }
+                },
             },
-            status: ''
+            status: '',
         },
         friends: [
             {
                 id: 1,
                 name: 'Valeria',
-                avatar: "https://i.pravatar.cc/50"
+                avatar: 'https://i.pravatar.cc/50',
             },
             {
                 id: 2,
                 name: 'Roman',
-                avatar: "https://i.pravatar.cc/50?u=fake@pravatar.com"
+                avatar: 'https://i.pravatar.cc/50?u=fake@pravatar.com',
             },
             {
                 id: 3,
                 name: 'Andrey',
-                avatar: "https://i.pravatar.cc/50"
+                avatar: 'https://i.pravatar.cc/50',
             },
             {
                 id: 4,
                 name: 'Kostya',
-                avatar: "https://i.pravatar.cc/50?u=fake@pravatar.com"
+                avatar: 'https://i.pravatar.cc/50?u=fake@pravatar.com',
             },
             {
                 id: 5,
                 name: 'Sasha',
-                avatar: "https://i.pravatar.cc/50"
-            }
-        ]
+                avatar: 'https://i.pravatar.cc/50',
+            },
+        ],
     },
     _callSubscriber: function () {
-        console.log('Render method have not observer. ' +
-            'Use method subscribe(observer:()=>void) for add observer to render')
+        console.log(
+            'Render method have not observer. ' +
+                'Use method subscribe(observer:()=>void) for add observer to render',
+        )
     },
     subscribe: function (observer) {
         this._callSubscriber = observer
@@ -220,10 +220,12 @@ export let Store: StoreType = {
     getState: function () {
         return this._state
     },
-    dispatch(action:DialogsPagesActions) {
+    dispatch(action: DialogsPagesActions) {
         // this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.dialogsPage = dialogsReducer(
+            this._state.dialogsPage,
+            action,
+        )
         this._callSubscriber()
-    }
+    },
 }
-

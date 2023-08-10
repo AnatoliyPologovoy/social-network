@@ -1,41 +1,41 @@
 :root {
-  --header-color: #6096BA;
-  --sidebar-color: #6096BA;
-  --main-section-color : #A3CEF1;
-  --messages-wrapper-color: #F2E5D7;
-  --messages-send-color: #e5d3c0;
-  --message-my-text: #fce0bc;
-  --message-friend-text: #bbcaef;
-  --blue-color: #274C77;
-  --gray-color: #8B8C89;
-  --white-color: #E7ECEF;
+    --header-color: #6096ba;
+    --sidebar-color: #6096ba;
+    --main-section-color: #a3cef1;
+    --messages-wrapper-color: #f2e5d7;
+    --messages-send-color: #e5d3c0;
+    --message-my-text: #fce0bc;
+    --message-friend-text: #bbcaef;
+    --blue-color: #274c77;
+    --gray-color: #8b8c89;
+    --white-color: #e7ecef;
 
-  --paginator-btn-main-color: #fce3c2;
-  --paginator-btn-shadow-color: #a96b1a;
+    --paginator-btn-main-color: #fce3c2;
+    --paginator-btn-shadow-color: #a96b1a;
 
-  --paginator-btn-hover-main-color: #986a2d;
-  --paginator-btn-active-main-color: #2d8898;
-  --paginator-btn-current-color: #11598f;
+    --paginator-btn-hover-main-color: #986a2d;
+    --paginator-btn-active-main-color: #2d8898;
+    --paginator-btn-current-color: #11598f;
 
-  --user-background: #a0c2de;
+    --user-background: #a0c2de;
 }
 
 .App {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  grid-template-rows: 70px auto;
-  height: 98vh;
-  /*max-width: 1400px;*/
-  width: 90%;
-  margin: 0 auto;
-  font-family: Poppins, Arial, 'SansSerif';
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: 70px auto;
+    height: 98vh;
+    /*max-width: 1400px;*/
+    width: 90%;
+    margin: 0 auto;
+    font-family: Poppins, Arial, 'SansSerif';
 }
 
 .main_section {
-  grid-column: 2/3;
-  grid-row: 2/3;
-  height: 100%;
-  width: 100%;
-  background-color: var(--main-section-color);
-  position: relative;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    height: 100%;
+    width: 100%;
+    background-color: var(--main-section-color);
+    position: relative;
 }

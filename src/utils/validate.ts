@@ -1,12 +1,11 @@
-export const required = (value:string) => {
+export const required = (value: string) => {
     if (value) {
         return undefined
     }
     return 'Text is required'
 }
 
-export const maxLengthCreator =
-    (maxLength: number) => (value: string) => {
+export const maxLengthCreator = (maxLength: number) => (value: string) => {
     if (value && value.length > maxLength) {
         return `Text is long more ${maxLength} characters`
     }
@@ -14,11 +13,10 @@ export const maxLengthCreator =
 }
 
 export const email = (value: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (emailRegex.test(value)) {
         return undefined
-    }
-    else {
+    } else {
         return 'Input should be has email'
     }
 }

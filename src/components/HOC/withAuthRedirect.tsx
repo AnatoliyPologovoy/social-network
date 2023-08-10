@@ -1,8 +1,7 @@
-import React, {ComponentType} from 'react';
-import {Redirect} from "react-router-dom";
-import {connect} from "react-redux";
-import {AppStateType} from "redux/redux-store";
-
+import React, {ComponentType} from 'react'
+import {Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {AppStateType} from 'redux/redux-store'
 
 type MapStateToProps = {
     isAuth: boolean
@@ -10,21 +9,20 @@ type MapStateToProps = {
 
 const mpstp = (state: AppStateType): MapStateToProps => {
     return {
-        isAuth: state.auth.isAuthorized
+        isAuth: state.auth.isAuthorized,
     }
 }
 
 export function WithAuthRedirect(Component: ComponentType<any>) {
-
     const RedirectComponent = (props: MapStateToProps) => {
         // console.log(props)  в пропсах сидят пропсы от mpstp + withRouter + connect
         const {isAuth, ...restProps} = props
 
         if (!isAuth) {
-            return <Redirect to={'/login'}/>
+            return <Redirect to={'/login'} />
         }
 
-        return <Component {...restProps}/>
+        return <Component {...restProps} />
         //новая компонента RedirectComponent
         // возвращает компоненту (взятую из параметров WithAuthRedirect),
         // и передает ей пропсы,
@@ -33,7 +31,6 @@ export function WithAuthRedirect(Component: ComponentType<any>) {
 
     return connect(mpstp)(RedirectComponent)
 }
-
 
 // export const User = (props: { name: string, age: number }) => {
 //     return (
@@ -56,6 +53,3 @@ export function WithAuthRedirect(Component: ComponentType<any>) {
 //
 //
 // WithAuthRedirect2(User)({name: 'Tom', age: 20})
-
-
-

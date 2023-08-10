@@ -1,5 +1,5 @@
-import React from 'react';
-import {WrappedFieldProps} from 'redux-form';
+import React from 'react'
+import {WrappedFieldProps} from 'redux-form'
 
 interface MyTextAreaProps extends WrappedFieldProps {
     // здесь вы можете определить дополнительные свойства, необходимые вашему компоненту.
@@ -7,25 +7,34 @@ interface MyTextAreaProps extends WrappedFieldProps {
     tag: 'textarea' | 'input'
 }
 
-export const CustomInput: React.FC<MyTextAreaProps>
-    = ({input, meta, ...rest}) => {
+export const CustomInput: React.FC<MyTextAreaProps> = ({
+    input,
+    meta,
+    ...rest
+}) => {
     const hasError = meta.touched && meta.error
     const styleError = {color: 'red', margin: '5px'}
     const styleTextareaError = hasError ? {borderColor: 'red'} : {}
 
     let inputView
     if (rest.tag === 'textarea') {
-        inputView =
-            <textarea {...input} {...rest}
-                      className={rest.className}
-                      style={styleTextareaError}
+        inputView = (
+            <textarea
+                {...input}
+                {...rest}
+                className={rest.className}
+                style={styleTextareaError}
             />
+        )
     } else {
-        inputView =
-            <input {...input} {...rest}
-                      className={rest.className}
-                      style={styleTextareaError}
+        inputView = (
+            <input
+                {...input}
+                {...rest}
+                className={rest.className}
+                style={styleTextareaError}
             />
+        )
     }
 
     return (
@@ -33,5 +42,5 @@ export const CustomInput: React.FC<MyTextAreaProps>
             {inputView}
             {hasError && <p style={styleError}>{meta.error}</p>}
         </>
-    );
-};
+    )
+}

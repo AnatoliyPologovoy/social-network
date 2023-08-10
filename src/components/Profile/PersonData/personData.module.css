@@ -15,7 +15,8 @@
     margin: 0;
 }
 
-.inputFile, .inputSubmit {
+.inputFile,
+.inputSubmit {
     visibility: hidden;
     position: absolute;
     width: 30px;
@@ -33,7 +34,7 @@
     top: 170px;
     left: 170px;
     cursor: pointer;
-    fill: #274C77;
+    fill: #274c77;
 }
 
 .updatePhotoIcon:hover {
@@ -51,7 +52,7 @@
 }
 
 .statusIcon {
-    fill: #274C77;
+    fill: #274c77;
     width: 25px;
     height: 25px;
     margin-left: 5px;
@@ -74,10 +75,26 @@
     left: 100%;
 }
 
-.aboutMeWrapper span, .contactsValue {
+.aboutMeWrapper span,
+.contactsValue {
     margin-left: 10px;
 }
 
 .contacts {
     margin-top: 10px;
+}
+
+/*Profile form*/
+.profileFormItem {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profileFormItem b {
+    margin-right: 5px;
+}
+
+form textarea {
+    box-sizing: border-box;
+    width: 100%;
 }

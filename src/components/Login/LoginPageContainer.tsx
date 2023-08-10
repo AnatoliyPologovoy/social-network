@@ -1,12 +1,11 @@
-import React from 'react';
-import {connect} from "react-redux";
-import {LoginPage} from "./LoginPage";
-import {submitFormTC} from "redux/authReducer";
-import {AppStateType} from "redux/redux-store";
-
+import React from 'react'
+import {connect} from 'react-redux'
+import {LoginPage} from './LoginPage'
+import {submitFormTC} from 'redux/authReducer'
+import {AppStateType} from 'redux/redux-store'
 
 const objForMapDispatchToProps = {
-    submitForm: submitFormTC
+    submitForm: submitFormTC,
 }
 
 type MapStateToProps = {
@@ -15,11 +14,11 @@ type MapStateToProps = {
 
 const mpstp = (state: AppStateType): MapStateToProps => {
     return {
-        isAuth: state.auth.isAuthorized
+        isAuth: state.auth.isAuthorized,
     }
 }
 
-
-export const LoginPageContainer =
-    connect(mpstp, objForMapDispatchToProps)(LoginPage)
-
+export const LoginPageContainer = connect(
+    mpstp,
+    objForMapDispatchToProps,
+)(LoginPage)

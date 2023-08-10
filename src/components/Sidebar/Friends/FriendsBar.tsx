@@ -1,13 +1,13 @@
-import React from "react";
-import cl from "./friendsBar.module.css"
-import {FriendType} from "../../../redux/State";
+import React from 'react'
+import cl from './friendsBar.module.css'
+import {FriendType} from '../../../redux/State'
 
 type FriendsBarPropsType = {
     friends: FriendType[]
 }
 
 export const FriendsBar: React.FC<FriendsBarPropsType> = (props) => {
-    const renderFriendList = props.friends.map(f => {
+    const renderFriendList = props.friends.map((f) => {
         return (
             <li key={f.id}>
                 <img
@@ -22,9 +22,7 @@ export const FriendsBar: React.FC<FriendsBarPropsType> = (props) => {
     return (
         <div className={cl.wrapper}>
             <span>Friends:</span>
-            <ul className={cl.friendsList}>
-                {renderFriendList}
-            </ul>
+            <ul className={cl.friendsList}>{renderFriendList}</ul>
         </div>
     )
 }
