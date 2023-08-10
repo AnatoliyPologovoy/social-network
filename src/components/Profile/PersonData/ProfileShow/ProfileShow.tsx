@@ -1,13 +1,13 @@
 import React, {FC} from 'react'
 import cl from '../personData.module.css'
 import {
-    CurrentProfileDomainType,
+    ProfileDomainType,
     SocialProfile,
 } from '../../../../redux/profileReducer'
 import {ReactComponent as EditIcon} from '../../../../assets/edit-btn.svg'
 
 type PropsType = {
-    currentProfile: CurrentProfileDomainType
+    currentProfile: ProfileDomainType
     isHostUser: boolean
     toggleEditMode: () => void
 }

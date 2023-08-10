@@ -1,22 +1,16 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent} from 'react'
 import cl from './personData.module.css'
-import {
-    CurrentProfileDomainType,
-    SocialProfile,
-    updateProfilePhotoTC,
-    updateUserProfileStatusTC,
-} from 'redux/profileReducer'
+import {ProfileDomainType, updateProfilePhotoTC, updateUserProfileStatusTC} from 'redux/profileReducer'
 import {ProfileStatus} from './ProfileStatus/ProfileStatus'
 import avatarPlaceholder from 'assets/avatar_placeholder.png'
 import {useDispatch} from 'react-redux'
 import {ReactComponent as UpdateIcon} from 'assets/update-photo.svg'
-import {ReactComponent as EditIcon} from 'assets/edit-btn.svg'
 
 import ProfileAboutMe from './ProfileAboutMe/ProfileAboutMe'
 
 type PersonDataPropsType = {
     isHostUser: boolean
-    currentProfile: CurrentProfileDomainType
+    currentProfile: ProfileDomainType
     profileStatus: string
 }
 

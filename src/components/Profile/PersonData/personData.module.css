@@ -88,6 +88,7 @@
 .profileFormItem {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 5px;
 }
 
 .profileFormItem b {

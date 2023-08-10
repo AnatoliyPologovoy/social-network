@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {CurrentProfileDomainType, ProfilePhotos} from 'redux/profileReducer'
+import {ProfileDomainType, ProfilePhotos} from 'redux/profileReducer'
 import {UserStateType} from 'redux/usersReducer'
 
 const instance = axios.create({
@@ -89,7 +89,7 @@ export const authAPI = {
 export const profileAPI = {
     getProfile(userId: string) {
         return instance
-            .get<CurrentProfileDomainType>('profile/' + userId)
+            .get<ProfileDomainType>('profile/' + userId)
             .then((response) => response.data)
     },
     getProfileStatus(userId: string) {
@@ -115,8 +115,18 @@ export const profileAPI = {
             )
             .then((res) => res.data)
     },
+    updateProfileAboutMe(profileData: UpdateProfileAboutMeResponseType) {
+        return instance
+            .put<ResponseType<{}>>(
+                'profile',
+                profileData
+            )
+            .then((res) => res.data)
+    }
 }
 
 type UpdateProfilePhotoResponseType = {
     photos: ProfilePhotos
 }
+
+export type UpdateProfileAboutMeResponseType = Omit<ProfileDomainType, 'photos'>

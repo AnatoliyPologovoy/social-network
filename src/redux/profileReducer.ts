@@ -1,5 +1,6 @@
 import {AppThunk} from './redux-store'
-import {profileAPI} from '../DAL/API'
+import {profileAPI, UpdateProfileAboutMeResponseType} from '../DAL/API'
+import {ProfileFormType} from '../components/Profile/PersonData/ProfileEditForm/ProfileEditForm'
 
 const changeInputPostText = 'CHANGE-INPUT-POST-TEXT'
 const addPost = 'ADD-POST'
@@ -26,7 +27,7 @@ export type PersonDataType = {
 export type ProfilePageType = {
     postsData: PostsType
     postText: string
-    currentProfile: CurrentProfileDomainType
+    currentProfile: ProfileDomainType
     status: string
 }
 
@@ -46,7 +47,7 @@ export type SocialProfile = {
     mainLink: string | null
 }
 
-export type CurrentProfileDomainType = {
+export type ProfileDomainType = {
     userId: number | null
     aboutMe: string | null
     lookingForAJob: boolean | null
@@ -138,7 +139,7 @@ export const addPostActionCreation = (post: string): ActionAddPostType => ({
     post,
 })
 
-export const setCurrenProfileAC = (profile: CurrentProfileDomainType) => {
+export const setCurrenProfileAC = (profile: ProfileDomainType) => {
     return {
         type: SET_CURRENT_PROFILE,
         profile,
@@ -210,8 +211,26 @@ export const updateProfilePhotoTC = (photo: File): AppThunk => {
         try {
             let data = await profileAPI.updateProfilePhoto(photo)
             if (data.resultCode === 0) {
-                console.log('photo upload')
                 dispatch(setProfilePhotoAC(data.data.photos))
+            }
+        } catch (e) {
+            console.log(e)
+            //need errors handler
+        }
+    }
+}
+
+export const updateProfileAboutMeTC = (profileData: ProfileFormType): AppThunk => {
+    return async (dispatch, getState) => {
+        const userId = getState().profilePage.currentProfile.userId
+        const responseProfileData: UpdateProfileAboutMeResponseType = {
+            ...profileData,
+            userId,
+        }
+        try {
+            let data = await profileAPI.updateProfileAboutMe(responseProfileData)
+            if (data.resultCode === 0 && userId) {
+                dispatch(getUserProfileTC(userId.toString()))
             }
         } catch (e) {
             console.log(e)

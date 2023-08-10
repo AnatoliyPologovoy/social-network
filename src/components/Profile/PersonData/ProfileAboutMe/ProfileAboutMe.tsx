@@ -1,11 +1,11 @@
 import React, {FC, useState} from 'react'
 import cl from '../personData.module.css'
-import {CurrentProfileDomainType} from '../../../../redux/profileReducer'
+import {ProfileDomainType} from '../../../../redux/profileReducer'
 import {ProfileShow} from '../ProfileShow/ProfileShow'
 import {ProfileEditForm} from '../ProfileEditForm/ProfileEditForm'
 
 type PropsType = {
-    currentProfile: CurrentProfileDomainType
+    currentProfile: ProfileDomainType
     isHostUser: boolean
 }
 

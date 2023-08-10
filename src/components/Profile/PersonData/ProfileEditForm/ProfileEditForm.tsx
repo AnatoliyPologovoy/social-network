@@ -1,12 +1,15 @@
 import React, {FC} from 'react'
-import {CurrentProfileDomainType} from '../../../../redux/profileReducer'
+import {ProfileDomainType, updateProfileAboutMeTC} from '../../../../redux/profileReducer'
 import {Field, InjectedFormProps, reduxForm} from 'redux-form'
 import {ReactComponent as SaveIcon} from '../../../../assets/ok-btn.svg'
 import cl from '../personData.module.css'
 import {CustomInput} from '../../../common/CustomInput'
+import {UpdateProfileAboutMeResponseType} from '../../../../DAL/API'
+import {useDispatch} from 'react-redux'
+import {AppDispatch} from '../../../../redux/redux-store'
 
 type ProfileEditFormProps = {
-    currentProfile: CurrentProfileDomainType
+    currentProfile: ProfileDomainType
     toggleEditMode: () => void
 }
 
@@ -14,27 +17,33 @@ export const ProfileEditForm: FC<ProfileEditFormProps> = ({
     currentProfile,
     toggleEditMode,
 }) => {
-    const onSubmit = (formData: any) => {
+    const dispatch = useDispatch<AppDispatch>()
+    const onSubmit = (formData: ProfileFormType) => {
         console.log(formData)
+        dispatch(updateProfileAboutMeTC(formData))
         toggleEditMode()
     }
-
+    const currentProfileWithoutPhotos: Partial<ProfileDomainType> = {...currentProfile}
+    delete currentProfileWithoutPhotos['photos']
     return (
         <>
             <EditProfileReduxForm
                 onSubmit={onSubmit}
                 currentProfile={currentProfile}
+                initialValues={currentProfileWithoutPhotos}
             />
         </>
     )
 }
 
 type EditFormPropsType = {
-    currentProfile: CurrentProfileDomainType
+    currentProfile: ProfileDomainType
 }
 
+export type ProfileFormType = Omit<ProfileDomainType, 'photos' | 'userId'>
+
 const EditForm: React.FC<
-    InjectedFormProps<any, EditFormPropsType> & EditFormPropsType
+    InjectedFormProps<ProfileFormType, EditFormPropsType> & EditFormPropsType
 > = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
@@ -47,6 +56,16 @@ const EditForm: React.FC<
                 <Field
                     name={'aboutMe'}
                     placeholder={'About me'}
+                    component={CustomInput}
+                    tag={'input'}
+                    validate={[]}
+                />
+            </div>
+            <div className={cl.profileFormItem}>
+                <b>Full name:</b>
+                <Field
+                    name={'fullName'}
+                    placeholder={'Full name'}
                     component={CustomInput}
                     tag={'input'}
                     validate={[]}
@@ -89,6 +108,6 @@ const EditForm: React.FC<
     )
 }
 
-const EditProfileReduxForm = reduxForm<any, EditFormPropsType>({
+const EditProfileReduxForm = reduxForm<ProfileFormType, EditFormPropsType>({
     form: 'editProfile',
 })(EditForm)
