@@ -2,9 +2,26 @@
     padding: 20px;
 }
 
+.loginPage h1 {
+    width: max-content;
+    margin: 20px auto;
+}
+
 .loginForm {
+    min-width: 200px;
+    width: 30%;
+    margin: 0 auto;
 }
 
 .formField {
     margin-bottom: 10px;
+}
+
+.formField > span {
+    margin-left: 10px;
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: space-between;
 }

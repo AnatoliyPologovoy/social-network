@@ -6,6 +6,7 @@ import cl from '../personData.module.css'
 import {CustomInput} from 'components/common/CustomInput/CustomInput'
 import {useDispatch} from 'react-redux'
 import {AppDispatch} from 'redux/redux-store'
+import {Checkbox} from 'antd'
 
 type ProfileEditFormProps = {
     currentProfile: ProfileDomainType
@@ -74,8 +75,7 @@ const EditForm: React.FC<
                 <b>Looking for a job:</b>
                 <Field
                     name={'lookingForAJob'}
-                    component={'input'}
-                    type={'checkbox'}
+                    component={Checkbox}
                 />
             </div>
             <div>
@@ -87,7 +87,7 @@ const EditForm: React.FC<
                     validate={[]}
                 />
             </div>
-            <div>
+            <div className={cl.contactsWrapper}>
                 {Object.keys(props.currentProfile.contacts).map((key, i) => {
                     return (
                         <div key={i} className={cl.profileFormItem}>
@@ -98,6 +98,7 @@ const EditForm: React.FC<
                                 component={CustomInput}
                                 tag={'input'}
                                 validate={[]}
+                                size={'small'}
                             />
                         </div>
                     )

@@ -5,7 +5,8 @@ import {CustomInput} from 'components/common/CustomInput/CustomInput'
 import {email, required} from 'utils/validate'
 import {FormLoginData} from 'redux/authReducer'
 import {Redirect} from 'react-router-dom'
-import {Input} from 'antd'
+import {Button, Checkbox} from 'antd'
+import {guestLoginResponseData} from 'constants/index'
 
 type LoginPageType = {
     submitForm: (formData: FormLoginData) => void
@@ -17,6 +18,10 @@ export const LoginPage: FC<LoginPageType> = (props) => {
         props.submitForm(formData) //dispatch submitFormTC
     }
 
+    const guestLogin = () => {
+        props.submitForm(guestLoginResponseData)
+    }
+
     if (props.isAuth) {
         return <Redirect to={'/profile'} />
     }
@@ -24,12 +29,19 @@ export const LoginPage: FC<LoginPageType> = (props) => {
     return (
         <div className={cl.loginPage}>
             <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit} />
+            <LoginReduxForm
+                onSubmit={onSubmit}
+                guestLogin={guestLogin}
+            />
         </div>
     )
 }
 
-const LoginForm: React.FC<InjectedFormProps<FormLoginData>> = (props) => {
+type LoginFormPropsType = {
+    guestLogin: () => void
+}
+
+const LoginForm: React.FC<InjectedFormProps<FormLoginData, LoginFormPropsType> & LoginFormPropsType> = (props) => {
     return (
         <form className={cl.loginForm} onSubmit={props.handleSubmit}>
             <div className={cl.formField}>
@@ -54,19 +66,21 @@ const LoginForm: React.FC<InjectedFormProps<FormLoginData>> = (props) => {
             <div className={cl.formField}>
                 <Field
                     name={'rememberMe'}
-                    type={'checkbox'}
-                    component={'input'}
+                    component={Checkbox}
                 />
-                remember me
+                <span>remember me</span>
             </div>
             {/*Error from server*/}
             {props.error && <p style={{color: 'red'}}>{props.error}</p>}
-            <button>Войти</button>
+            <div className={cl.buttonWrapper}>
+                <Button size={'small'} htmlType="submit">Sign in</Button>
+                <Button size={'small'} ghost onClick={props.guestLogin}>Guest login</Button>
+            </div>
         </form>
     )
 }
 
-const LoginReduxForm = reduxForm<FormLoginData>({
+const LoginReduxForm = reduxForm<FormLoginData, LoginFormPropsType>({
     //unique name for the form
     form: 'login',
 })(LoginForm)

@@ -80,6 +80,10 @@
     margin-left: 10px;
 }
 
+.contactsValue:hover {
+    color: var(--blue-color)
+}
+
 .contacts {
     margin-top: 10px;
 }
@@ -93,9 +97,14 @@
 
 .profileFormItem b {
     margin-right: 5px;
+    flex-shrink: 0;
 }
 
 form textarea {
     box-sizing: border-box;
     width: 100%;
+}
+
+.contactsWrapper {
+    margin-top: 10px;
 }

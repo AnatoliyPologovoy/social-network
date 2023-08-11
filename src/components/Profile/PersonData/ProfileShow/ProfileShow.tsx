@@ -37,16 +37,26 @@ export const ProfileShow: FC<PropsType> = ({
             )}
             <div className={cl.contacts}>
                 {Object.keys(currentProfile.contacts).map((key, i) => {
+                    let link = currentProfile.contacts[
+                        key as keyof SocialProfile
+                        ] || '#'
+                    if (!link.includes('http://') && link !== '#') {
+                        link = 'http://' + link
+                    }
                     return (
                         <div key={i} className={cl.contactsItem}>
                             <b>{key}:</b>
-                            <span className={cl.contactsValue}>
+                            <a
+                                className={cl.contactsValue}
+                                href={link}
+                                target={'_blank'}
+                            >
                                 {
                                     currentProfile.contacts[
                                         key as keyof SocialProfile
                                     ]
                                 }
-                            </span>
+                            </a>
                         </div>
                     )
                 })}
