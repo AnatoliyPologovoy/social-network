@@ -86,12 +86,10 @@ export const setIsAuthorizedAC = (value: boolean) => {
 type SetISAuthorizedType = ReturnType<typeof setIsAuthorizedAC>
 
 //Thunks
-export const authMeTC = (): ThunkAction<
-    Promise<any>,
+export const authMeTC = (): ThunkAction<Promise<any>,
     AppStateType,
     unknown,
-    AllActionsType
-> => {
+    AllActionsType> => {
     return (dispatch) => {
         return authAPI
             .authMe()
@@ -112,24 +110,23 @@ export const authMeTC = (): ThunkAction<
 
 export const submitFormTC =
     (formData: FormLoginData): AppThunk =>
-    (dispatch) => {
-        authAPI
-            .logIn(formData)
-            .then((data) => {
-                if (data.resultCode === 0) {
-                    dispatch(authMeTC())
-                } else {
-                    const errorMessage =
-                        data.messages.length > 0
+        (dispatch) => {
+            authAPI
+                .logIn(formData)
+                .then((data) => {
+                    if (data.resultCode === 0) {
+                        dispatch(authMeTC())
+                    } else {
+                        const errorMessage = data.messages.length > 0
                             ? data.messages[0]
                             : 'Some error'
-                    dispatch(stopSubmit('login', {_error: errorMessage}))
-                }
-            })
-            .catch(() => {
-                dispatch(stopSubmit('login', {_error: 'Network error'}))
-            })
-    }
+                        dispatch(stopSubmit('login', {_error: errorMessage}))
+                    }
+                })
+                .catch(() => {
+                    dispatch(stopSubmit('login', {_error: 'Network error'}))
+                })
+        }
 
 export const logoutTC = (): AppThunk => {
     return (dispatch) => {

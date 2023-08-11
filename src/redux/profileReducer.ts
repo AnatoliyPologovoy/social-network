@@ -1,9 +1,8 @@
 import {AppThunk} from './redux-store'
-import {profileAPI, UpdateProfileAboutMeResponseType} from '../DAL/API'
-import {ProfileFormType} from '../components/Profile/PersonData/ProfileEditForm/ProfileEditForm'
+import {profileAPI, UpdateProfileAboutMeResponseType} from 'DAL/API'
+import {ProfileFormType} from 'components/Profile/PersonData/ProfileEditForm/ProfileEditForm'
 
-const changeInputPostText = 'CHANGE-INPUT-POST-TEXT'
-const addPost = 'ADD-POST'
+const ADD_POST = 'ADD-POST'
 const SET_CURRENT_PROFILE = 'SET_CURRENT_PROFILE'
 const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS'
 const SET_PROFILE_PHOTOS = 'SET_PROFILE_PHOTOS'
@@ -16,14 +15,6 @@ export type PostItemType = {
 }
 export type PostsType = PostItemType[]
 //profile types
-export type PersonDataType = {
-    age: number
-    name: string
-    id: number
-    avatar: string
-    mainImg: string
-}
-
 export type ProfilePageType = {
     postsData: PostsType
     postText: string
@@ -135,7 +126,7 @@ export const profileReducer = (
 }
 
 export const addPostActionCreation = (post: string): ActionAddPostType => ({
-    type: addPost,
+    type: ADD_POST,
     post,
 })
 

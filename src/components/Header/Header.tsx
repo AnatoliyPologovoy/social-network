@@ -1,6 +1,6 @@
 import React from 'react'
 import cl from './header.module.css'
-import logo from '../../img/inheat-logo.png'
+import logo from '../../assets/img/inheat-logo.png'
 import LoginContainer from './LoginContainer'
 
 type DataType = {

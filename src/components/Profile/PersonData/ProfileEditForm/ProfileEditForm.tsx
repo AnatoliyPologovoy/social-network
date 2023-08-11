@@ -1,12 +1,11 @@
 import React, {FC} from 'react'
-import {ProfileDomainType, updateProfileAboutMeTC} from '../../../../redux/profileReducer'
+import {ProfileDomainType, updateProfileAboutMeTC} from 'redux/profileReducer'
 import {Field, InjectedFormProps, reduxForm} from 'redux-form'
 import {ReactComponent as SaveIcon} from '../../../../assets/ok-btn.svg'
 import cl from '../personData.module.css'
-import {CustomInput} from '../../../common/CustomInput'
-import {UpdateProfileAboutMeResponseType} from '../../../../DAL/API'
+import {CustomInput} from 'components/common/CustomInput/CustomInput'
 import {useDispatch} from 'react-redux'
-import {AppDispatch} from '../../../../redux/redux-store'
+import {AppDispatch} from 'redux/redux-store'
 
 type ProfileEditFormProps = {
     currentProfile: ProfileDomainType

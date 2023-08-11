@@ -2,7 +2,7 @@ import React from 'react'
 import cl from './addpost.module.css'
 import {Field, reduxForm, reset} from 'redux-form'
 import {maxLengthCreator, required} from 'utils/validate'
-import {CustomInput} from 'components/common/CustomInput'
+import {CustomInput} from 'components/common/CustomInput/CustomInput'
 import {Dispatch} from 'redux'
 
 //validate

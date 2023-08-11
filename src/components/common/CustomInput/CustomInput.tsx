@@ -1,5 +1,7 @@
 import React from 'react'
 import {WrappedFieldProps} from 'redux-form'
+import Input from 'antd/lib/input'
+// import cl from './customInput.module.css'
 
 interface MyTextAreaProps extends WrappedFieldProps {
     // здесь вы можете определить дополнительные свойства, необходимые вашему компоненту.
@@ -28,7 +30,7 @@ export const CustomInput: React.FC<MyTextAreaProps> = ({
         )
     } else {
         inputView = (
-            <input
+            <Input
                 {...input}
                 {...rest}
                 className={rest.className}

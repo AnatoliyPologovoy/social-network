@@ -1,10 +1,11 @@
 import React, {FC} from 'react'
 import {Field, InjectedFormProps, reduxForm} from 'redux-form'
 import cl from './loginPage.module.css'
-import {CustomInput} from 'components/common/CustomInput'
+import {CustomInput} from 'components/common/CustomInput/CustomInput'
 import {email, required} from 'utils/validate'
 import {FormLoginData} from 'redux/authReducer'
 import {Redirect} from 'react-router-dom'
+import {Input} from 'antd'
 
 type LoginPageType = {
     submitForm: (formData: FormLoginData) => void
@@ -60,7 +61,7 @@ const LoginForm: React.FC<InjectedFormProps<FormLoginData>> = (props) => {
             </div>
             {/*Error from server*/}
             {props.error && <p style={{color: 'red'}}>{props.error}</p>}
-            <button>Отправить</button>
+            <button>Войти</button>
         </form>
     )
 }
