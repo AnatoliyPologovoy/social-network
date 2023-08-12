@@ -10,7 +10,13 @@ import {SendOutlined} from '@ant-design/icons'
 //validate
 const maxLength50 = maxLengthCreator(50)
 
-const AddPostForm = (props: {handleSubmit: any; dispatch: Dispatch}) => {
+type AddPostFormType = {
+    handleSubmit: any,
+    dispatch: Dispatch,
+    isHostUser: boolean
+}
+
+const AddPostForm = (props: AddPostFormType) => {
     return (
         <form
             onSubmit={() => {
@@ -29,6 +35,7 @@ const AddPostForm = (props: {handleSubmit: any; dispatch: Dispatch}) => {
             <Button className={cl.btnSend}
                     icon={<SendOutlined rev={null}/>}
                     htmlType={'submit'}
+                    disabled={!props.isHostUser}
             >
                 Add post
             </Button>
@@ -36,13 +43,16 @@ const AddPostForm = (props: {handleSubmit: any; dispatch: Dispatch}) => {
     )
 }
 
-const AddPostReduxForm = reduxForm({
+const AddPostReduxForm = reduxForm<any, Pick<AddPostFormType, 'isHostUser'>>({
     form: 'profileAddPost',
     // @ts-ignore
 })(AddPostForm)
 
+
 type addPostPropsType = {
     cbAddPost: (post: string) => void
+    userName: string | null
+    isHostUser: boolean
 }
 
 export const AddPost: React.FC<addPostPropsType> = (props) => {
@@ -50,5 +60,5 @@ export const AddPost: React.FC<addPostPropsType> = (props) => {
         props.cbAddPost(formData.post)
     }
 
-    return <AddPostReduxForm onSubmit={addPost} />
+    return <AddPostReduxForm onSubmit={addPost} isHostUser={props.isHostUser} />
 }

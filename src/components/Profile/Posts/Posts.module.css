@@ -15,14 +15,25 @@
     align-items: flex-start;
 }
 
+.postItem_avatarNameWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
 .postItem_avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
 }
 
+.postItem_userName {
+    max-width: 80px;
+    font-size: 10px;
+    margin-bottom: 10px;
+}
+
 .postItem_text {
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .postItem_likes {

@@ -4,7 +4,7 @@ import {
     ProfilePageType,
     getProfileStatusTC,
     getUserProfileTC,
-} from '../../redux/profileReducer'
+} from 'redux/profileReducer'
 import {AppStateType} from 'redux/redux-store'
 import {connect} from 'react-redux'
 import {ProfileAPIContainer} from './ProfileAPIContainer'
@@ -17,7 +17,6 @@ import {getAuthData, getProfilePage} from 'components/Profile/profile.selectors'
 type MapStateToProps = {
     profilePage: ProfilePageType
     authData: AuthUserDataType
-    // currentProfile: CurrentProfileDomainType
 }
 
 type MapDispatchToPropsType = {
