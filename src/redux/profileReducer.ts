@@ -6,12 +6,14 @@ const ADD_POST = 'ADD-POST'
 const SET_CURRENT_PROFILE = 'SET_CURRENT_PROFILE'
 const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS'
 const SET_PROFILE_PHOTOS = 'SET_PROFILE_PHOTOS'
+const SET_ON_CLICK = 'SET_ON_CLICK'
 
 //posts types
 export type PostItemType = {
     id: number
     text: string
     likes: number
+    isOnClick: boolean
 }
 export type PostsType = PostItemType[]
 //profile types
@@ -50,9 +52,9 @@ export type ProfileDomainType = {
 
 let initialState: ProfilePageType = {
     postsData: [
-        {id: 1, text: 'Hello, world!', likes: 11},
-        {id: 2, text: 'This is my new post', likes: 5},
-        {id: 3, text: 'I love React', likes: 125},
+        {id: 1, text: 'Hello, world!', likes: 11, isOnClick: false},
+        {id: 2, text: 'This is my new post', likes: 5, isOnClick: false},
+        {id: 3, text: 'I love React', likes: 125, isOnClick: false},
     ],
     postText: '',
     currentProfile: {
@@ -89,6 +91,7 @@ export type ProfileActions =
     | setCurrentProfile
     | setProfileStatusType
     | setProfilePhotoType
+    | setOnClickType
 
 export const profileReducer = (
     state: ProfilePageType = initialState,
@@ -101,6 +104,7 @@ export const profileReducer = (
                 id: posts[posts.length - 1].id + 1,
                 text: action.post,
                 likes: 0,
+                isOnClick: false,
             }
             const copyState = {
                 ...state,
@@ -119,6 +123,18 @@ export const profileReducer = (
                     ...state.currentProfile,
                     photos: {...action.payload},
                 },
+            }
+        case 'SET_ON_CLICK':
+            return {
+                ...state,
+                postsData: state.postsData.map(post => {
+                    if (post.id === action.payload) {
+                        return post.isOnClick
+                            ? {...post, likes: post.likes - 1, isOnClick: false}
+                            : {...post, likes: post.likes + 1, isOnClick: true}
+                    }
+                    return post
+                }),
             }
         default:
             return state
@@ -155,6 +171,16 @@ export const setProfilePhotoAC = (photos: ProfilePhotos) => {
 }
 
 export type setProfilePhotoType = ReturnType<typeof setProfilePhotoAC>
+
+export const setOnClick = (postId: number) => {
+    return {
+        type: SET_ON_CLICK,
+        payload: postId,
+    } as const
+}
+
+export type setOnClickType = ReturnType<typeof setOnClick>
+
 
 //thunks
 

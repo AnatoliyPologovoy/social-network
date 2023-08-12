@@ -145,18 +145,11 @@ export let Store: StoreType = {
         },
         profilePage: {
             postsData: [
-                {id: 1, text: 'Hello, world!', likes: 11},
-                {id: 2, text: 'This is my new post', likes: 5},
-                {id: 3, text: 'I love React', likes: 125},
+                {id: 1, text: 'Hello, world!', likes: 11, isOnClick: false},
+                {id: 2, text: 'This is my new post', likes: 5, isOnClick: false},
+                {id: 3, text: 'I love React', likes: 125, isOnClick: false},
             ],
             postText: '',
-            // personData: {
-            //     age: 20,
-            //     name: 'Anatoliy',
-            //     id: 1,
-            //     avatar: avatar1,
-            //     mainImg: "https://n1s2.hsmedia.ru/60/b5/cc/60b5cc5266a98b966e2f35c57ed388c8/690x380_0x0a330c2a_12567029551616070388.jpeg"
-            // },
             currentProfile: {
                 userId: null,
                 aboutMe: null,

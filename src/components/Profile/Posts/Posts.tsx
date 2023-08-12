@@ -1,8 +1,7 @@
-import React, {ComponentType, useState} from 'react'
+import React from 'react'
 import cl from './Posts.module.css'
 import {PostItemType, PostsType} from 'redux/profileReducer'
-import {HeartFilled, HeartOutlined} from '@ant-design/icons'
-import {Preloader} from 'components/common/Preloader'
+import {Likes} from 'components/Profile/Posts/Likes/Likes'
 
 type PostsPropsType = {
     postsData: PostsType
@@ -25,45 +24,15 @@ export const Posts: React.FC<PostsPropsType> = (props) => {
                     />
                     <span className={cl.postItem_text}>{post.text}</span>
                 </div>
-                <Likes likesCount={post.likes}/>
+                <Likes
+                    likesCount={post.likes}
+                    isOnClick={post.isOnClick}
+                    postId={post.id}
+                />
             </li>
         )
     })
 
     return <ul className={cl.postsList}>{renderPostItem}</ul>
-}
-
-export function Hearts<T extends JSX.IntrinsicAttributes>(
-    WrappedComponent: ComponentType<T>,
-) {
-    return (props: T) => {
-        return <WrappedComponent {...props} className={cl.likesIcon}/>
-    }
-}
-
-const NewHeart = Hearts(HeartFilled)
-
-type LikesPropsType = {
-    likesCount: number
-}
-
-const Likes: React.FC<LikesPropsType> = ({likesCount}) => {
-
-    const [isOnClick, setOnClick] = useState(false)
-
-    const handlerClickLike = () => {
-
-    }
-
-    return (
-        <div className={cl.postItem_likes}>
-            <NewHeart rev={null} onClick={() => console.log('click')}/>
-            {/*{isOnClick*/}
-            {/*    ? <NewHeart rev={null} onClick={() => console.log('click')}/>*/}
-            {/*    : <HeartOutlined rev={null} className={cl.likesIcon} />*/}
-            {/*}*/}
-            <span className={cl.likesCount}>{likesCount}</span>
-        </div>
-    )
 }
 
