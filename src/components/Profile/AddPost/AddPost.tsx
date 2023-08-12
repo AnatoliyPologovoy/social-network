@@ -4,6 +4,8 @@ import {Field, reduxForm, reset} from 'redux-form'
 import {maxLengthCreator, required} from 'utils/validate'
 import {CustomInput} from 'components/common/CustomInput/CustomInput'
 import {Dispatch} from 'redux'
+import Button from 'antd/lib/button'
+import {SendOutlined} from '@ant-design/icons'
 
 //validate
 const maxLength50 = maxLengthCreator(50)
@@ -24,7 +26,12 @@ const AddPostForm = (props: {handleSubmit: any; dispatch: Dispatch}) => {
                 component={CustomInput}
                 tag={'textarea'}
             />
-            <button className={cl.btnSend}>Add post</button>
+            <Button className={cl.btnSend}
+                    icon={<SendOutlined rev={null}/>}
+                    htmlType={'submit'}
+            >
+                Add post
+            </Button>
         </form>
     )
 }

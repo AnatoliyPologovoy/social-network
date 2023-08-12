@@ -3,7 +3,7 @@ import cl from '../personData.module.css'
 import {
     ProfileDomainType,
     SocialProfile,
-} from '../../../../redux/profileReducer'
+} from 'redux/profileReducer'
 import {ReactComponent as EditIcon} from '../../../../assets/edit-btn.svg'
 
 type PropsType = {
@@ -40,7 +40,7 @@ export const ProfileShow: FC<PropsType> = ({
                     let link = currentProfile.contacts[
                         key as keyof SocialProfile
                         ] || '#'
-                    if (!link.includes('http://') && link !== '#') {
+                    if (!link.includes('http') && link !== '#') {
                         link = 'http://' + link
                     }
                     return (

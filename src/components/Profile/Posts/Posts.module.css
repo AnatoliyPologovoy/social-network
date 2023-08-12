@@ -4,10 +4,40 @@
     list-style: none;
 }
 
-.post_item_avatar {
+.postItem {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: var(--post-color);
+}
+
+.postItem_mainWrapper {
+    display: flex;
+    align-items: flex-start;
+}
+
+.postItem_avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+}
+
+.postItem_text {
+    margin-left: 10px;
+}
+
+.postItem_likes {
+    display: flex;
+    width: 50px;
+    margin: 5px auto;
+    align-items: center;
+
+}
+
+.likesIcon {
+    color: red;
+}
+.likesCount {
+    margin-left: 5px;
 }
 
 .form_post_message {

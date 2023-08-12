@@ -6,7 +6,6 @@ import cl from '../personData.module.css'
 import {CustomInput} from 'components/common/CustomInput/CustomInput'
 import {useDispatch} from 'react-redux'
 import {AppDispatch} from 'redux/redux-store'
-import {Checkbox} from 'antd'
 
 type ProfileEditFormProps = {
     currentProfile: ProfileDomainType
@@ -73,9 +72,14 @@ const EditForm: React.FC<
             </div>
             <div className={cl.profileFormItem}>
                 <b>Looking for a job:</b>
+                {/*<Field*/}
+                {/*    name={'lookingForAJob'}*/}
+                {/*    component={Checkbox}*/}
+                {/*/>*/}
                 <Field
                     name={'lookingForAJob'}
-                    component={Checkbox}
+                    component={'input'}
+                    type={'checkbox'}
                 />
             </div>
             <div>

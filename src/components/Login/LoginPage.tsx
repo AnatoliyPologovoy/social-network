@@ -15,7 +15,7 @@ type LoginPageType = {
 
 export const LoginPage: FC<LoginPageType> = (props) => {
     const onSubmit = (formData: FormLoginData) => {
-        props.submitForm(formData) //dispatch submitFormTC
+        props.submitForm(formData)
     }
 
     const guestLogin = () => {
@@ -70,11 +70,15 @@ const LoginForm: React.FC<InjectedFormProps<FormLoginData, LoginFormPropsType> &
                 />
                 <span>remember me</span>
             </div>
-            {/*Error from server*/}
+            {/*Errors*/}
             {props.error && <p style={{color: 'red'}}>{props.error}</p>}
             <div className={cl.buttonWrapper}>
-                <Button size={'small'} htmlType="submit">Sign in</Button>
-                <Button size={'small'} ghost onClick={props.guestLogin}>Guest login</Button>
+                <Button size={'small'} htmlType="submit">
+                    Sign in
+                </Button>
+                <Button size={'small'} ghost onClick={props.guestLogin}>
+                    Guest login
+                </Button>
             </div>
         </form>
     )
