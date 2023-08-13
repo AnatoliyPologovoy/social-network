@@ -51,7 +51,7 @@ export type LogInRequestType = {
     email: string
     password: string
     rememberMe?: boolean
-    captcha?: boolean
+    captcha?: string | null
 }
 
 export type ResponseType<T = {}> = {
@@ -84,6 +84,13 @@ export const authAPI = {
             .delete<ResponseType<{}>>('auth/login')
             .then((res) => res.data)
     },
+}
+
+export const securityAPI = {
+    getCaptchaUrl () {
+        return instance.get<{url: string}>('security/get-captcha-url')
+            .then(res => res.data)
+    }
 }
 
 export const profileAPI = {

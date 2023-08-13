@@ -11,6 +11,7 @@ import {guestLoginResponseData} from 'constants/index'
 type LoginPageType = {
     submitForm: (formData: FormLoginData) => void
     isAuth: boolean
+    captchaUrl: string | null
 }
 
 export const LoginPage: FC<LoginPageType> = (props) => {
@@ -32,6 +33,7 @@ export const LoginPage: FC<LoginPageType> = (props) => {
             <LoginReduxForm
                 onSubmit={onSubmit}
                 guestLogin={guestLogin}
+                captchaUrl={props.captchaUrl}
             />
         </div>
     )
@@ -39,6 +41,7 @@ export const LoginPage: FC<LoginPageType> = (props) => {
 
 type LoginFormPropsType = {
     guestLogin: () => void
+    captchaUrl: string | null
 }
 
 const LoginForm: React.FC<InjectedFormProps<FormLoginData, LoginFormPropsType> & LoginFormPropsType> = (props) => {
@@ -72,8 +75,28 @@ const LoginForm: React.FC<InjectedFormProps<FormLoginData, LoginFormPropsType> &
             </div>
             {/*Errors*/}
             {props.error && <p style={{color: 'red'}}>{props.error}</p>}
+            {/*Captcha*/}
+            {props.captchaUrl &&
+                <img
+                    src={props.captchaUrl}
+                    alt='captcha'
+                    width={200}
+                    height={100}
+                />}
+            {/*Captcha field*/}
+            {props.captchaUrl &&
+                <div className={cl.formField}>
+                    <Field
+                        name={'captcha'}
+                        placeholder={'Captcha'}
+                        component={CustomInput}
+                        tag={'input'}
+                        validate={[required]}
+                    />
+                </div>
+            }
             <div className={cl.buttonWrapper}>
-                <Button size={'small'} htmlType="submit">
+                <Button size={'small'} htmlType='submit'>
                     Sign in
                 </Button>
                 <Button size={'small'} ghost onClick={props.guestLogin}>

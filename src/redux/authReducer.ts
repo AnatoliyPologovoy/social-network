@@ -1,11 +1,12 @@
 import {AllActionsType, AppStateType, AppThunk} from './redux-store'
-import {authAPI} from 'DAL/API'
+import {authAPI, securityAPI} from 'DAL/API'
 import {stopSubmit} from 'redux-form'
 import {ThunkAction} from 'redux-thunk'
 
 const SET_IS_FETCHING_AUTH = 'SET_IS_FETCHING_AUTH'
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
 const SET_IS_AUTHORIZED = 'SET_IS_AUTHORIZED'
+const SET_CAPTCHA_URL = 'SET_CAPTCHA_URL'
 
 export type AuthUserDataType = {
     id: number | null
@@ -17,12 +18,14 @@ export type AuthStateType = {
     data: AuthUserDataType
     isFetching: boolean
     isAuthorized: boolean
+    captchaUrl: string | null
 }
 
 export type FormLoginData = {
     email: string
     password: string
     rememberMe: boolean
+    captcha?: string | null
 }
 
 const initialState: AuthStateType = {
@@ -33,12 +36,14 @@ const initialState: AuthStateType = {
     },
     isFetching: false,
     isAuthorized: false,
+    captchaUrl: null,
 }
 
 export type AuthActionsType =
     | SetIsFetchingAuthType
     | SetAuthUserDataActionType
     | SetISAuthorizedType
+    | SetCaptchaUrlACType
 
 export const authReducer = (state = initialState, action: AuthActionsType) => {
     switch (action.type) {
@@ -48,6 +53,8 @@ export const authReducer = (state = initialState, action: AuthActionsType) => {
             return {...state, data: {...action.payload.userData}}
         case 'SET_IS_AUTHORIZED':
             return {...state, isAuthorized: action.payload.value}
+        case 'SET_CAPTCHA_URL':
+            return {...state, captchaUrl: action.payload.captchaUrl}
         default:
             return state
     }
@@ -85,6 +92,17 @@ export const setIsAuthorizedAC = (value: boolean) => {
 
 type SetISAuthorizedType = ReturnType<typeof setIsAuthorizedAC>
 
+export const setCaptchaUrlAC = (captchaUrl: string | null) => {
+    return {
+        type: SET_CAPTCHA_URL,
+        payload: {
+            captchaUrl,
+        },
+    } as const
+}
+
+type SetCaptchaUrlACType = ReturnType<typeof setCaptchaUrlAC>
+
 //Thunks
 export const authMeTC = (): ThunkAction<Promise<any>,
     AppStateType,
@@ -95,7 +113,6 @@ export const authMeTC = (): ThunkAction<Promise<any>,
             .authMe()
             .then((data) => {
                 if (data.resultCode === 0) {
-                    // dispatch(setAuthUserDataAC({...data.data, id: data.data.id.toString()}))
                     dispatch(setAuthUserDataAC(data.data))
                     dispatch(setIsAuthorizedAC(true))
                 } else {
@@ -108,7 +125,16 @@ export const authMeTC = (): ThunkAction<Promise<any>,
     }
 }
 
-export const submitFormTC =
+export const getCaptchaUrl = (): AppThunk => async (dispatch) => {
+    try {
+        const response = await securityAPI.getCaptchaUrl()
+        dispatch(setCaptchaUrlAC(response.url))
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const loginTC =
     (formData: FormLoginData): AppThunk =>
         (dispatch) => {
             authAPI
@@ -116,11 +142,15 @@ export const submitFormTC =
                 .then((data) => {
                     if (data.resultCode === 0) {
                         dispatch(authMeTC())
+                        dispatch(setCaptchaUrlAC(null))
                     } else {
                         const errorMessage = data.messages.length > 0
                             ? data.messages[0]
                             : 'Some error'
                         dispatch(stopSubmit('login', {_error: errorMessage}))
+                        if (data.resultCode === 10) {
+                            dispatch(getCaptchaUrl())
+                        }
                     }
                 })
                 .catch(() => {
