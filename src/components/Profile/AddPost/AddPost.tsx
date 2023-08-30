@@ -12,7 +12,6 @@ export const AddPost: React.FC<addPostPropsType> = (props) => {
 
     const addPost = (formData: any) => {
         props.cbAddPost(formData.post)
-
     }
 
     return (

@@ -13,7 +13,6 @@ type ProfilePropsType = {
 }
 
 const Profile: React.FC <ProfilePropsType> = (props) => {
-
     const postsData = props.profilePage.postsData
     const profileStatus = props.profilePage.status
     const currentProfile = props.profilePage.currentProfile
