@@ -1,19 +1,19 @@
-import React from "react";
-import cl from "./header.module.css";
-import logo from "../../img/inheat-logo.png";
-import LoginContainer from "./LoginContainer";
+import React from 'react'
+import cl from './header.module.css'
+import logo from '../../assets/img/inheat-logo.png'
+import LoginContainer from './LoginContainer'
 
 type DataType = {
-    data? : any
+    data?: any
 }
 
-const Header:React.FC<DataType> = () => {
+const Header: React.FC<DataType> = () => {
     return (
         <header className={cl.header}>
-            <img src={logo} alt="logo"/>
-            <LoginContainer/>
+            <img src={logo} alt="logo" />
+            <LoginContainer />
         </header>
     )
 }
 
-export default Header;
+export default Header

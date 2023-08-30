@@ -1,8 +1,8 @@
-import React from "react";
-import {Login} from "./Login";
-import {connect} from "react-redux";
-import {AppStateType} from "redux/redux-store";
-import {authMeTC, logoutTC} from "redux/authReducer";
+import React from 'react'
+import {Login} from './Login'
+import {connect} from 'react-redux'
+import {AppStateType} from 'redux/redux-store'
+import {authMeTC, logoutTC} from 'redux/authReducer'
 
 export type LoginContainerPropsType = {
     isAuthorized: boolean
@@ -18,19 +18,15 @@ class LoginContainer extends React.Component<LoginContainerPropsType, {}> {
     // }
 
     render() {
-        return (
-            <Login {...this.props} />
-        )
+        return <Login {...this.props} />
     }
 }
 
 const mapStateToProps = (state: AppStateType) => ({
     isAuthorized: state.auth.isAuthorized,
-    login: state.auth.data.login
+    login: state.auth.data.login,
 })
 export default connect(mapStateToProps, {
     authMe: authMeTC,
-    logOut: logoutTC
-
+    logOut: logoutTC,
 })(LoginContainer)
-

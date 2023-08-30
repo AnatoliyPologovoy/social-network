@@ -1,6 +1,7 @@
 .personData {
     padding: 25px;
     display: flex;
+    align-items: flex-start;
 }
 
 .imgAvatar {
@@ -14,7 +15,8 @@
     margin: 0;
 }
 
-.inputFile {
+.inputFile,
+.inputSubmit {
     visibility: hidden;
     position: absolute;
     width: 30px;
@@ -32,14 +34,14 @@
     top: 170px;
     left: 170px;
     cursor: pointer;
-    fill: #274C77;
+    fill: #274c77;
 }
 
 .updatePhotoIcon:hover {
     fill: #a96b1a;
 }
 
-.nameWrapper {
+.profileWrapper {
     margin-left: 35px;
 }
 
@@ -50,7 +52,7 @@
 }
 
 .statusIcon {
-    fill: #274C77;
+    fill: #274c77;
     width: 25px;
     height: 25px;
     margin-left: 5px;
@@ -60,4 +62,49 @@
 
 .statusIcon:hover {
     fill: #a96b1a;
+}
+
+.aboutMeWrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.aboutMeIcon {
+    position: absolute;
+    left: 100%;
+}
+
+.aboutMeWrapper span,
+.contactsValue {
+    margin-left: 10px;
+}
+
+.contactsValue:hover {
+    color: var(--blue-color)
+}
+
+.contacts {
+    margin-top: 10px;
+}
+
+/*Profile form*/
+.profileFormItem {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.profileFormItem b {
+    margin-right: 5px;
+    flex-shrink: 0;
+}
+
+form textarea {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.contactsWrapper {
+    margin-top: 10px;
 }

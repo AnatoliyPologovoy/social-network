@@ -1,11 +1,17 @@
-import {connect} from "react-redux";
-import {followUser, getUsersThunkCreator, setUsersAC, unFollowUser, UserStateType} from "redux/usersReducer";
-import {AppStateType} from "redux/redux-store";
-import React from "react";
+import {connect} from 'react-redux'
+import {
+    followUser,
+    getUsersThunkCreator,
+    setUsersAC,
+    unFollowUser,
+    UserStateType,
+} from 'redux/usersReducer'
+import {AppStateType} from 'redux/redux-store'
+import React from 'react'
 
-import {Users} from "./Users";
-import {Preloader} from "../common/Preloader";
-import {compose} from "redux";
+import {Users} from './Users'
+import {Preloader} from '../common/Preloader'
+import {compose} from 'redux'
 import {
     getCurrentPage,
     getInFollowingProgressUsers,
@@ -14,9 +20,8 @@ import {
     getMaxPage,
     getTotalCountUsers,
     getUsers,
-    getUsersPerPage
-} from "components/Users/users.selectors";
-
+    getUsersPerPage,
+} from 'components/Users/users.selectors'
 
 export type UsersAPIContainerPropsType = mapStateToPropsType & {
     setUsers: (users: UserStateType[]) => void
@@ -25,8 +30,10 @@ export type UsersAPIContainerPropsType = mapStateToPropsType & {
     unFollowUser: (userId: number) => void
 }
 
-export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsType, any> {
-
+export class UsersAPIContainer extends React.Component<
+    UsersAPIContainerPropsType,
+    any
+> {
     componentDidMount() {
         console.log(' Users componentDidMount')
         this.props.getUsers()
@@ -39,14 +46,16 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
     render() {
         return (
             <>
-                {this.props.isFetching && <Preloader/>}
+                {this.props.isFetching && <Preloader />}
                 <Users
                     users={this.props.users}
                     totalCountUsers={this.props.totalCountUsers}
                     usersPerPage={this.props.usersPerPage}
                     currentPage={this.props.currentPage}
                     maxPage={this.props.maxPage}
-                    inFollowingProgressUsers={this.props.inFollowingProgressUsers}
+                    inFollowingProgressUsers={
+                        this.props.inFollowingProgressUsers
+                    }
                     handlerClickPage={this.handlerClickPage}
                     followUser={this.props.followUser}
                     unFollowUser={this.props.unFollowUser}
@@ -56,7 +65,6 @@ export class UsersAPIContainer extends React.Component<UsersAPIContainerPropsTyp
         )
     }
 }
-
 
 export type mapStateToPropsType = {
     users: UserStateType[]
@@ -86,13 +94,10 @@ const objMapDispatchToProps = {
     setUsers: setUsersAC,
     getUsers: getUsersThunkCreator,
     followUser: followUser,
-    unFollowUser: unFollowUser
+    unFollowUser: unFollowUser,
 }
 
-export const UsersContainer =
-    compose<React.ComponentType>(
-        connect(mapStateToProps, objMapDispatchToProps),
-        // WithAuthRedirect
-    )
-    (UsersAPIContainer)
-
+export const UsersContainer = compose<React.ComponentType>(
+    connect(mapStateToProps, objMapDispatchToProps),
+    // WithAuthRedirect
+)(UsersAPIContainer)

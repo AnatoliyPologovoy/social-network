@@ -1,10 +1,9 @@
-import React from 'react';
-import cl from "./profile.module.css";
-import {PersonData} from "./PersonData/PersonData";
-import {Posts} from "./Posts/Posts";
-import {ProfilePageType} from "redux/profileReducer";
-import {AddPost} from "./AddPost/AddPost";
-
+import React from 'react'
+import cl from './profile.module.css'
+import {PersonData} from './PersonData/PersonData'
+import {Posts} from './Posts/Posts'
+import {ProfilePageType} from 'redux/profileReducer'
+import {AddPost} from './AddPost/AddPost'
 
 type ProfilePropsType = {
     cbAddPost: (post: string) => void
@@ -12,28 +11,32 @@ type ProfilePropsType = {
     isHostUser: boolean
 }
 
-const Profile: React.FC <ProfilePropsType> = (props) => {
-    const postsData = props.profilePage.postsData
-    const profileStatus = props.profilePage.status
-    const currentProfile = props.profilePage.currentProfile
+const Profile: React.FC<ProfilePropsType> = ({cbAddPost, profilePage, isHostUser}) => {
+    const postsData = profilePage.postsData
+    const profileStatus = profilePage.status
+    const currentProfile = profilePage.currentProfile
 
     return (
         <div>
             <div className={cl.profile}>
                 <PersonData
-                    isHostUser={props.isHostUser}
+                    isHostUser={isHostUser}
                     currentProfile={currentProfile}
                     profileStatus={profileStatus}
                 />
-                <AddPost cbAddPost={props.cbAddPost}
+                <AddPost
+                    cbAddPost={cbAddPost}
+                    userName={currentProfile.fullName}
+                    isHostUser={isHostUser}
                 />
                 <Posts
-                    smallPhoto={props.profilePage.currentProfile.photos.small}
-                    postsData={postsData}
+                    smallPhoto={profilePage.currentProfile.photos.small}
+                    postsData={isHostUser ? postsData : []}
+                    userName={isHostUser ?  currentProfile.fullName : ''}
                 />
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Profile;
+export default Profile

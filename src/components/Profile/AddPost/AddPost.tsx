@@ -1,30 +1,28 @@
-import React from 'react';
+import React from 'react'
 import cl from './addpost.module.css'
-import {Field, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "utils/validate";
-import {CustomInput} from "components/common/CustomInput";
+import {Field, reduxForm, reset} from 'redux-form'
+import {maxLengthCreator, required} from 'utils/validate'
+import {CustomInput} from 'components/common/CustomInput/CustomInput'
+import {Dispatch} from 'redux'
+import Button from 'antd/lib/button'
+import {SendOutlined} from '@ant-design/icons'
 
-type addPostPropsType = {
-    cbAddPost: (post: string) => void
-}
-
-export const AddPost: React.FC<addPostPropsType> = (props) => {
-
-    const addPost = (formData: any) => {
-        props.cbAddPost(formData.post)
-    }
-
-    return (
-        <AddPostReduxForm onSubmit={addPost}/>
-    );
-};
 //validate
 const maxLength50 = maxLengthCreator(50)
 
-const AddPostForm = (props: {handleSubmit: any}) => {
+type AddPostFormType = {
+    handleSubmit: any,
+    dispatch: Dispatch,
+    isHostUser: boolean
+}
+
+const AddPostForm = (props: AddPostFormType) => {
     return (
         <form
-            onSubmit={props.handleSubmit}
+            onSubmit={() => {
+                props.handleSubmit()
+                props.dispatch(reset('profileAddPost'))
+            }}
             className={cl.wrapper}
         >
             <Field
@@ -34,13 +32,33 @@ const AddPostForm = (props: {handleSubmit: any}) => {
                 component={CustomInput}
                 tag={'textarea'}
             />
-            <button className={cl.btnSend}>
+            <Button className={cl.btnSend}
+                    icon={<SendOutlined rev={null}/>}
+                    htmlType={'submit'}
+                    disabled={!props.isHostUser}
+            >
                 Add post
-            </button>
+            </Button>
         </form>
     )
 }
 
-const AddPostReduxForm = reduxForm({
-    form: 'profileAddPost'
+const AddPostReduxForm = reduxForm<any, Pick<AddPostFormType, 'isHostUser'>>({
+    form: 'profileAddPost',
+    // @ts-ignore
 })(AddPostForm)
+
+
+type addPostPropsType = {
+    cbAddPost: (post: string) => void
+    userName: string | null
+    isHostUser: boolean
+}
+
+export const AddPost: React.FC<addPostPropsType> = (props) => {
+    const addPost = (formData: any) => {
+        props.cbAddPost(formData.post)
+    }
+
+    return <AddPostReduxForm onSubmit={addPost} isHostUser={props.isHostUser} />
+}

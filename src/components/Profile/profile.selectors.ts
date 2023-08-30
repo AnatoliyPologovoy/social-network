@@ -1,9 +1,9 @@
-import {AppStateType} from "redux/redux-store";
+import {AppStateType} from 'redux/redux-store'
 
 export const getProfilePage = (state: AppStateType) => {
-		return state.profilePage
+    return state.profilePage
 }
 
 export const getAuthData = (state: AppStateType) => {
-		return state.auth.data
+    return state.auth.data
 }
