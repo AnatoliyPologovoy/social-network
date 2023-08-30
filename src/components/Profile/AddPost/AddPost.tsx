@@ -17,6 +17,7 @@ type AddPostFormType = {
 }
 
 const AddPostForm = (props: AddPostFormType) => {
+
     return (
         <form
             onSubmit={() => {
@@ -33,7 +34,7 @@ const AddPostForm = (props: AddPostFormType) => {
                 tag={'textarea'}
             />
             <Button className={cl.btnSend}
-                    icon={<SendOutlined rev={null}/>}
+                    icon={<SendOutlined />}
                     htmlType={'submit'}
                     disabled={!props.isHostUser}
             >
